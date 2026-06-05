@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://bbcxbsd1jn3bh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dihab"]
+size = Vector2(2000, 150)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4loxo"]
+size = Vector2(150, 450)
+
+[node name="World" type="Node2D" unique_id=57820806]
+
+[node name="Platform" type="StaticBody2D" parent="." unique_id=267754281]
+position = Vector2(549, 480)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Platform" unique_id=2103790015]
+custom_minimum_size = Vector2(2000, 150)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Collision" type="CollisionShape2D" parent="Platform" unique_id=667634196]
+shape = SubResource("RectangleShape2D_dihab")
+
+[node name="Wall1" type="StaticBody2D" parent="." unique_id=718185708]
+position = Vector2(1140, 180)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Wall1" unique_id=615603583]
+custom_minimum_size = Vector2(150, 450)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -150.0
+offset_right = 75.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Collision" type="CollisionShape2D" parent="Wall1" unique_id=188894849]
+shape = SubResource("RectangleShape2D_4loxo")
+
+[node name="Wall2" type="StaticBody2D" parent="." unique_id=2023223713]
+position = Vector2(-3, 180)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Wall2" unique_id=1466730599]
+custom_minimum_size = Vector2(150, 450)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -150.0
+offset_right = 75.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Collision" type="CollisionShape2D" parent="Wall2" unique_id=409203038]
+shape = SubResource("RectangleShape2D_4loxo")
+
+[node name="Wall3" type="StaticBody2D" parent="." unique_id=492829394]
+position = Vector2(877, 43)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Wall3" unique_id=1704805394]
+custom_minimum_size = Vector2(150, 450)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -150.0
+offset_right = 75.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Collision" type="CollisionShape2D" parent="Wall3" unique_id=159511932]
+shape = SubResource("RectangleShape2D_4loxo")
