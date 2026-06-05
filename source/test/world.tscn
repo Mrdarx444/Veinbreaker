@@ -25,6 +25,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 0.49862653, 0.20481673, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Collision" type="CollisionShape2D" parent="Platform" unique_id=667634196]
@@ -47,6 +48,7 @@ offset_right = 75.0
 offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 0.49862653, 0.20481673, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Collision" type="CollisionShape2D" parent="Wall1" unique_id=188894849]
@@ -69,6 +71,7 @@ offset_right = 75.0
 offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 0.49862653, 0.20481673, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Collision" type="CollisionShape2D" parent="Wall2" unique_id=409203038]
@@ -91,6 +94,7 @@ offset_right = 75.0
 offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 0.49862653, 0.20481673, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Collision" type="CollisionShape2D" parent="Wall3" unique_id=159511932]
