@@ -1,9 +1,12 @@
 [gd_scene format=3 uid="uid://bghqxvldmkdeg"]
 
+[ext_resource type="Script" uid="uid://ceej0isvs6nyv" path="res://source/scripts/Player/player.gd" id="1_31g4s"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yd3kj"]
 size = Vector2(60, 120)
 
 [node name="Player" type="CharacterBody2D" unique_id=1568325260]
+script = ExtResource("1_31g4s")
 
 [node name="TempSprite" type="ColorRect" parent="." unique_id=739025270]
 custom_minimum_size = Vector2(60, 120)
