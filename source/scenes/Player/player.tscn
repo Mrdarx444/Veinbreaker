@@ -1,12 +1,17 @@
 [gd_scene format=3 uid="uid://bghqxvldmkdeg"]
 
 [ext_resource type="Script" uid="uid://ceej0isvs6nyv" path="res://source/scripts/Player/player.gd" id="1_31g4s"]
+[ext_resource type="Script" uid="uid://d17itavn1yymn" path="res://source/scripts/Player/joystick.gd" id="2_ck846"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yd3kj"]
 size = Vector2(60, 120)
 
+[sub_resource type="LabelSettings" id="LabelSettings_ck846"]
+font_size = 30
+
 [node name="Player" type="CharacterBody2D" unique_id=1568325260]
 script = ExtResource("1_31g4s")
+aiming_slowdown_ratio = 0.09
 
 [node name="TempSprite" type="ColorRect" parent="." unique_id=739025270]
 custom_minimum_size = Vector2(60, 120)
@@ -25,3 +30,55 @@ color = Color(0, 0.57254905, 1, 1)
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=888884237]
 shape = SubResource("RectangleShape2D_yd3kj")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=69797456]
+
+[node name="PlayerJoystick" type="VirtualJoystick" parent="HUD" unique_id=532044089]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = -89.0
+offset_right = 88.0
+offset_bottom = -49.0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+action_left = &"Left"
+action_right = &"Right"
+action_up = &"Up"
+action_down = &"Down"
+script = ExtResource("2_ck846")
+metadata/_custom_type_script = "uid://d17itavn1yymn"
+
+[node name="Zone" type="Label" parent="HUD" unique_id=920837623]
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 332.0
+offset_bottom = 75.0
+text = "Aim Zone: None"
+label_settings = SubResource("LabelSettings_ck846")
+
+[node name="Direction" type="Label" parent="HUD" unique_id=440754688]
+offset_left = 24.0
+offset_top = 59.0
+offset_right = 414.0
+offset_bottom = 114.0
+text = "Aim Direction: None"
+label_settings = SubResource("LabelSettings_ck846")
+
+[node name="move_direction" type="Label" parent="HUD" unique_id=664615901]
+offset_left = 23.0
+offset_top = 97.0
+offset_right = 250.0
+offset_bottom = 152.0
+text = "Direction: None"
+label_settings = SubResource("LabelSettings_ck846")
+
+[node name="Velocity" type="Label" parent="HUD" unique_id=947469026]
+offset_left = 26.0
+offset_top = 134.0
+offset_right = 199.0
+offset_bottom = 189.0
+text = "Velocity: (0, 0)"
+label_settings = SubResource("LabelSettings_ck846")

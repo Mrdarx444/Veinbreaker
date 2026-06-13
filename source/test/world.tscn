@@ -104,24 +104,3 @@ shape = SubResource("RectangleShape2D_4loxo")
 
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_4loxo")]
 position = Vector2(399, 240)
-
-[node name="HUD" type="CanvasLayer" parent="." unique_id=1287239812]
-
-[node name="VirtualJoystick" type="VirtualJoystick" parent="HUD" unique_id=1738887659]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 48.0
-offset_top = -92.0
-offset_right = 88.0
-offset_bottom = -52.0
-grow_vertical = 0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-joystick_size = 129.0
-tip_size = 70.0
-deadzone_ratio = 0.21
-action_left = &"Left"
-action_right = &"Right"
-action_up = &"Up"
-action_down = &"Down"
