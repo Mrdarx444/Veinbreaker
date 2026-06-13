@@ -11,8 +11,6 @@ font_size = 30
 
 [node name="Player" type="CharacterBody2D" unique_id=1568325260]
 script = ExtResource("1_31g4s")
-speed = null
-aiming_slowdown_ratio = null
 
 [node name="TempSprite" type="ColorRect" parent="." unique_id=739025270]
 custom_minimum_size = Vector2(60, 120)
@@ -85,3 +83,8 @@ offset_right = 199.0
 offset_bottom = 189.0
 text = "Velocity: (0, 0)"
 label_settings = SubResource("LabelSettings_ck846")
+
+[node name="Camera" type="Camera2D" parent="." unique_id=1120778986]
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0

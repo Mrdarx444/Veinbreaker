@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bghqxvldmkdeg" path="res://source/scenes/Player/player.tscn" id="1_4loxo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dihab"]
-size = Vector2(2000, 150)
+size = Vector2(4000, 150)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4loxo"]
 size = Vector2(150, 450)
@@ -15,7 +15,7 @@ position = Vector2(549, 480)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Platform" unique_id=2103790015]
-custom_minimum_size = Vector2(2000, 150)
+custom_minimum_size = Vector2(4000, 150)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -34,7 +34,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_dihab")
 
 [node name="Wall1" type="StaticBody2D" parent="." unique_id=718185708]
-position = Vector2(1140, 180)
+position = Vector2(1788, 180)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Wall1" unique_id=615603583]
@@ -57,7 +57,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_4loxo")
 
 [node name="Wall2" type="StaticBody2D" parent="." unique_id=2023223713]
-position = Vector2(-3, 180)
+position = Vector2(-875, 180)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Wall2" unique_id=1466730599]
@@ -80,7 +80,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_4loxo")
 
 [node name="Wall3" type="StaticBody2D" parent="." unique_id=492829394]
-position = Vector2(877, 43)
+position = Vector2(1525, 43)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Wall3" unique_id=1704805394]
