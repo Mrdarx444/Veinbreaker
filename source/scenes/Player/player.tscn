@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bghqxvldmkdeg"]
 
 [ext_resource type="Script" uid="uid://ceej0isvs6nyv" path="res://source/scripts/Player/player.gd" id="1_31g4s"]
-[ext_resource type="Script" uid="uid://d17itavn1yymn" path="res://source/scripts/Player/joystick.gd" id="2_ck846"]
+[ext_resource type="Script" uid="uid://d17itavn1yymn" path="res://source/scripts/Player/Component/aim_component.gd" id="2_ck846"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yd3kj"]
 size = Vector2(60, 120)
@@ -11,7 +11,8 @@ font_size = 30
 
 [node name="Player" type="CharacterBody2D" unique_id=1568325260]
 script = ExtResource("1_31g4s")
-aiming_slowdown_ratio = 0.09
+speed = null
+aiming_slowdown_ratio = null
 
 [node name="TempSprite" type="ColorRect" parent="." unique_id=739025270]
 custom_minimum_size = Vector2(60, 120)
@@ -31,25 +32,27 @@ color = Color(0, 0.57254905, 1, 1)
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=888884237]
 shape = SubResource("RectangleShape2D_yd3kj")
 
+[node name="Components" type="Node" parent="." unique_id=2138234143]
+
+[node name="PlayerAimComponent" type="Node" parent="Components" unique_id=1738510395]
+script = ExtResource("2_ck846")
+metadata/_custom_type_script = "uid://d17itavn1yymn"
+
 [node name="HUD" type="CanvasLayer" parent="." unique_id=69797456]
 
-[node name="PlayerJoystick" type="VirtualJoystick" parent="HUD" unique_id=532044089]
+[node name="VirtualJoystick" type="VirtualJoystick" parent="HUD" unique_id=1342819701]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 48.0
-offset_top = -89.0
-offset_right = 88.0
-offset_bottom = -49.0
+offset_left = 40.0
+offset_top = -80.0
+offset_right = 80.0
+offset_bottom = -40.0
 grow_vertical = 0
-size_flags_horizontal = 4
-size_flags_vertical = 4
 action_left = &"Left"
 action_right = &"Right"
 action_up = &"Up"
 action_down = &"Down"
-script = ExtResource("2_ck846")
-metadata/_custom_type_script = "uid://d17itavn1yymn"
 
 [node name="Zone" type="Label" parent="HUD" unique_id=920837623]
 offset_left = 24.0

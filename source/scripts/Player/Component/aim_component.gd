@@ -1,5 +1,5 @@
-class_name PlayerJoystick
-extends VirtualJoystick
+class_name PlayerAimComponent
+extends Node
 
 enum AimZone { MOVE, MOVE_AIM_UP, MOVE_AIM_DOWN, AIM_UP_IDLE }
 enum AimDirection { FORWARD, UP, DOWN }

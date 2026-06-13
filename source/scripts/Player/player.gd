@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export_range(0, 1, 0.01) var aiming_slowdown_ratio: float = 0.75
 @export var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-@onready var joystick: PlayerJoystick = $HUD/PlayerJoystick
+@onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
 
 # Debugging
 @onready var zone_label: Label = $HUD/Zone
@@ -39,7 +39,7 @@ func _debugg():
 	zone_label.text = "Aim Zone: " + joystick.aim_zone_debbug[joystick.current_zone]
 	direction_label.text = "Aim Direction: " + joystick.aim_direction_debbug[joystick.aim_direction]
 	
-	match joystick.move_direction:
+	match int(joystick.move_direction):
 		-1:
 			move_direction_label.text = "Direction: Left"
 		1:
