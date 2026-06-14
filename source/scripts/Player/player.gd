@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export var acceleration: float = speed * 8
 @export var friction: float = speed * 10
 @export_range(0, 1, 0.01) var aiming_slowdown_ratio: float = 0.75
-@export var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+@export var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2
 @export var max_fall_speed: float = 1500.0
 
 @onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
@@ -24,8 +24,9 @@ func _physics_process(delta: float) -> void:
 	_debugg()
 
 func gravity_handle(delta: float):
-	if !is_on_floor() and velocity.y < max_fall_speed:
-		velocity.y = min(velocity.y + gravity * delta, max_fall_speed)
+	if !is_on_floor():
+		if velocity.y < max_fall_speed:
+			velocity.y = min(velocity.y + gravity * delta, max_fall_speed)
 	else :
 		velocity.y = 0
 
