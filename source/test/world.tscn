@@ -57,7 +57,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_4loxo")
 
 [node name="Wall2" type="StaticBody2D" parent="." unique_id=2023223713]
-position = Vector2(-875, 180)
+position = Vector2(-228, 180)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Wall2" unique_id=1466730599]
@@ -103,4 +103,4 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_4loxo")
 
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_4loxo")]
-position = Vector2(210, -878)
+position = Vector2(-1139, 294)

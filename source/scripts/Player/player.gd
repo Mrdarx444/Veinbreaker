@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export_subgroup("Movement")
-@export var speed: float = 600.0
+@export var speed: float = 700.0
 @export var acceleration: float = speed * 8
 @export var friction: float = speed * 10
 @export_range(0, 1, 0.01) var aiming_slowdown_ratio: float = 0.75
@@ -9,15 +9,24 @@ extends CharacterBody2D
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2
 @export var max_fall_speed: float = 1500.0
 @export var jump_velocity: float = -900
+@export var coyote_time: float = 0.12
+@export var jump_buffer_time: float = 0.15
 
 @onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
+@onready var coyote_timer: Timer = $Timers/CoyoteTimer
+@onready var jump_buffer_timer: Timer = $Timers/JumpBufferTimer
 
 # Debugging
 @onready var zone_label: Label = $HUD/Zone
 @onready var direction_label: Label = $HUD/Direction
 @onready var move_direction_label: Label = $HUD/move_direction
 @onready var velocity_label: Label = $HUD/Velocity
+@onready var coyote_timer_label: Label = $HUD/CoyoteTimer
+@onready var buffer_timer_label: Label = $HUD/BufferTimer
 
+func _ready() -> void:
+	coyote_timer.wait_time = coyote_time
+	jump_buffer_timer.wait_time = jump_buffer_time
 
 func _physics_process(delta: float) -> void:
 	movement_handle(delta)
@@ -55,8 +64,20 @@ func movement_handle(delta: float):
 			)
 
 func jump_handle(delta: float):
-	if Input.is_action_just_pressed("Jump") and is_on_floor():
-		velocity.y = jump_velocity
+	if is_on_floor():
+		coyote_timer.start()
+		if !jump_buffer_timer.is_stopped():
+			velocity.y = jump_velocity
+		jump_buffer_timer.stop()
+	
+	if Input.is_action_just_pressed("Jump"):
+		if !coyote_timer.is_stopped():
+			velocity.y = jump_velocity
+			coyote_timer.stop()
+		
+		if !is_on_floor() and velocity.y > 500:
+			jump_buffer_timer.start()
+	
 	if Input.is_action_just_released("Jump") and !is_on_floor() and velocity.y < 0:
 		velocity.y = 0
 
@@ -73,3 +94,6 @@ func _debugg():
 			move_direction_label.text = "Direction: None"
 	
 	velocity_label.text = "Velocity: " + str(velocity)
+	
+	coyote_timer_label.text = "Coyote Timer: " + str(coyote_timer.time_left)
+	buffer_timer_label.text = "Jump Buffer Timer: " + str(jump_buffer_timer.time_left)

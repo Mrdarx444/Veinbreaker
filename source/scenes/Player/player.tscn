@@ -11,6 +11,7 @@ font_size = 30
 
 [node name="Player" type="CharacterBody2D" unique_id=1568325260]
 script = ExtResource("1_31g4s")
+jump_buffer_time = 1.0
 
 [node name="TempSprite" type="ColorRect" parent="." unique_id=739025270]
 custom_minimum_size = Vector2(60, 120)
@@ -84,7 +85,31 @@ offset_bottom = 189.0
 text = "Velocity: (0, 0)"
 label_settings = SubResource("LabelSettings_ck846")
 
+[node name="CoyoteTimer" type="Label" parent="HUD" unique_id=662381499]
+offset_left = 26.0
+offset_top = 174.0
+offset_right = 225.0
+offset_bottom = 229.0
+text = "Coyote Timer: 0.0"
+label_settings = SubResource("LabelSettings_ck846")
+
+[node name="BufferTimer" type="Label" parent="HUD" unique_id=129258480]
+offset_left = 26.0
+offset_top = 214.0
+offset_right = 350.0
+offset_bottom = 269.0
+text = "Jump Buffer Timer: 0.0"
+label_settings = SubResource("LabelSettings_ck846")
+
 [node name="Camera" type="Camera2D" parent="." unique_id=1120778986]
 zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
+
+[node name="Timers" type="Node" parent="." unique_id=1895822513]
+
+[node name="CoyoteTimer" type="Timer" parent="Timers" unique_id=302265838]
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="Timers" unique_id=687490601]
+one_shot = true
