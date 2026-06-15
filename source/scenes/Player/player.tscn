@@ -2,6 +2,11 @@
 
 [ext_resource type="Script" uid="uid://ceej0isvs6nyv" path="res://source/scripts/Player/player.gd" id="1_31g4s"]
 [ext_resource type="Script" uid="uid://d17itavn1yymn" path="res://source/scripts/Player/Component/aim_component.gd" id="2_ck846"]
+[ext_resource type="Script" uid="uid://sffei5k4nmay" path="res://source/classes/FSM/StateMachine.gd" id="3_8vvwm"]
+[ext_resource type="Script" uid="uid://cn7aqx2ivd87l" path="res://source/scripts/Player/States/idle_state.gd" id="4_0wpal"]
+[ext_resource type="Script" uid="uid://d2t4p3epldlyl" path="res://source/scripts/Player/States/move_state.gd" id="5_ryax5"]
+[ext_resource type="Script" uid="uid://booc1r8m0sjrd" path="res://source/scripts/Player/States/fall_state.gd" id="6_c4tgw"]
+[ext_resource type="Script" uid="uid://t641dacx3nys" path="res://source/scripts/Player/States/jump_state.gd" id="7_c4tgw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yd3kj"]
 size = Vector2(60, 120)
@@ -9,9 +14,22 @@ size = Vector2(60, 120)
 [sub_resource type="LabelSettings" id="LabelSettings_ck846"]
 font_size = 20
 
+[sub_resource type="LabelSettings" id="LabelSettings_c4tgw"]
+font_size = 30
+outline_size = 2
+
+[sub_resource type="GDScript" id="GDScript_c4tgw"]
+script/source = "extends Label
+
+
+
+func _on_state_machine_state_changed(from_state: StringName, to_state: StringName) -> void:
+	text = \"State: \" + str(to_state)
+"
+
 [node name="Player" type="CharacterBody2D" unique_id=1568325260]
 script = ExtResource("1_31g4s")
-jump_buffer_time = 1.0
+aiming_slowdown_ratio = 0.63
 
 [node name="TempSprite" type="ColorRect" parent="." unique_id=739025270]
 custom_minimum_size = Vector2(60, 120)
@@ -30,6 +48,11 @@ color = Color(0, 0.57254905, 1, 1)
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=888884237]
 shape = SubResource("RectangleShape2D_yd3kj")
+
+[node name="Camera" type="Camera2D" parent="." unique_id=1120778986]
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 
 [node name="Components" type="Node" parent="." unique_id=2138234143]
 
@@ -101,11 +124,6 @@ offset_bottom = 199.0
 text = "Jump Buffer Timer: 0.0"
 label_settings = SubResource("LabelSettings_ck846")
 
-[node name="Camera" type="Camera2D" parent="." unique_id=1120778986]
-zoom = Vector2(0.5, 0.5)
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
-
 [node name="Timers" type="Node" parent="." unique_id=1895822513]
 
 [node name="CoyoteTimer" type="Timer" parent="Timers" unique_id=302265838]
@@ -113,3 +131,42 @@ one_shot = true
 
 [node name="JumpBufferTimer" type="Timer" parent="Timers" unique_id=687490601]
 one_shot = true
+
+[node name="StateMachine" type="Node" parent="." unique_id=393924244 node_paths=PackedStringArray("initiate_state")]
+script = ExtResource("3_8vvwm")
+initiate_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://sffei5k4nmay"
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=619413992]
+script = ExtResource("4_0wpal")
+metadata/_custom_type_script = "uid://c2d84vxcs81cy"
+
+[node name="Move" type="Node" parent="StateMachine" unique_id=1796069242]
+script = ExtResource("5_ryax5")
+metadata/_custom_type_script = "uid://c2d84vxcs81cy"
+
+[node name="Fall" type="Node" parent="StateMachine" unique_id=1787499065]
+script = ExtResource("6_c4tgw")
+metadata/_custom_type_script = "uid://c2d84vxcs81cy"
+
+[node name="Jump" type="Node" parent="StateMachine" unique_id=866311513]
+script = ExtResource("7_c4tgw")
+metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
+
+[node name="StateLabel" type="Label" parent="." unique_id=1840347626]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -84.5
+offset_top = -106.0
+offset_right = 84.5
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "State: None"
+label_settings = SubResource("LabelSettings_c4tgw")
+script = SubResource("GDScript_c4tgw")
+
+[connection signal="state_changed" from="StateMachine" to="StateLabel" method="_on_state_machine_state_changed"]

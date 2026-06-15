@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 @export_subgroup("Movement")
 @export var speed: float = 700.0
@@ -31,57 +32,7 @@ func _ready() -> void:
 	jump_buffer_timer.wait_time = jump_buffer_time
 
 func _physics_process(delta: float) -> void:
-	movement_handle(delta)
-	gravity_handle(delta)
-	jump_handle(delta)
-	move_and_slide()
 	_debugg()
-
-func gravity_handle(delta: float):
-	if !is_on_floor():
-		if velocity.y < max_fall_speed:
-			velocity.y = min(velocity.y + gravity * delta, max_fall_speed)
-	else :
-		velocity.y = 0
-
-func movement_handle(delta: float):
-	match joystick.current_zone:
-		joystick.AimZone.MOVE:
-			velocity.x = move_toward(
-				velocity.x,
-				speed * joystick.move_direction,
-				acceleration * delta
-			)
-		joystick.AimZone.MOVE_AIM_UP, joystick.AimZone.MOVE_AIM_DOWN:
-			velocity.x = move_toward(
-				velocity.x,
-				speed * joystick.move_direction * aiming_slowdown_ratio,
-				acceleration * delta
-			)
-		_:
-			velocity.x = move_toward(
-				velocity.x,
-				0.0,
-				friction * delta
-			)
-
-func jump_handle(delta: float):
-	if is_on_floor():
-		coyote_timer.start()
-		if !jump_buffer_timer.is_stopped():
-			velocity.y = jump_velocity
-		jump_buffer_timer.stop()
-	
-	if Input.is_action_just_pressed("Jump"):
-		if !coyote_timer.is_stopped():
-			velocity.y = jump_velocity
-			coyote_timer.stop()
-		
-		if !is_on_floor() and velocity.y > jump_buffer_min_velocity:
-			jump_buffer_timer.start()
-	
-	if Input.is_action_just_released("Jump") and !is_on_floor() and velocity.y < 0:
-		velocity.y = 0
 
 func _debugg():
 	zone_label.text = "Aim Zone: " + joystick.aim_zone_debbug[joystick.current_zone]

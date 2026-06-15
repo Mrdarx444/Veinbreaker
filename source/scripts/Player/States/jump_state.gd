@@ -1,0 +1,20 @@
+extends PlayerState
+
+func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
+	var player: Player = state_owner
+	player.velocity.y = player.jump_velocity
+	player.coyote_timer.stop()
+
+func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachine) -> void:
+	movement_handle(delta, state_owner as Player)
+	super.physics_update(delta, state_owner, state_machine)
+
+func get_next_state(player: Player) -> StringName:
+	if player.velocity.y >= 0:
+		return &"Fall"
+	if player.is_on_floor():
+		if player.velocity.x:
+			return &"Move"
+		else :
+			return &"Idle"
+	return &""
