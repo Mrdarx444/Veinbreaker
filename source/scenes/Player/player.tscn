@@ -7,7 +7,7 @@
 size = Vector2(60, 120)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ck846"]
-font_size = 30
+font_size = 20
 
 [node name="Player" type="CharacterBody2D" unique_id=1568325260]
 script = ExtResource("1_31g4s")
@@ -63,41 +63,41 @@ label_settings = SubResource("LabelSettings_ck846")
 
 [node name="Direction" type="Label" parent="HUD" unique_id=440754688]
 offset_left = 24.0
-offset_top = 59.0
+offset_top = 43.0
 offset_right = 414.0
-offset_bottom = 114.0
+offset_bottom = 98.0
 text = "Aim Direction: None"
 label_settings = SubResource("LabelSettings_ck846")
 
 [node name="move_direction" type="Label" parent="HUD" unique_id=664615901]
 offset_left = 23.0
-offset_top = 97.0
+offset_top = 64.0
 offset_right = 250.0
-offset_bottom = 152.0
+offset_bottom = 119.0
 text = "Direction: None"
 label_settings = SubResource("LabelSettings_ck846")
 
 [node name="Velocity" type="Label" parent="HUD" unique_id=947469026]
-offset_left = 26.0
-offset_top = 134.0
-offset_right = 199.0
-offset_bottom = 189.0
+offset_left = 23.0
+offset_top = 90.0
+offset_right = 196.0
+offset_bottom = 145.0
 text = "Velocity: (0, 0)"
 label_settings = SubResource("LabelSettings_ck846")
 
 [node name="CoyoteTimer" type="Label" parent="HUD" unique_id=662381499]
-offset_left = 26.0
-offset_top = 174.0
-offset_right = 225.0
-offset_bottom = 229.0
+offset_left = 23.0
+offset_top = 120.0
+offset_right = 222.0
+offset_bottom = 175.0
 text = "Coyote Timer: 0.0"
 label_settings = SubResource("LabelSettings_ck846")
 
 [node name="BufferTimer" type="Label" parent="HUD" unique_id=129258480]
-offset_left = 26.0
-offset_top = 214.0
-offset_right = 350.0
-offset_bottom = 269.0
+offset_left = 23.0
+offset_top = 144.0
+offset_right = 347.0
+offset_bottom = 199.0
 text = "Jump Buffer Timer: 0.0"
 label_settings = SubResource("LabelSettings_ck846")
 

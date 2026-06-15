@@ -11,7 +11,9 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export var jump_velocity: float = -900
 @export var coyote_time: float = 0.12
 @export var jump_buffer_time: float = 0.15
+@export var jump_buffer_min_velocity: float = 500.0
 
+# Nodes
 @onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
 @onready var coyote_timer: Timer = $Timers/CoyoteTimer
 @onready var jump_buffer_timer: Timer = $Timers/JumpBufferTimer
@@ -75,7 +77,7 @@ func jump_handle(delta: float):
 			velocity.y = jump_velocity
 			coyote_timer.stop()
 		
-		if !is_on_floor() and velocity.y > 500:
+		if !is_on_floor() and velocity.y > jump_buffer_min_velocity:
 			jump_buffer_timer.start()
 	
 	if Input.is_action_just_released("Jump") and !is_on_floor() and velocity.y < 0:
