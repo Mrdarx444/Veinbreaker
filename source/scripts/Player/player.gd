@@ -5,8 +5,10 @@ extends CharacterBody2D
 @export var acceleration: float = speed * 8
 @export var friction: float = speed * 10
 @export_range(0, 1, 0.01) var aiming_slowdown_ratio: float = 0.75
-@export var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2
+@export_subgroup("Jump & Fall")
+var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2
 @export var max_fall_speed: float = 1500.0
+@export var jump_velocity: float = -900
 
 @onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
 
@@ -20,6 +22,7 @@ extends CharacterBody2D
 func _physics_process(delta: float) -> void:
 	movement_handle(delta)
 	gravity_handle(delta)
+	jump_handle(delta)
 	move_and_slide()
 	_debugg()
 
@@ -50,6 +53,12 @@ func movement_handle(delta: float):
 				0.0,
 				friction * delta
 			)
+
+func jump_handle(delta: float):
+	if Input.is_action_just_pressed("Jump") and is_on_floor():
+		velocity.y = jump_velocity
+	if Input.is_action_just_released("Jump") and !is_on_floor() and velocity.y < 0:
+		velocity.y = 0
 
 func _debugg():
 	zone_label.text = "Aim Zone: " + joystick.aim_zone_debbug[joystick.current_zone]
