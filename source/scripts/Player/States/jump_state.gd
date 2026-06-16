@@ -24,12 +24,13 @@ func get_next_state(player: Player) -> StringName:
 			else :
 				return &"Idle"
 		else :
-			player.velocity.y = 0
+			player.velocity.y *= player.jump_cut_mult
 			return &"Fall"
 	if player.is_on_wall() and !player.is_on_floor():
 		if (
-			(player.left_raycast.is_colliding() and player.joystick.move_direction == -1) or 
-			(player.right_raycast.is_colliding() and player.joystick.move_direction == 1)
+			((player.left_raycast.is_colliding() and player.joystick.move_direction == -1) or 
+			(player.right_raycast.is_colliding() and player.joystick.move_direction == 1)) and
+			!player.bottom_slide_stop_raycast.is_colliding()
 		):
 			return &"WallSlide"
 	

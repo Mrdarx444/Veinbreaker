@@ -30,7 +30,7 @@ func _on_state_machine_state_changed(from_state: StringName, to_state: StringNam
 
 [node name="Player" type="CharacterBody2D" unique_id=1568325260]
 script = ExtResource("1_31g4s")
-aiming_slowdown_ratio = 0.63
+jump_cut_mult = 0.27
 
 [node name="TempSprite" type="ColorRect" parent="." unique_id=739025270]
 custom_minimum_size = Vector2(60, 120)
@@ -55,15 +55,18 @@ zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
-[node name="WallRayCasts" type="Node2D" parent="." unique_id=1068774341]
+[node name="RayCasts" type="Node2D" parent="." unique_id=1068774341]
 
-[node name="Left" type="RayCast2D" parent="WallRayCasts" unique_id=1067981713]
+[node name="LeftWall" type="RayCast2D" parent="RayCasts" unique_id=1067981713]
 rotation = 1.5707964
 target_position = Vector2(0, 40)
 
-[node name="Right" type="RayCast2D" parent="WallRayCasts" unique_id=724376704]
+[node name="RightWall" type="RayCast2D" parent="RayCasts" unique_id=724376704]
 rotation = -1.5707964
 target_position = Vector2(0, 40)
+
+[node name="BottomSlideStop" type="RayCast2D" parent="RayCasts" unique_id=24949518]
+target_position = Vector2(0, 100)
 
 [node name="Components" type="Node" parent="." unique_id=2138234143]
 

@@ -5,24 +5,26 @@ class_name Player
 @export var speed: float = 700.0
 @export var acceleration: float = speed * 8
 @export var friction: float = speed * 10
-@export_range(0, 1, 0.01) var aiming_slowdown_ratio: float = 0.75
+@export_range(0, 1, .01) var aiming_slowdown_ratio: float = 0.75
 @export_subgroup("Jump & Fall")
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2
 @export var max_fall_speed: float = 1500.0
 @export var jump_velocity: float = -900
+@export_range(0, 1, .01) var jump_cut_mult: float = 0.2
 @export var coyote_time: float = 0.12
 @export var jump_buffer_time: float = 0.15
-@export var jump_buffer_min_velocity: float = 500.0
+#@export var jump_buffer_min_velocity: float = 500.0
 @export_subgroup("Wall slide/jump")
-@export_range(0, 1, 0.01) var wall_slide_coeffitient: float = 0.1
+@export_range(0, 1, .01) var wall_slide_coeffitient: float = 0.1
 @export var wall_jump_velocity_x: float = 1000.0
 
 # Nodes
 @onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
 @onready var coyote_timer: Timer = $Timers/CoyoteTimer
 @onready var jump_buffer_timer: Timer = $Timers/JumpBufferTimer
-@onready var left_raycast: RayCast2D = $WallRayCasts/Left
-@onready var right_raycast: RayCast2D = $WallRayCasts/Right
+@onready var left_raycast: RayCast2D = $RayCasts/LeftWall
+@onready var right_raycast: RayCast2D = $RayCasts/RightWall
+@onready var bottom_slide_stop_raycast: RayCast2D = $RayCasts/BottomSlideStop
 
 # Debugging
 @onready var zone_label: Label = $HUD/Zone

@@ -13,14 +13,13 @@ func gravity_handle(delta: float, player: Player):
 func get_next_state(player: Player) -> StringName:
 	if player.is_on_floor():
 		return &"Idle"
-	if (
-		Input.is_action_just_pressed("Jump")
-	):
+	if Input.is_action_just_pressed("Jump"):
 		if player.right_raycast.is_colliding():
 			player.velocity.x = -player.wall_jump_velocity_x
 		if player.left_raycast.is_colliding():
 			player.velocity.x = player.wall_jump_velocity_x
 		return &"Jump"
-	if player.joystick.move_direction == 0:
+	if player.joystick.move_direction == 0 or player.bottom_slide_stop_raycast.is_colliding():
 		return &"Fall"
+	
 	return &""
