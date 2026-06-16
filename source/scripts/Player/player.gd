@@ -13,11 +13,16 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export var coyote_time: float = 0.12
 @export var jump_buffer_time: float = 0.15
 @export var jump_buffer_min_velocity: float = 500.0
+@export_subgroup("Wall slide/jump")
+@export_range(0, 1, 0.01) var wall_slide_coeffitient: float = 0.1
+@export var wall_jump_velocity_x: float = 1000.0
 
 # Nodes
 @onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
 @onready var coyote_timer: Timer = $Timers/CoyoteTimer
 @onready var jump_buffer_timer: Timer = $Timers/JumpBufferTimer
+@onready var left_raycast: RayCast2D = $WallRayCasts/Left
+@onready var right_raycast: RayCast2D = $WallRayCasts/Right
 
 # Debugging
 @onready var zone_label: Label = $HUD/Zone
@@ -32,6 +37,7 @@ func _ready() -> void:
 	jump_buffer_timer.wait_time = jump_buffer_time
 
 func _physics_process(delta: float) -> void:
+	move_and_slide()
 	_debugg()
 
 func _debugg():

@@ -16,4 +16,11 @@ func get_next_state(player: Player) -> StringName:
 	if Input.is_action_just_pressed("Jump"):
 		if !player.coyote_timer.is_stopped():
 			return &"Jump"
+	if player.is_on_wall() and !player.is_on_floor():
+		if (
+			(player.left_raycast.is_colliding() and player.joystick.move_direction == -1) or 
+			(player.right_raycast.is_colliding() and player.joystick.move_direction == 1)
+		):
+			return &"WallSlide"
+	
 	return &""

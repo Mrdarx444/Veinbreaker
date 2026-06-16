@@ -7,7 +7,6 @@ func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachi
 	state_machine.change_state(get_next_state(player))
 
 func get_next_state(player: Player) -> StringName:
-	
 	return &""
 
 func gravity_handle(delta: float, player: Player):
@@ -31,4 +30,3 @@ func movement_handle(delta: float, player: Player):
 				player.speed * player.joystick.move_direction * player.aiming_slowdown_ratio,
 				player.acceleration * delta
 			)
-	player.move_and_slide()

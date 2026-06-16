@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://d2t4p3epldlyl" path="res://source/scripts/Player/States/move_state.gd" id="5_ryax5"]
 [ext_resource type="Script" uid="uid://booc1r8m0sjrd" path="res://source/scripts/Player/States/fall_state.gd" id="6_c4tgw"]
 [ext_resource type="Script" uid="uid://t641dacx3nys" path="res://source/scripts/Player/States/jump_state.gd" id="7_c4tgw"]
+[ext_resource type="Script" uid="uid://cpdvjkqdtfej1" path="res://source/scripts/Player/States/wall_state.gd" id="8_1w3qr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yd3kj"]
 size = Vector2(60, 120)
@@ -54,11 +55,54 @@ zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
+[node name="WallRayCasts" type="Node2D" parent="." unique_id=1068774341]
+
+[node name="Left" type="RayCast2D" parent="WallRayCasts" unique_id=1067981713]
+rotation = 1.5707964
+target_position = Vector2(0, 40)
+
+[node name="Right" type="RayCast2D" parent="WallRayCasts" unique_id=724376704]
+rotation = -1.5707964
+target_position = Vector2(0, 40)
+
 [node name="Components" type="Node" parent="." unique_id=2138234143]
 
 [node name="PlayerAimComponent" type="Node" parent="Components" unique_id=1738510395]
 script = ExtResource("2_ck846")
 metadata/_custom_type_script = "uid://d17itavn1yymn"
+
+[node name="StateMachine" type="Node" parent="." unique_id=393924244 node_paths=PackedStringArray("initiate_state")]
+script = ExtResource("3_8vvwm")
+initiate_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://sffei5k4nmay"
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=619413992]
+script = ExtResource("4_0wpal")
+metadata/_custom_type_script = "uid://c2d84vxcs81cy"
+
+[node name="Move" type="Node" parent="StateMachine" unique_id=1796069242]
+script = ExtResource("5_ryax5")
+metadata/_custom_type_script = "uid://c2d84vxcs81cy"
+
+[node name="Fall" type="Node" parent="StateMachine" unique_id=1787499065]
+script = ExtResource("6_c4tgw")
+metadata/_custom_type_script = "uid://c2d84vxcs81cy"
+
+[node name="Jump" type="Node" parent="StateMachine" unique_id=866311513]
+script = ExtResource("7_c4tgw")
+metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
+
+[node name="WallSlide" type="Node" parent="StateMachine" unique_id=1392095955]
+script = ExtResource("8_1w3qr")
+metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
+
+[node name="Timers" type="Node" parent="." unique_id=1895822513]
+
+[node name="CoyoteTimer" type="Timer" parent="Timers" unique_id=302265838]
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="Timers" unique_id=687490601]
+one_shot = true
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=69797456]
 
@@ -123,35 +167,6 @@ offset_right = 347.0
 offset_bottom = 199.0
 text = "Jump Buffer Timer: 0.0"
 label_settings = SubResource("LabelSettings_ck846")
-
-[node name="Timers" type="Node" parent="." unique_id=1895822513]
-
-[node name="CoyoteTimer" type="Timer" parent="Timers" unique_id=302265838]
-one_shot = true
-
-[node name="JumpBufferTimer" type="Timer" parent="Timers" unique_id=687490601]
-one_shot = true
-
-[node name="StateMachine" type="Node" parent="." unique_id=393924244 node_paths=PackedStringArray("initiate_state")]
-script = ExtResource("3_8vvwm")
-initiate_state = NodePath("Idle")
-metadata/_custom_type_script = "uid://sffei5k4nmay"
-
-[node name="Idle" type="Node" parent="StateMachine" unique_id=619413992]
-script = ExtResource("4_0wpal")
-metadata/_custom_type_script = "uid://c2d84vxcs81cy"
-
-[node name="Move" type="Node" parent="StateMachine" unique_id=1796069242]
-script = ExtResource("5_ryax5")
-metadata/_custom_type_script = "uid://c2d84vxcs81cy"
-
-[node name="Fall" type="Node" parent="StateMachine" unique_id=1787499065]
-script = ExtResource("6_c4tgw")
-metadata/_custom_type_script = "uid://c2d84vxcs81cy"
-
-[node name="Jump" type="Node" parent="StateMachine" unique_id=866311513]
-script = ExtResource("7_c4tgw")
-metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
 
 [node name="StateLabel" type="Label" parent="." unique_id=1840347626]
 anchors_preset = 7
