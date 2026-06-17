@@ -33,5 +33,4 @@ func get_next_state(player: Player) -> StringName:
 			!player.bottom_slide_stop_raycast.is_colliding()
 		):
 			return &"WallSlide"
-	
 	return &""
