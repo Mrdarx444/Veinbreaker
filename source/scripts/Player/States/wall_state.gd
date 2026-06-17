@@ -8,7 +8,7 @@ func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachi
 	super.physics_update(delta, state_owner, state_machine)
 
 func gravity_handle(delta: float, player: Player):
-	player.velocity.y += player.gravity * delta * player.wall_slide_coeffitient
+	player.velocity.y += player.gravity * delta * player.wall_slide_coefficient
 
 func get_next_state(player: Player) -> StringName:
 	if player.is_on_floor():

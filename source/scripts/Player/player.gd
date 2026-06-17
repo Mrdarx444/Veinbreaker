@@ -10,13 +10,13 @@ class_name Player
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2
 @export var max_fall_speed: float = 1500.0
 @export var jump_velocity: float = -900
-@export_range(0, 1, .01) var jump_cut_mult: float = 0.2
+@export_range(0, 1, .01) var jump_cut_mult: float = 0.3
 @export var coyote_time: float = 0.12
 @export var jump_buffer_time: float = 0.15
 #@export var jump_buffer_min_velocity: float = 500.0
 @export_subgroup("Wall slide/jump")
-@export_range(0, 1, .01) var wall_slide_coeffitient: float = 0.1
-@export var wall_jump_velocity_x: float = 1000.0
+@export_range(0, 1, .01) var wall_slide_coefficient: float = 0.45
+@export var wall_jump_velocity_x: float = 800.0
 
 # Nodes
 @onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
@@ -39,10 +39,9 @@ func _ready() -> void:
 	jump_buffer_timer.wait_time = jump_buffer_time
 
 func _physics_process(delta: float) -> void:
-	move_and_slide()
-	_debugg()
+	_debug()
 
-func _debugg():
+func _debug():
 	zone_label.text = "Aim Zone: " + joystick.aim_zone_debbug[joystick.current_zone]
 	direction_label.text = "Aim Direction: " + joystick.aim_direction_debbug[joystick.aim_direction]
 	

@@ -30,7 +30,6 @@ func _on_state_machine_state_changed(from_state: StringName, to_state: StringNam
 
 [node name="Player" type="CharacterBody2D" unique_id=1568325260]
 script = ExtResource("1_31g4s")
-jump_cut_mult = 0.27
 
 [node name="TempSprite" type="ColorRect" parent="." unique_id=739025270]
 custom_minimum_size = Vector2(60, 120)
