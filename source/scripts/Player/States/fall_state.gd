@@ -18,5 +18,6 @@ func get_next_state(player: Player) -> StringName:
 			return &"Jump"
 	if can_wall_slide(player):
 		return &"WallSlide"
-	
+	if Input.is_action_just_pressed("Dash"):
+		return &"Dash"
 	return &""

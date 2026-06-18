@@ -6,6 +6,7 @@ class_name Player
 @export var acceleration: float = speed * 8
 @export var friction: float = speed * 10
 @export_range(0, 1, .01) var aiming_slowdown_ratio: float = 0.75
+var facing_direction: int = 1
 @export_subgroup("Jump & Fall")
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2
 @export var max_fall_speed: float = 1500.0
@@ -17,6 +18,11 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export_subgroup("Wall slide/jump")
 @export_range(0, 1, .01) var wall_slide_coefficient: float = 0.45
 @export var wall_jump_velocity_x: float = 800.0
+@export_subgroup("Dash")
+@export var is_dashing: bool = true
+@export var dash_velocity: float = 4000.0
+@export var dash_time: float = 0.1
+@export var dash_gravity_coefficient: float = 0.1
 
 # Nodes
 @onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
@@ -25,6 +31,7 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @onready var left_raycast: RayCast2D = $RayCasts/LeftWall
 @onready var right_raycast: RayCast2D = $RayCasts/RightWall
 @onready var bottom_slide_stop_raycast: RayCast2D = $RayCasts/BottomSlideStop
+@onready var dash_timer: Timer = $Timers/DashTimer
 
 # Debugging
 const DEBUG_MODE: bool = true
@@ -39,9 +46,13 @@ const DEBUG_MODE: bool = true
 func _ready() -> void:
 	coyote_timer.wait_time = coyote_time
 	jump_buffer_timer.wait_time = jump_buffer_time
+	dash_timer.wait_time = dash_time
+	
 	debug_labels_container.visible = DEBUG_MODE
 
 func _physics_process(delta: float) -> void:
+	if joystick.move_direction:
+		facing_direction = int(joystick.move_direction)
 	if DEBUG_MODE: _debug()
 
 func _debug():

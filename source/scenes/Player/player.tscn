@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://booc1r8m0sjrd" path="res://source/scripts/Player/States/fall_state.gd" id="6_c4tgw"]
 [ext_resource type="Script" uid="uid://t641dacx3nys" path="res://source/scripts/Player/States/jump_state.gd" id="7_c4tgw"]
 [ext_resource type="Script" uid="uid://cpdvjkqdtfej1" path="res://source/scripts/Player/States/wall_state.gd" id="8_1w3qr"]
+[ext_resource type="Script" uid="uid://ivwe8m6c8rct" path="res://source/scripts/Player/States/dash_state.gd" id="9_2ebov"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yd3kj"]
 size = Vector2(60, 120)
@@ -98,12 +99,19 @@ metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
 script = ExtResource("8_1w3qr")
 metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
 
+[node name="Dash" type="Node" parent="StateMachine" unique_id=1287062347]
+script = ExtResource("9_2ebov")
+metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
+
 [node name="Timers" type="Node" parent="." unique_id=1895822513]
 
 [node name="CoyoteTimer" type="Timer" parent="Timers" unique_id=302265838]
 one_shot = true
 
 [node name="JumpBufferTimer" type="Timer" parent="Timers" unique_id=687490601]
+one_shot = true
+
+[node name="DashTimer" type="Timer" parent="Timers" unique_id=2005891131]
 one_shot = true
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=69797456]
