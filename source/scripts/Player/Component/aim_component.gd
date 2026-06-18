@@ -25,7 +25,7 @@ var current_zone     : AimZone     = AimZone.MOVE
 var aim_direction    : AimDirection = AimDirection.FORWARD
 var move_direction   : float = 0.0  # -1, 0, 1
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var input_vector := Input.get_vector("Left", "Right", "Up", "Down")
 	var x = input_vector.x
 	var y = input_vector.y

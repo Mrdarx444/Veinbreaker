@@ -16,6 +16,7 @@ func get_next_state(player: Player) -> StringName:
 		return &"Move"
 	if !player.is_on_floor():
 		if player.velocity.y >= 0:
+			player.coyote_timer.start()
 			return &"Fall"
 	if Input.is_action_just_pressed("Jump"):
 		return &"Jump"

@@ -27,19 +27,22 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @onready var bottom_slide_stop_raycast: RayCast2D = $RayCasts/BottomSlideStop
 
 # Debugging
-@onready var zone_label: Label = $HUD/Zone
-@onready var direction_label: Label = $HUD/Direction
-@onready var move_direction_label: Label = $HUD/move_direction
-@onready var velocity_label: Label = $HUD/Velocity
-@onready var coyote_timer_label: Label = $HUD/CoyoteTimer
-@onready var buffer_timer_label: Label = $HUD/BufferTimer
+const DEBUG_MODE: bool = true
+@onready var debug_labels_container: Control = $HUD/Debug
+@onready var zone_label: Label = $HUD/Debug/Zone
+@onready var direction_label: Label = $HUD/Debug/Direction
+@onready var move_direction_label: Label = $HUD/Debug/move_direction
+@onready var velocity_label: Label = $HUD/Debug/Velocity
+@onready var coyote_timer_label: Label = $HUD/Debug/CoyoteTimer
+@onready var buffer_timer_label: Label = $HUD/Debug/BufferTimer
 
 func _ready() -> void:
 	coyote_timer.wait_time = coyote_time
 	jump_buffer_timer.wait_time = jump_buffer_time
+	debug_labels_container.visible = DEBUG_MODE
 
 func _physics_process(delta: float) -> void:
-	_debug()
+	if DEBUG_MODE: _debug()
 
 func _debug():
 	zone_label.text = "Aim Zone: " + joystick.aim_zone_debbug[joystick.current_zone]
