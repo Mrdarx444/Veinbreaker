@@ -11,8 +11,8 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export var max_fall_speed: float = 1500.0
 @export var jump_velocity: float = -900
 @export_range(0, 1, .01) var jump_cut_mult: float = 0.3
-@export var coyote_time: float = 0.12
-@export var jump_buffer_time: float = 0.15
+@export var coyote_time: float = 0.13
+@export var jump_buffer_time: float = 0.17
 #@export var jump_buffer_min_velocity: float = 500.0
 @export_subgroup("Wall slide/jump")
 @export_range(0, 1, .01) var wall_slide_coefficient: float = 0.45

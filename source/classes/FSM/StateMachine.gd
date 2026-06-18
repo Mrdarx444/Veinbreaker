@@ -9,7 +9,7 @@ signal state_changed(from_state: StringName, to_state: StringName)
 var states: Dictionary[StringName, State] = {}
 
 func _ready() -> void:
-	_debbug()
+	_debug()
 	_set_states()
 	_enter_initial_state()
 
@@ -30,19 +30,19 @@ func _physics_process(delta: float) -> void:
 
 func change_state(next_state_name: StringName) -> void:
 	if next_state_name == &"": return
+	if not states.has(next_state_name):
+		push_error("State not found: '%s'" % str(next_state_name))
+		return
 	var next_state: State = states[next_state_name]
 	if current_state == next_state:
-		push_warning("You're already at the same state named '%s'"%str(next_state_name))
-		return
-	if !next_state:
-		push_error("There is no a State with name of '%s'"%str(next_state_name))
+		push_warning("Already in state '%s'" % str(next_state_name))
 		return
 	current_state.exit(owner, self)
 	next_state.enter(owner, self)
 	state_changed.emit(current_state.name, next_state_name)
 	current_state = next_state
 
-func _debbug() -> void:
+func _debug() -> void:
 	if initiate_state == null:
 		push_error("There is no initial state")
 		return
