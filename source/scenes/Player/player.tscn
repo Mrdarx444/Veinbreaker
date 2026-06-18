@@ -51,7 +51,7 @@ color = Color(0, 0.57254905, 1, 1)
 shape = SubResource("RectangleShape2D_yd3kj")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1120778986]
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(0.8, 0.8)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
@@ -120,6 +120,7 @@ one_shot = true
 [node name="HUD" type="CanvasLayer" parent="." unique_id=69797456]
 
 [node name="Controllers" type="Control" parent="HUD" unique_id=1221603634]
+layout_direction = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -128,28 +129,33 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VirtualJoystick" type="VirtualJoystick" parent="HUD/Controllers" unique_id=1342819701]
+layout_direction = 2
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 40.0
-offset_top = -80.0
-offset_right = 80.0
-offset_bottom = -40.0
+offset_left = 88.0
+offset_top = -130.0
+offset_right = 128.0
+offset_bottom = -90.0
 grow_vertical = 0
+joystick_size = 170.0
+tip_size = 80.0
+clampzone_ratio = 0.87
 action_left = &"Left"
 action_right = &"Right"
 action_up = &"Up"
 action_down = &"Down"
 
 [node name="Debug" type="Control" parent="HUD" unique_id=1479378718]
-visible = false
+layout_direction = 2
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Zone" type="Label" parent="HUD/Debug" unique_id=920837623]
+layout_direction = 2
 layout_mode = 0
 offset_left = 24.0
 offset_top = 20.0
@@ -159,6 +165,7 @@ text = "Aim Zone: None"
 label_settings = SubResource("LabelSettings_ck846")
 
 [node name="Direction" type="Label" parent="HUD/Debug" unique_id=440754688]
+layout_direction = 2
 layout_mode = 0
 offset_left = 24.0
 offset_top = 43.0
@@ -168,6 +175,7 @@ text = "Aim Direction: None"
 label_settings = SubResource("LabelSettings_ck846")
 
 [node name="move_direction" type="Label" parent="HUD/Debug" unique_id=664615901]
+layout_direction = 2
 layout_mode = 0
 offset_left = 23.0
 offset_top = 64.0
@@ -177,6 +185,7 @@ text = "Direction: None"
 label_settings = SubResource("LabelSettings_ck846")
 
 [node name="Velocity" type="Label" parent="HUD/Debug" unique_id=947469026]
+layout_direction = 2
 layout_mode = 0
 offset_left = 23.0
 offset_top = 90.0
@@ -186,6 +195,7 @@ text = "Velocity: (0, 0)"
 label_settings = SubResource("LabelSettings_ck846")
 
 [node name="CoyoteTimer" type="Label" parent="HUD/Debug" unique_id=662381499]
+layout_direction = 2
 layout_mode = 0
 offset_left = 23.0
 offset_top = 120.0
@@ -195,6 +205,7 @@ text = "Coyote Timer: 0.0"
 label_settings = SubResource("LabelSettings_ck846")
 
 [node name="BufferTimer" type="Label" parent="HUD/Debug" unique_id=129258480]
+layout_direction = 2
 layout_mode = 0
 offset_left = 23.0
 offset_top = 144.0

@@ -46,6 +46,7 @@ const DEBUG_MODE: bool = true
 @onready var buffer_timer_label: Label = $HUD/Debug/BufferTimer
 
 func _ready() -> void:
+	
 	set_timers()
 	debug_labels_container.visible = DEBUG_MODE
 
