@@ -23,6 +23,6 @@ func get_next_state(player: Player) -> StringName:
 	if !player.jump_buffer_timer.is_stopped():
 		player.jump_buffer_timer.stop()
 		return &"Jump"
-	if Input.is_action_just_pressed("Dash"):
+	if Input.is_action_just_pressed("Dash") and player.dash_cooldown_timer.is_stopped():
 		return &"Dash"
 	return &""

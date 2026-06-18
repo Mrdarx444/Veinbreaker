@@ -20,9 +20,10 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export var wall_jump_velocity_x: float = 800.0
 @export_subgroup("Dash")
 @export var is_dashing: bool = true
-@export var dash_velocity: float = 4000.0
+@export var dash_velocity: float = 5000.0
 @export var dash_time: float = 0.1
-@export var dash_gravity_coefficient: float = 0.1
+@export var dash_cooldown_time: float = 0.9
+@export var dash_gravity_coefficient: float = 0.07
 
 # Nodes
 @onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
@@ -32,6 +33,7 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @onready var right_raycast: RayCast2D = $RayCasts/RightWall
 @onready var bottom_slide_stop_raycast: RayCast2D = $RayCasts/BottomSlideStop
 @onready var dash_timer: Timer = $Timers/DashTimer
+@onready var dash_cooldown_timer: Timer = $Timers/DashCooldown
 
 # Debugging
 const DEBUG_MODE: bool = true
@@ -44,16 +46,18 @@ const DEBUG_MODE: bool = true
 @onready var buffer_timer_label: Label = $HUD/Debug/BufferTimer
 
 func _ready() -> void:
-	coyote_timer.wait_time = coyote_time
-	jump_buffer_timer.wait_time = jump_buffer_time
-	dash_timer.wait_time = dash_time
-	
+	set_timers()
 	debug_labels_container.visible = DEBUG_MODE
 
 func _physics_process(delta: float) -> void:
-	if joystick.move_direction:
-		facing_direction = int(joystick.move_direction)
+	if joystick.move_direction: facing_direction = int(joystick.move_direction)
 	if DEBUG_MODE: _debug()
+
+func set_timers():
+	coyote_timer.wait_time = coyote_time
+	jump_buffer_timer.wait_time = jump_buffer_time
+	dash_timer.wait_time = dash_time
+	dash_cooldown_timer.wait_time = dash_cooldown_time
 
 func _debug():
 	zone_label.text = "Aim Zone: " + joystick.aim_zone_debbug[joystick.current_zone]
