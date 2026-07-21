@@ -9,14 +9,14 @@ var friction: float = speed * 6
 var facing_direction: int = 1
 @export_subgroup("Jump & Fall")
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2
-@export var max_fall_speed: float = 1500.0
+@export var max_fall_speed: float = 2000.0
 @export var jump_velocity: float = -900
-@export_range(0, 1, .01) var jump_cut_mult: float = 0.4
+@export_range(0, 1, .01) var jump_cut_mult: float = 0.35
 @export var coyote_time: float = 0.13
 @export var jump_buffer_time: float = 0.17
 #@export var jump_buffer_min_velocity: float = 500.0
 @export_subgroup("Wall slide/jump")
-@export_range(0, 1, .01) var wall_slide_coefficient: float = 0.45
+@export_range(0, 1, .01) var wall_slide_coefficient: float = 0.53
 @export var wall_jump_velocity_x: float = 800.0
 @export_subgroup("Dash")
 @export var is_dashing: bool = true

@@ -9,6 +9,9 @@ size = Vector2(4000, 150)
 size = Vector2(150, 450)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4loxo"]
+size = Vector2(150, 6000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_slmcd"]
 size = Vector2(150, 1000)
 
 [node name="World" type="Node2D" unique_id=57820806]
@@ -60,11 +63,11 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_pdc63")
 
 [node name="Wall2" type="StaticBody2D" parent="." unique_id=2023223713]
-position = Vector2(-1376, -95)
+position = Vector2(-1376, -2595)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Wall2" unique_id=1466730599]
-custom_minimum_size = Vector2(150, 1000)
+custom_minimum_size = Vector2(150, 6000)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -103,7 +106,7 @@ color = Color(0, 0.49862653, 0.20481673, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Collision" type="CollisionShape2D" parent="Wall4" unique_id=1564733267]
-shape = SubResource("RectangleShape2D_4loxo")
+shape = SubResource("RectangleShape2D_slmcd")
 
 [node name="Wall3" type="StaticBody2D" parent="." unique_id=492829394]
 position = Vector2(352, 43)
@@ -129,4 +132,4 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_pdc63")
 
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_4loxo")]
-position = Vector2(-1139, 294)
+position = Vector2(-1359, -6230)

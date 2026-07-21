@@ -73,7 +73,7 @@ rotation = -1.5707964
 target_position = Vector2(0, 40)
 
 [node name="BottomSlideStop" type="RayCast2D" parent="RayCasts" unique_id=24949518]
-target_position = Vector2(0, 160)
+target_position = Vector2(0, 140)
 
 [node name="Components" type="Node" parent="." unique_id=2138234143]
 
