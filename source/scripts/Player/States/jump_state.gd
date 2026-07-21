@@ -12,7 +12,7 @@ func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachi
 func get_next_state(player: Player) -> StringName:
 	if player.velocity.y >= 0:
 		return &"Fall"
-	if Input.is_action_just_released("Jump"):
+	if !Input.is_action_pressed("Jump"):
 		player.velocity.y *= player.jump_cut_mult
 		return &"Fall"
 	if can_wall_slide(player):

@@ -9,9 +9,16 @@
 [ext_resource type="Script" uid="uid://t641dacx3nys" path="res://source/scripts/Player/States/jump_state.gd" id="7_c4tgw"]
 [ext_resource type="Script" uid="uid://cpdvjkqdtfej1" path="res://source/scripts/Player/States/wall_state.gd" id="8_1w3qr"]
 [ext_resource type="Script" uid="uid://ivwe8m6c8rct" path="res://source/scripts/Player/States/dash_state.gd" id="9_2ebov"]
+[ext_resource type="Texture2D" uid="uid://bck3upoq50wf3" path="res://assets/Demo/Melee Button.png" id="10_n0ac8"]
+[ext_resource type="Script" uid="uid://5gqtc4enpg5c" path="res://addons/virtual_joystick_DX/vjdx_core_script.gd" id="10_pwbjc"]
+[ext_resource type="Texture2D" uid="uid://cxpqtve140hr6" path="res://assets/Demo/Dash Button.png" id="11_uvchi"]
+[ext_resource type="Script" uid="uid://dig3m88k5pkqe" path="res://source/classes/PlayerHUDButtons.gd" id="12_oyrgr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yd3kj"]
 size = Vector2(60, 120)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_n0ac8"]
+blend_mode = 3
 
 [sub_resource type="LabelSettings" id="LabelSettings_ck846"]
 font_size = 20
@@ -51,9 +58,9 @@ color = Color(0, 0.57254905, 1, 1)
 shape = SubResource("RectangleShape2D_yd3kj")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1120778986]
-zoom = Vector2(0.8, 0.8)
+zoom = Vector2(0.65, 0.65)
 position_smoothing_enabled = true
-position_smoothing_speed = 10.0
+position_smoothing_speed = 7.0
 
 [node name="RayCasts" type="Node2D" parent="." unique_id=1068774341]
 
@@ -66,7 +73,7 @@ rotation = -1.5707964
 target_position = Vector2(0, 40)
 
 [node name="BottomSlideStop" type="RayCast2D" parent="RayCasts" unique_id=24949518]
-target_position = Vector2(0, 100)
+target_position = Vector2(0, 160)
 
 [node name="Components" type="Node" parent="." unique_id=2138234143]
 
@@ -120,6 +127,7 @@ one_shot = true
 [node name="HUD" type="CanvasLayer" parent="." unique_id=69797456]
 
 [node name="Controllers" type="Control" parent="HUD" unique_id=1221603634]
+visible = false
 layout_direction = 2
 layout_mode = 3
 anchors_preset = 15
@@ -128,24 +136,53 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VirtualJoystick" type="VirtualJoystick" parent="HUD/Controllers" unique_id=1342819701]
-layout_direction = 2
+[node name="VirtualJoystickDX" type="Control" parent="HUD/Controllers" unique_id=340634429]
+custom_minimum_size = Vector2(180, 180)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 88.0
-offset_top = -130.0
-offset_right = 128.0
-offset_bottom = -90.0
+offset_left = 25.0
+offset_top = -202.0
+offset_right = 195.0
+offset_bottom = -33.0
 grow_vertical = 0
-joystick_size = 170.0
-tip_size = 80.0
-clampzone_ratio = 0.87
+pivot_offset = Vector2(90, 90)
+mouse_filter = 2
+script = ExtResource("10_pwbjc")
+joystick_radius = 90.0
+thumb_radius = 50.0
+deadzone = 0.001
+joystick_mode = 1
 action_left = &"Left"
 action_right = &"Right"
 action_up = &"Up"
 action_down = &"Down"
+region_y = 150.0
+region_h = 400.0
+"Colors - D-Pad" = null
+"Textures - D-Pad" = null
+Cardinals = null
+Diagonals = null
+metadata/_custom_type_script = "uid://5gqtc4enpg5c"
+
+[node name="JumpButton" type="TouchScreenButton" parent="HUD/Controllers" unique_id=1566731449]
+material = SubResource("CanvasItemMaterial_n0ac8")
+position = Vector2(967, 416)
+scale = Vector2(0.4, 0.4)
+texture_normal = ExtResource("10_n0ac8")
+action = "Jump"
+script = ExtResource("12_oyrgr")
+offset = Vector2(100, 50)
+
+[node name="DashButton" type="TouchScreenButton" parent="HUD/Controllers" unique_id=1920385870]
+material = SubResource("CanvasItemMaterial_n0ac8")
+position = Vector2(1042, 277)
+scale = Vector2(0.4, 0.4)
+texture_normal = ExtResource("11_uvchi")
+action = "Dash"
+script = ExtResource("12_oyrgr")
+offset = Vector2(20, 170)
 
 [node name="Debug" type="Control" parent="HUD" unique_id=1479378718]
 layout_direction = 2

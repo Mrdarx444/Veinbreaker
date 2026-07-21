@@ -3,15 +3,15 @@ class_name Player
 
 @export_subgroup("Movement")
 @export var speed: float = 700.0
-@export var acceleration: float = speed * 8
-@export var friction: float = speed * 10
+var acceleration: float = speed * 6
+var friction: float = speed * 6
 @export_range(0, 1, .01) var aiming_slowdown_ratio: float = 0.75
 var facing_direction: int = 1
 @export_subgroup("Jump & Fall")
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2
 @export var max_fall_speed: float = 1500.0
 @export var jump_velocity: float = -900
-@export_range(0, 1, .01) var jump_cut_mult: float = 0.3
+@export_range(0, 1, .01) var jump_cut_mult: float = 0.4
 @export var coyote_time: float = 0.13
 @export var jump_buffer_time: float = 0.17
 #@export var jump_buffer_min_velocity: float = 500.0
@@ -20,8 +20,8 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export var wall_jump_velocity_x: float = 800.0
 @export_subgroup("Dash")
 @export var is_dashing: bool = true
-@export var dash_velocity: float = 5000.0
-@export var dash_time: float = 0.1
+@export var dash_velocity: float = 2900
+@export var dash_time: float = 0.14
 @export var dash_cooldown_time: float = 0.9
 @export var dash_gravity_coefficient: float = 0.07
 
@@ -46,7 +46,6 @@ const DEBUG_MODE: bool = true
 @onready var buffer_timer_label: Label = $HUD/Debug/BufferTimer
 
 func _ready() -> void:
-	
 	set_timers()
 	debug_labels_container.visible = DEBUG_MODE
 
