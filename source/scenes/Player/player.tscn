@@ -58,7 +58,8 @@ color = Color(0, 0.57254905, 1, 1)
 shape = SubResource("RectangleShape2D_yd3kj")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1120778986]
-zoom = Vector2(0.65, 0.65)
+zoom = Vector2(0.6, 0.6)
+limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 7.0
 
@@ -169,11 +170,11 @@ metadata/_custom_type_script = "uid://5gqtc4enpg5c"
 [node name="JumpButton" type="TouchScreenButton" parent="HUD/Controllers" unique_id=1566731449]
 material = SubResource("CanvasItemMaterial_n0ac8")
 position = Vector2(967, 416)
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("10_n0ac8")
 action = "Jump"
 script = ExtResource("12_oyrgr")
-offset = Vector2(100, 50)
+offset = Vector2(130, 40)
 
 [node name="DashButton" type="TouchScreenButton" parent="HUD/Controllers" unique_id=1920385870]
 material = SubResource("CanvasItemMaterial_n0ac8")

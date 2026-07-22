@@ -13,6 +13,10 @@ config_version=5
 config/name="Veinbreaker Project"
 run/main_scene="uid://bbcxbsd1jn3bh"
 config/features=PackedStringArray("4.7", "Mobile")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
+boot_splash/stretch_mode=0
+boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
 [debug]

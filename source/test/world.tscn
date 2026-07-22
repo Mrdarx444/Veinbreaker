@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bbcxbsd1jn3bh"]
 
 [ext_resource type="PackedScene" uid="uid://bghqxvldmkdeg" path="res://source/scenes/Player/player.tscn" id="1_4loxo"]
+[ext_resource type="Script" uid="uid://ndyhlhric3kf" path="res://source/test/level_camera.gd" id="2_pdc63"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dihab"]
 size = Vector2(4000, 150)
@@ -9,7 +10,7 @@ size = Vector2(4000, 150)
 size = Vector2(150, 450)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4loxo"]
-size = Vector2(150, 6000)
+size = Vector2(150, 1000)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_slmcd"]
 size = Vector2(150, 1000)
@@ -63,11 +64,11 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_pdc63")
 
 [node name="Wall2" type="StaticBody2D" parent="." unique_id=2023223713]
-position = Vector2(-1376, -2595)
+position = Vector2(-1376, -95)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Wall2" unique_id=1466730599]
-custom_minimum_size = Vector2(150, 6000)
+custom_minimum_size = Vector2(150, 1000)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -132,4 +133,11 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_pdc63")
 
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_4loxo")]
-position = Vector2(-1359, -6230)
+position = Vector2(-337, -191)
+
+[node name="LevelCamera" type="Camera2D" parent="." unique_id=893587825]
+limit_left = -1451
+limit_top = -800
+limit_right = 2549
+limit_bottom = 555
+script = ExtResource("2_pdc63")
