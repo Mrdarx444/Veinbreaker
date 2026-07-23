@@ -133,9 +133,10 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_pdc63")
 
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_4loxo")]
-position = Vector2(-337, -191)
+position = Vector2(-291, 268)
 
 [node name="LevelCamera" type="Camera2D" parent="." unique_id=893587825]
+visible = false
 limit_left = -1451
 limit_top = -800
 limit_right = 2549

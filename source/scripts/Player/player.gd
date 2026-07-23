@@ -3,13 +3,14 @@ class_name Player
 
 @export_subgroup("Movement")
 @export var speed: float = 700.0
-var acceleration: float = speed * 6
+var acceleration: float = speed * 10
 var friction: float = speed * 6
 @export_range(0, 1, .01) var aiming_slowdown_ratio: float = 0.75
 var facing_direction: int = 1
 @export_subgroup("Jump & Fall")
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2
 @export var max_fall_speed: float = 2000.0
+@export var forced_fall_velocity: float = 1500.0
 @export var jump_velocity: float = -900
 @export_range(0, 1, .01) var jump_cut_mult: float = 0.35
 @export var coyote_time: float = 0.13
@@ -21,7 +22,7 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export_subgroup("Dash")
 @export var is_dashing: bool = true
 @export var dash_velocity: float = 2900
-@export var dash_time: float = 0.14
+@export var dash_time: float = 0.13
 @export var dash_cooldown_time: float = 0.9
 @export var dash_gravity_coefficient: float = 0.07
 
