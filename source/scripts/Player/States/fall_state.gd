@@ -7,20 +7,25 @@ func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachi
 	movement_handle(delta, player)
 	if Input.is_action_just_pressed("Jump"):
 		# Update Conditions HERE! (Certain Height)
-		if player.joystick.aim_direction == player.joystick.AimDirection.DOWN:
+		if (
+			player.joystick.aim_direction == player.joystick.AimDirection.DOWN and
+			player.forced_fall_raycast.is_colliding()
+		):
 			forced_fall = true
-			print("test 1")
 		else :
 			player.jump_buffer_timer.start()
 	super.physics_update(delta, state_owner, state_machine)
 
+func movement_handle(delta: float, player: Player):
+	super.movement_handle(delta, player)
+	if forced_fall:
+		player.velocity.x = 0
 
 func gravity_handle(delta: float, player: Player):
 	if !player.is_on_floor():
 		if player.velocity.y < player.max_fall_speed:
 			if forced_fall:
 				player.velocity.y = player.forced_fall_velocity
-				print("test 2")
 			else :
 				player.velocity.y = min(player.velocity.y + player.gravity * delta, player.max_fall_speed)
 	else :

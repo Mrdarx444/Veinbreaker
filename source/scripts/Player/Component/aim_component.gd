@@ -1,7 +1,7 @@
 class_name PlayerAimComponent
 extends Node
 
-enum AimZone { MOVE, MOVE_AIM_UP, MOVE_AIM_DOWN, AIM_UP_IDLE }
+enum AimZone { MOVE, MOVE_AIM_UP, MOVE_AIM_DOWN, AIM_UP_IDLE, AIM_DOWN_IDLE }
 enum AimDirection { FORWARD, UP, DOWN }
 
 # Debugg
@@ -9,7 +9,8 @@ var aim_zone_debbug := {
 	AimZone.MOVE: "Move",
 	AimZone.MOVE_AIM_UP: "Move Aim Up",
 	AimZone.MOVE_AIM_DOWN: "Move Aim Down",
-	AimZone.AIM_UP_IDLE: "Aim Up Idle"
+	AimZone.AIM_UP_IDLE: "Aim Up Idle",
+	AimZone.AIM_DOWN_IDLE: "Aim Down Idle"
 }
 
 var aim_direction_debbug := {
@@ -46,5 +47,10 @@ func _physics_process(delta: float) -> void:
 		current_zone  = AimZone.AIM_UP_IDLE
 		aim_direction = AimDirection.UP
 	else:
-		current_zone  = AimZone.MOVE
-		aim_direction = AimDirection.FORWARD
+		# Modified by ME!
+		if y > AIM_THRESHOLD:
+			current_zone  = AimZone.AIM_DOWN_IDLE
+			aim_direction = AimDirection.DOWN
+		else :
+			current_zone  = AimZone.MOVE
+			aim_direction = AimDirection.FORWARD

@@ -76,11 +76,13 @@ target_position = Vector2(0, 40)
 [node name="BottomSlideStop" type="RayCast2D" parent="RayCasts" unique_id=24949518]
 target_position = Vector2(0, 140)
 
+[node name="ForcedFall" type="RayCast2D" parent="RayCasts" unique_id=263831735]
+target_position = Vector2(0, 500)
+
 [node name="Components" type="Node" parent="." unique_id=2138234143]
 
 [node name="PlayerAimComponent" type="Node" parent="Components" unique_id=1738510395]
 script = ExtResource("2_ck846")
-IDLE_THRESHOLD = 0.26
 metadata/_custom_type_script = "uid://d17itavn1yymn"
 
 [node name="StateMachine" type="Node" parent="." unique_id=393924244 node_paths=PackedStringArray("initiate_state")]
