@@ -5,12 +5,7 @@ func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
 	player.dash_timer.start()
 	player.is_dashing = true
 	player.velocity.y = 0
-	if player.is_on_wall() and player.left_raycast.is_colliding():
-		player.velocity.x = player.dash_velocity
-	elif player.is_on_wall() and player.right_raycast.is_colliding():
-		player.velocity.x = -player.dash_velocity
-	else :
-		player.velocity.x = player.dash_velocity * player.facing_direction
+	player.velocity.x = player.dash_velocity * player.facing_direction
 
 func gravity_handle(delta: float, player: Player):
 	if !player.is_on_floor():

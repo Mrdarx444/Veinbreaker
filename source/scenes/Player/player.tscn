@@ -66,12 +66,14 @@ position_smoothing_speed = 7.0
 [node name="RayCasts" type="Node2D" parent="." unique_id=1068774341]
 
 [node name="LeftWall" type="RayCast2D" parent="RayCasts" unique_id=1067981713]
+position = Vector2(0, -19)
 rotation = 1.5707964
-target_position = Vector2(0, 40)
+target_position = Vector2(0, 35)
 
 [node name="RightWall" type="RayCast2D" parent="RayCasts" unique_id=724376704]
+position = Vector2(0, -19)
 rotation = -1.5707964
-target_position = Vector2(0, 40)
+target_position = Vector2(0, 35)
 
 [node name="BottomSlideStop" type="RayCast2D" parent="RayCasts" unique_id=24949518]
 target_position = Vector2(0, 140)

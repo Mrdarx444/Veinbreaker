@@ -22,10 +22,10 @@ func get_next_state(player: Player) -> StringName:
 		return &"Jump"
 	if player.joystick.move_direction == 0 or player.bottom_slide_stop_raycast.is_colliding():
 		return &"Fall"
-	if (
-		Input.is_action_just_pressed("Dash") and
-		player.dash_cooldown_timer.is_stopped() and
-		player.can_dash
-	):
-		return &"Dash"
+	#if (
+		#Input.is_action_just_pressed("Dash") and
+		#player.dash_cooldown_timer.is_stopped() and
+		#player.can_dash
+	#):
+		#return &"Dash"
 	return &""
