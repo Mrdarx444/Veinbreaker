@@ -12,7 +12,7 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export var max_fall_speed: float = 2000.0
 @export var forced_fall_velocity: float = 2000.0
 @export var jump_velocity: float = -900.0
-@export var double_jump_velocity: float = -500
+@export var double_jump_velocity: float = -800
 @export var max_jumps: int = 2
 @export var left_jumps: int = 0
 @export_range(0, 1, .01) var jump_cut_mult: float = 0.35
@@ -57,6 +57,8 @@ const DEBUG_MODE: bool = true
 @onready var velocity_label: Label = $HUD/Debug/Velocity
 @onready var coyote_timer_label: Label = $HUD/Debug/CoyoteTimer
 @onready var buffer_timer_label: Label = $HUD/Debug/BufferTimer
+@onready var left_jumps_label: Label = $HUD/Debug/LeftJumps
+
 
 func _ready() -> void:
 	set_timers()
@@ -88,3 +90,4 @@ func _debug():
 	
 	coyote_timer_label.text = "Coyote Timer: " + str(coyote_timer.time_left)
 	buffer_timer_label.text = "Jump Buffer Timer: " + str(jump_buffer_timer.time_left)
+	left_jumps_label.text = "Jumps Left: " + str(left_jumps)

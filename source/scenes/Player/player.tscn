@@ -244,9 +244,9 @@ label_settings = SubResource("LabelSettings_ck846")
 layout_direction = 2
 layout_mode = 0
 offset_left = 23.0
-offset_top = 120.0
+offset_top = 112.0
 offset_right = 222.0
-offset_bottom = 175.0
+offset_bottom = 167.0
 text = "Coyote Timer: 0.0"
 label_settings = SubResource("LabelSettings_ck846")
 
@@ -254,10 +254,20 @@ label_settings = SubResource("LabelSettings_ck846")
 layout_direction = 2
 layout_mode = 0
 offset_left = 23.0
-offset_top = 144.0
+offset_top = 136.0
 offset_right = 347.0
-offset_bottom = 199.0
+offset_bottom = 191.0
 text = "Jump Buffer Timer: 0.0"
+label_settings = SubResource("LabelSettings_ck846")
+
+[node name="LeftJumps" type="Label" parent="HUD/Debug" unique_id=1256098361]
+layout_direction = 2
+layout_mode = 0
+offset_left = 23.0
+offset_top = 160.0
+offset_right = 347.0
+offset_bottom = 215.0
+text = "Jumps Left: 0"
 label_settings = SubResource("LabelSettings_ck846")
 
 [node name="StateLabel" type="Label" parent="." unique_id=1840347626]

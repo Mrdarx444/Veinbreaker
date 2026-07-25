@@ -7,7 +7,7 @@ func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachi
 	movement_handle(delta, player)
 	if Input.is_action_just_pressed("Jump"):
 		if (
-			player.joystick.aim_direction == player.joystick.AimDirection.DOWN and
+			player.joystick.current_zone == player.joystick.AimZone.AIM_DOWN_IDLE and
 			player.forced_fall_raycast.is_colliding()
 		):
 			forced_fall = true
@@ -39,7 +39,7 @@ func get_next_state(player: Player) -> StringName:
 	if Input.is_action_just_pressed("Jump") and player.can_jump and player.left_jumps > 0:
 		if !player.coyote_timer.is_stopped():
 			return &"Jump"
-		if player.can_double_jump and player.left_jumps > 0 and !(player.joystick.aim_direction == player.joystick.AimDirection.DOWN):
+		if player.can_double_jump and player.left_jumps > 0 and !(player.joystick.current_zone == player.joystick.AimZone.AIM_DOWN_IDLE):
 			return &"Jump"
 	if can_wall_slide(player):
 		return &"WallSlide"
