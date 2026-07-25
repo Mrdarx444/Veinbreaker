@@ -4,6 +4,7 @@ extends Node
 signal state_changed(from_state: StringName, to_state: StringName)
 
 @export var initiate_state: State = null
+@onready var previus_state: State = null
 @onready var current_state: State = initiate_state
 
 var states: Dictionary[StringName, State] = {}
@@ -37,6 +38,7 @@ func change_state(next_state_name: StringName) -> void:
 	if current_state == next_state:
 		push_warning("Already in state '%s'" % str(next_state_name))
 		return
+	previus_state = current_state
 	current_state.exit(owner, self)
 	next_state.enter(owner, self)
 	state_changed.emit(current_state.name, next_state_name)
