@@ -33,16 +33,22 @@ func gravity_handle(delta: float, player: Player):
 
 func get_next_state(player: Player) -> StringName:
 	if player.is_on_floor():
-		if player.joystick.move_direction != 0:
+		if player.joystick.move_direction != 0 and player.can_move:
 			return &"Move"
 		else :
 			return &"Idle"
-	if Input.is_action_just_pressed("Jump"):
+	if Input.is_action_just_pressed("Jump") and player.can_jump:
 		if !player.coyote_timer.is_stopped():
+			return &"Jump"
+		if player.can_double_jump and player.left_jumps > 0 and !(player.joystick.aim_direction == player.joystick.AimDirection.DOWN):
 			return &"Jump"
 	if can_wall_slide(player):
 		return &"WallSlide"
-	if Input.is_action_just_pressed("Dash") and player.dash_cooldown_timer.is_stopped():
+	if (
+		Input.is_action_just_pressed("Dash") and
+		player.dash_cooldown_timer.is_stopped() and
+		player.can_dash
+	):
 		return &"Dash"
 	return &""
 

@@ -137,6 +137,25 @@ shape = SubResource("RectangleShape2D_v5nji")
 
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_4loxo")]
 position = Vector2(-776, -2)
+speed = null
+aiming_slowdown_ratio = null
+max_fall_speed = null
+forced_fall_velocity = null
+can_jump = null
+jump_velocity = null
+max_jumps = null
+jump_cut_mult = null
+coyote_time = null
+jump_buffer_time = null
+can_wall_slide = null
+wall_slide_coefficient = null
+wall_jump_velocity_x = null
+can_dash = null
+is_dashing = null
+dash_velocity = null
+dash_time = null
+dash_cooldown_time = null
+dash_gravity_coefficient = null
 
 [node name="LevelCamera" type="Camera2D" parent="." unique_id=893587825]
 visible = false

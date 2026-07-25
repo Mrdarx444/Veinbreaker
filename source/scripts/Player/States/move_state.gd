@@ -11,11 +11,15 @@ func get_next_state(player: Player) -> StringName:
 		if player.velocity.y >= 0:
 			player.coyote_timer.start()
 			return &"Fall"
-	if Input.is_action_just_pressed("Jump"):
+	if Input.is_action_just_pressed("Jump") and player.can_jump:
 		return &"Jump"
-	if !player.jump_buffer_timer.is_stopped():
+	if !player.jump_buffer_timer.is_stopped() and player.can_jump:
 		player.jump_buffer_timer.stop()
 		return &"Jump"
-	if Input.is_action_just_pressed("Dash") and player.dash_cooldown_timer.is_stopped():
+	if (
+		Input.is_action_just_pressed("Dash") and
+		player.dash_cooldown_timer.is_stopped() and
+		player.can_dash
+	):
 		return &"Dash"
 	return &""

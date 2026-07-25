@@ -4,6 +4,8 @@ func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
 	var player: Player = state_owner
 	player.velocity.y = player.jump_velocity
 	player.coyote_timer.stop()
+	player.left_jumps -= 1
+	print("Left Jumps: "+str(player.left_jumps))
 
 func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachine) -> void:
 	movement_handle(delta, state_owner as Player)
@@ -17,6 +19,10 @@ func get_next_state(player: Player) -> StringName:
 		return &"Fall"
 	if can_wall_slide(player):
 		return &"WallSlide"
-	if Input.is_action_just_pressed("Dash") and player.dash_cooldown_timer.is_stopped():
+	if (
+		Input.is_action_just_pressed("Dash") and
+		player.dash_cooldown_timer.is_stopped() and
+		player.can_dash
+	):
 		return &"Dash"
 	return &""

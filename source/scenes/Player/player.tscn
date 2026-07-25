@@ -77,7 +77,7 @@ target_position = Vector2(0, 40)
 target_position = Vector2(0, 140)
 
 [node name="ForcedFall" type="RayCast2D" parent="RayCasts" unique_id=263831735]
-target_position = Vector2(0, 500)
+target_position = Vector2(0, 250)
 
 [node name="Components" type="Node" parent="." unique_id=2138234143]
 

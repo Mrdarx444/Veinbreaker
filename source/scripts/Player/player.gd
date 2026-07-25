@@ -11,7 +11,10 @@ var facing_direction: int = 1
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2
 @export var max_fall_speed: float = 2000.0
 @export var forced_fall_velocity: float = 2000.0
-@export var jump_velocity: float = -900
+@export var jump_velocity: float = -900.0
+@export var double_jump_velocity: float = -500
+@export var max_jumps: int = 2
+var left_jumps: int = max_jumps
 @export_range(0, 1, .01) var jump_cut_mult: float = 0.35
 @export var coyote_time: float = 0.13
 @export var jump_buffer_time: float = 0.17
@@ -25,6 +28,14 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export var dash_time: float = 0.13
 @export var dash_cooldown_time: float = 0.9
 @export var dash_gravity_coefficient: float = 0.07
+
+@export_category("Abilities")
+@export var can_move: bool = true
+@export var can_jump: bool = true
+@export var can_wall_slide: bool = true
+@export var can_wall_jump: bool = true
+@export var can_double_jump: bool = true
+@export var can_dash: bool = true
 
 # Nodes
 @onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
