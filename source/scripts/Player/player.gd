@@ -2,32 +2,32 @@ extends CharacterBody2D
 class_name Player
 
 @export_subgroup("Movement")
-@export var speed: float = 700.0
+@export var speed: float = 550.0
 var acceleration: float = speed * 10
 var friction: float = speed * 6
-@export_range(0, 1, .01) var aiming_slowdown_ratio: float = 0.75
-var facing_direction: int = 1
+@export_range(0, 1, .01) var aiming_slowdown_ratio: float = 1
+var facing_direction: int = 1 # Default Facing Direction = RIGHT
 @export_subgroup("Jump & Fall")
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2
-@export var max_fall_speed: float = 2000.0
+@export var max_fall_speed: float = 2300.0
 @export var forced_fall_velocity: float = 2000.0
-@export var jump_velocity: float = -900.0
+@export var jump_velocity: float = -970.0
 @export var double_jump_velocity: float = -800
 @export var max_jumps: int = 2
-@export var left_jumps: int = 0
+@export var left_jumps: int = 0 # In Case of direct Fall after Idle
 @export_range(0, 1, .01) var jump_cut_mult: float = 0.35
 @export var coyote_time: float = 0.13
 @export var jump_buffer_time: float = 0.17
 @export_subgroup("Wall slide/jump")
-@export_range(0, 1, .01) var wall_slide_coefficient: float = 0.55
+@export_range(0, 1, .01) var wall_slide_coefficient: float = 0.9
 @export var wall_jump_velocity_x: float = 800.0
 @export var wall_slide_max_gravity: float = gravity * 0.3
 @export_subgroup("Dash")
 @export var is_dashing: bool = true
-@export var dash_velocity: float = 2900
-@export var dash_time: float = 0.13
+@export var dash_velocity: float = 2500
+@export var dash_time: float = 0.125
 @export var dash_cooldown_time: float = 0.9
-@export var dash_gravity_coefficient: float = 0.07
+@export var dash_gravity_coefficient: float = 0
 
 @export_category("Abilities")
 @export var can_move: bool = true

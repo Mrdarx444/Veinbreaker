@@ -181,7 +181,7 @@ texture_normal = ExtResource("10_n0ac8")
 passby_press = true
 action = "Jump"
 script = ExtResource("12_oyrgr")
-offset = Vector2(130, 40)
+offset = Vector2(120, 25)
 
 [node name="DashButton" type="TouchScreenButton" parent="HUD/Controllers" unique_id=1920385870]
 material = SubResource("CanvasItemMaterial_n0ac8")
@@ -191,7 +191,7 @@ texture_normal = ExtResource("11_uvchi")
 passby_press = true
 action = "Dash"
 script = ExtResource("12_oyrgr")
-offset = Vector2(35, 190)
+offset = Vector2(30, 160)
 
 [node name="Debug" type="Control" parent="HUD" unique_id=1479378718]
 layout_direction = 2
