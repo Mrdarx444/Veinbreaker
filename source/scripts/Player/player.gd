@@ -36,6 +36,7 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export var can_wall_jump: bool = true
 @export var can_double_jump: bool = true
 @export var can_dash: bool = true
+@export var can_forced_fall: bool = true
 
 # Nodes
 @onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
@@ -49,7 +50,7 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @onready var dash_cooldown_timer: Timer = $Timers/DashCooldown
 
 # Debugging
-const DEBUG_MODE: bool = true
+const DEBUG_MODE: bool = false
 @onready var debug_labels_container: Control = $HUD/Debug
 @onready var zone_label: Label = $HUD/Debug/Zone
 @onready var direction_label: Label = $HUD/Debug/Direction
