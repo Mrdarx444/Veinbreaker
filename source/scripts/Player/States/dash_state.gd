@@ -20,7 +20,16 @@ func get_next_state(player: Player) -> StringName:
 	if player.dash_timer.is_stopped():
 		player.is_dashing = false
 		player.velocity.x = 0
-		return &"Idle"
+		if player.is_on_floor():
+			return &"Idle"
+		else :
+			if can_wall_slide(player):
+				return &"WallSlide"
+			else :
+				if player.velocity.y >= 0:
+					return &"Fall"
+				else :
+					return &"Jump"
 	return &""
 
 func exit(state_owner: Node2D, state_machine: StateMachine) -> void:

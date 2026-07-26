@@ -1,11 +1,12 @@
 extends CharacterBody2D
 class_name Player
 
+@export_category("Settings")
 @export_subgroup("Movement")
 @export var speed: float = 550.0
 var acceleration: float = speed * 10
 var friction: float = speed * 6
-@export_range(0, 1, .01) var aiming_slowdown_ratio: float = 1
+@export_range(0, 1, .01) var aiming_slowdown_ratio: float = 1 # Temp Canceling
 var facing_direction: int = 1 # Default Facing Direction = RIGHT
 @export_subgroup("Jump & Fall")
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2
@@ -13,8 +14,6 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export var forced_fall_velocity: float = 2000.0
 @export var jump_velocity: float = -970.0
 @export var double_jump_velocity: float = -800
-@export var max_jumps: int = 2
-@export var left_jumps: int = 0 # In Case of direct Fall after Idle
 @export_range(0, 1, .01) var jump_cut_mult: float = 0.35
 @export var coyote_time: float = 0.13
 @export var jump_buffer_time: float = 0.17
@@ -27,16 +26,20 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export var dash_velocity: float = 2500
 @export var dash_time: float = 0.125
 @export var dash_cooldown_time: float = 0.9
-@export var dash_gravity_coefficient: float = 0
+@export var dash_gravity_coefficient: float = 0.07
 
-@export_category("Abilities")
+@export_category("Basic Abilities")
 @export var can_move: bool = true
 @export var can_jump: bool = true
-@export var can_wall_slide: bool = true
-@export var can_wall_jump: bool = true
-@export var can_double_jump: bool = true
 @export var can_dash: bool = true
-@export var can_forced_fall: bool = true
+
+@export_category("Skills")
+# Default = false
+@export var unlocked_double_jump: bool = true
+var can_double_jump = false
+@export var unlocked_forced_fall: bool = true
+@export var unlocked_wall_slide: bool = true
+@export var unlocked_wall_jump: bool = true
 
 # Nodes
 @onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
@@ -50,7 +53,7 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @onready var dash_cooldown_timer: Timer = $Timers/DashCooldown
 
 # Debugging
-const DEBUG_MODE: bool = false
+const DEBUG_MODE: bool = true
 @onready var debug_labels_container: Control = $HUD/Debug
 @onready var zone_label: Label = $HUD/Debug/Zone
 @onready var direction_label: Label = $HUD/Debug/Direction
@@ -58,8 +61,7 @@ const DEBUG_MODE: bool = false
 @onready var velocity_label: Label = $HUD/Debug/Velocity
 @onready var coyote_timer_label: Label = $HUD/Debug/CoyoteTimer
 @onready var buffer_timer_label: Label = $HUD/Debug/BufferTimer
-@onready var left_jumps_label: Label = $HUD/Debug/LeftJumps
-
+@onready var dash_cooldown_timer_label: Label = $HUD/Debug/DashCooldownTimer
 
 func _ready() -> void:
 	set_timers()
@@ -87,8 +89,8 @@ func _debug():
 		_:
 			move_direction_label.text = "Direction: None"
 	
-	velocity_label.text = "Velocity: " + str(velocity)
+	velocity_label.text = "Velocity:     x=%d    y=%d" % [velocity.x, velocity.y]
 	
-	coyote_timer_label.text = "Coyote Timer: " + str(coyote_timer.time_left)
-	buffer_timer_label.text = "Jump Buffer Timer: " + str(jump_buffer_timer.time_left)
-	left_jumps_label.text = "Jumps Left: " + str(left_jumps)
+	coyote_timer_label.text = "Coyote Timer: %.2f" % coyote_timer.time_left
+	buffer_timer_label.text = "Jump Buffer Timer: %.2f" % jump_buffer_timer.time_left
+	dash_cooldown_timer_label.text = "Dash Cooldown: %.2f" % dash_cooldown_timer.time_left

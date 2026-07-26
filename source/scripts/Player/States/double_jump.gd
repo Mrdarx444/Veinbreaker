@@ -1,9 +1,9 @@
 extends PlayerState
 
 func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
-	var player: Player = state_owner
-	player.velocity.y = player.jump_velocity
-	player.coyote_timer.stop()
+	var player: Player = (state_owner as Player)
+	player.velocity.y = player.double_jump_velocity
+	player.can_double_jump = false
 
 func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachine) -> void:
 	movement_handle(delta, state_owner as Player)

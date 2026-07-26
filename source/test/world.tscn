@@ -113,7 +113,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_slmcd")
 
 [node name="Wall3" type="StaticBody2D" parent="." unique_id=492829394]
-position = Vector2(352, -237)
+position = Vector2(192, -245)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Wall3" unique_id=1704805394]
