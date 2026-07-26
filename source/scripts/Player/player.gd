@@ -5,7 +5,7 @@ class_name Player
 @export_subgroup("Movement")
 @export var speed: float = 550.0
 var acceleration: float = speed * 10
-var friction: float = speed * 6
+var friction: float = speed * 7
 @export_range(0, 1, .01) var aiming_slowdown_ratio: float = 1 # Temp Canceling
 var facing_direction: int = 1 # Default Facing Direction = RIGHT
 @export_subgroup("Jump & Fall")
@@ -17,17 +17,19 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export_range(0, 1, .01) var jump_cut_mult: float = 0.35
 @export var coyote_time: float = 0.13
 @export var jump_buffer_time: float = 0.17
-@export_subgroup("Wall slide/jump")
-@export_range(0, 1, .01) var wall_slide_coefficient: float = 0.9
-@export var wall_jump_velocity_x: float = 800.0
-@export var wall_slide_max_gravity: float = gravity * 0.3
+@export var air_resistence_coefficient: float = 0.9
+@export_subgroup("Wall slide & jump")
+@export_range(0, 1, .01) var wall_slide_coefficient: float = 1.1
+@export var wall_slide_initial_velocity: float = 120.0
+@export var wall_jump_velocity_x: float = 900.0
+@export var wall_slide_max_gravity: float = gravity * 0.23
 var is_wall_sliding: bool = false
 @export_subgroup("Dash")
 @export var is_dashing: bool = true
 @export var dash_velocity: float = 2500
 @export var dash_time: float = 0.125
-@export var dash_cooldown_time: float = 0.9
-@export var dash_gravity_coefficient: float = 0.07
+@export var dash_cooldown_time: float = 1.15
+@export var dash_gravity_coefficient: float = 0.0
 
 @export_category("Basic Abilities")
 @export var can_move: bool = true

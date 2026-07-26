@@ -2,7 +2,7 @@ extends PlayerState
 
 func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
 	var player: Player = state_owner
-	player.velocity = Vector2.ZERO
+	player.velocity = Vector2(0.0, player.wall_slide_initial_velocity)
 	player.is_wall_sliding = true
 
 func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachine) -> void:

@@ -158,20 +158,18 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 25.0
-offset_top = -202.0
-offset_right = 195.0
-offset_bottom = -33.0
+offset_top = -277.0
+offset_right = 274.0
+offset_bottom = -2.0
 grow_vertical = 0
-pivot_offset = Vector2(90, 90)
+pivot_offset = Vector2(137, 137.5)
 mouse_filter = 2
 script = ExtResource("10_pwbjc")
 joystick_radius = 90.0
 thumb_radius = 50.0
 dpad_radius = 100.0
 deadzone = 0.0
-joystick_mode = 1
-clampzone_ratio = 1.3
+joystick_mode = 2
 action_left = &"Left"
 action_right = &"Right"
 action_up = &"Up"
@@ -296,5 +294,13 @@ grow_vertical = 0
 text = "State: None"
 label_settings = SubResource("LabelSettings_c4tgw")
 script = SubResource("GDScript_c4tgw")
+
+[node name="MovementTracerDebugger" type="CPUParticles2D" parent="." unique_id=993443028]
+show_behind_parent = true
+amount = 40
+lifetime = 2.0
+gravity = Vector2(0, 0)
+scale_amount_min = 10.0
+scale_amount_max = 10.0
 
 [connection signal="state_changed" from="StateMachine" to="StateLabel" method="_on_state_machine_state_changed"]
