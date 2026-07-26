@@ -24,7 +24,7 @@ var aim_direction_debbug := {
 
 var current_zone     : AimZone     = AimZone.MOVE
 var aim_direction    : AimDirection = AimDirection.FORWARD
-var move_direction   : float = 0.0  # -1, 0, 1
+var move_direction   : float = 0.0
 
 func _physics_process(delta: float) -> void:
 	var input_vector := Input.get_vector("Left", "Right", "Up", "Down")

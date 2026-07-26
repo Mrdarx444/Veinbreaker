@@ -6,7 +6,7 @@ func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachi
 	gravity_handle(delta, state_owner as Player)
 	state_machine.change_state(get_next_state(player))
 	player.move_and_slide()
-	if player.is_on_floor():
+	if player.is_on_floor() or player.is_wall_sliding:
 		player.can_double_jump = true
 
 func get_next_state(player: Player) -> StringName:

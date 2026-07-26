@@ -3,7 +3,7 @@ extends PlayerState
 func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
 	var player: Player = state_owner
 	player.velocity = Vector2.ZERO
-	player.can_double_jump = true
+	player.is_wall_sliding = true
 
 func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachine) -> void:
 	super.physics_update(delta, state_owner, state_machine)
@@ -24,3 +24,7 @@ func get_next_state(player: Player) -> StringName:
 	if player.joystick.move_direction == 0 or player.bottom_slide_stop_raycast.is_colliding():
 		return &"Fall"
 	return &""
+
+func exit(state_owner: Node2D, state_machine: StateMachine) -> void:
+	var player: Player = state_owner
+	player.is_wall_sliding = false
