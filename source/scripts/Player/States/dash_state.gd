@@ -3,6 +3,7 @@ extends PlayerState
 func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
 	var player: Player = state_owner
 	print("Dash Distance = %.2f" % (player.dash_velocity * player.dash_time))
+	#await get_tree().create_timer(0.17).timeout
 	player.dash_timer.start()
 	player.is_dashing = true
 	player.velocity.y = 0

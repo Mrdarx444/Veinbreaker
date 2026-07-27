@@ -23,6 +23,11 @@ func get_next_state(player: Player) -> StringName:
 		return &"Jump"
 	if player.joystick.move_direction == 0 or player.bottom_slide_stop_raycast.is_colliding():
 		return &"Fall"
+	if !can_wall_slide(player):
+		if player.is_on_floor():
+			return &"Idle"
+		else :
+			return &"Fall"
 	return &""
 
 func exit(state_owner: Node2D, state_machine: StateMachine) -> void:

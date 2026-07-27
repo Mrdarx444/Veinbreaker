@@ -40,11 +40,6 @@ func _on_state_machine_state_changed(from_state: StringName, to_state: StringNam
 
 [node name="Player" type="CharacterBody2D" unique_id=1568325260]
 script = ExtResource("1_31g4s")
-unlocked_double_jump = false
-unlocked_forced_fall = false
-unlocked_wall_slide = false
-unlocked_wall_jump = false
-unlocked_dodge = false
 
 [node name="TempSprite" type="ColorRect" parent="." unique_id=739025270]
 custom_minimum_size = Vector2(60, 120)
@@ -169,16 +164,17 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -277.0
-offset_right = 274.0
-offset_bottom = -2.0
+offset_left = -11.0
+offset_top = -266.0
+offset_right = 263.0
+offset_bottom = 9.0
 grow_vertical = 0
 pivot_offset = Vector2(137, 137.5)
 mouse_filter = 2
 script = ExtResource("10_pwbjc")
 joystick_radius = 90.0
 thumb_radius = 50.0
-dpad_radius = 100.0
+dpad_radius = 120.0
 deadzone = 0.0
 joystick_mode = 2
 action_left = &"Left"
@@ -290,6 +286,16 @@ offset_bottom = 215.0
 text = "Dash Cooldown: 0"
 label_settings = SubResource("LabelSettings_ck846")
 
+[node name="DodgeCooldownTimer" type="Label" parent="HUD/Debug" unique_id=1017502994]
+layout_direction = 2
+layout_mode = 0
+offset_left = 23.0
+offset_top = 182.0
+offset_right = 347.0
+offset_bottom = 237.0
+text = "Dodge Cooldown: 0"
+label_settings = SubResource("LabelSettings_ck846")
+
 [node name="StateLabel" type="Label" parent="." unique_id=1840347626]
 anchors_preset = 7
 anchor_left = 0.5
@@ -307,7 +313,6 @@ label_settings = SubResource("LabelSettings_c4tgw")
 script = SubResource("GDScript_c4tgw")
 
 [node name="MovementTracerDebugger" type="CPUParticles2D" parent="." unique_id=993443028]
-visible = false
 show_behind_parent = true
 amount = 40
 lifetime = 2.0
