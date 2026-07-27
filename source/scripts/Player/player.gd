@@ -22,14 +22,20 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export_range(0, 1, .01) var wall_slide_coefficient: float = 1.1
 @export var wall_slide_initial_velocity: float = 120.0
 @export var wall_jump_velocity_x: float = 900.0
-@export var wall_slide_max_gravity: float = gravity * 0.23
+@export var wall_slide_max_gravity: float = gravity * 0.25
 var is_wall_sliding: bool = false
 @export_subgroup("Dash")
 @export var is_dashing: bool = true
-@export var dash_velocity: float = 2500
-@export var dash_time: float = 0.125
-@export var dash_cooldown_time: float = 1.15
+@export var dash_velocity: float = 2500.0
+@export var dash_time: float = 0.122
+@export var dash_cooldown_time: float = 1.2
 @export var dash_gravity_coefficient: float = 0.0
+@export_subgroup("Dodge")
+@export var is_dodging: bool = true
+@export var dodge_velocity: float = 1500.0
+@export var dodge_time: float = 0.12
+@export var dodge_cooldown_time: float = 0.5
+@export var dodge_gravity_coefficient: float = 1.0
 
 @export_category("Basic Abilities")
 @export var can_move: bool = true
@@ -43,17 +49,22 @@ var can_double_jump = false
 @export var unlocked_forced_fall: bool = true
 @export var unlocked_wall_slide: bool = true
 @export var unlocked_wall_jump: bool = true
+@export var unlocked_dodge: bool = true
 
-# Nodes
+#=== Nodes:
 @onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
-@onready var coyote_timer: Timer = $Timers/CoyoteTimer
-@onready var jump_buffer_timer: Timer = $Timers/JumpBufferTimer
+# RayCasts:
 @onready var left_raycast: RayCast2D = $RayCasts/LeftWall
 @onready var right_raycast: RayCast2D = $RayCasts/RightWall
 @onready var bottom_slide_stop_raycast: RayCast2D = $RayCasts/BottomSlideStop
 @onready var forced_fall_raycast: RayCast2D = $RayCasts/ForcedFall
+# Timers:
+@onready var coyote_timer: Timer = $Timers/CoyoteTimer
+@onready var jump_buffer_timer: Timer = $Timers/JumpBufferTimer
 @onready var dash_timer: Timer = $Timers/DashTimer
 @onready var dash_cooldown_timer: Timer = $Timers/DashCooldown
+@onready var dodge_timer: Timer = $Timers/DodgeTimer
+@onready var dodge_cooldown_timer: Timer = $Timers/DodgeCooldown
 
 # Debugging
 const DEBUG_MODE: bool = true
@@ -79,21 +90,22 @@ func set_timers():
 	jump_buffer_timer.wait_time = jump_buffer_time
 	dash_timer.wait_time = dash_time
 	dash_cooldown_timer.wait_time = dash_cooldown_time
+	dodge_timer.wait_time = dodge_time
+	dodge_cooldown_timer.wait_time = dodge_cooldown_time
 
 func _debug():
 	zone_label.text = "Aim Zone: " + joystick.aim_zone_debbug[joystick.current_zone]
 	direction_label.text = "Aim Direction: " + joystick.aim_direction_debbug[joystick.aim_direction]
 	
-	match int(joystick.move_direction):
+	match int(facing_direction):
 		-1:
-			move_direction_label.text = "Direction: Left"
+			move_direction_label.text = "Facing Direction: ← •  "
 		1:
-			move_direction_label.text = "Direction: Right"
+			move_direction_label.text = "Facing Direction:   • →"
 		_:
-			move_direction_label.text = "Direction: None"
+			move_direction_label.text = "Facing Direction:   •  "
 	
 	velocity_label.text = "Velocity:     x=%d    y=%d" % [velocity.x, velocity.y]
-	
 	coyote_timer_label.text = "Coyote Timer: %.2f" % coyote_timer.time_left
 	buffer_timer_label.text = "Jump Buffer Timer: %.2f" % jump_buffer_timer.time_left
 	dash_cooldown_timer_label.text = "Dash Cooldown: %.2f" % dash_cooldown_timer.time_left

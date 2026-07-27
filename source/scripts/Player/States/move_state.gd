@@ -21,5 +21,11 @@ func get_next_state(player: Player) -> StringName:
 		player.dash_cooldown_timer.is_stopped() and
 		player.can_dash
 	):
-		return &"Dash"
+		if player.joystick.aim_direction == player.joystick.AimDirection.UP:
+			if player.dodge_cooldown_timer.is_stopped() and player.unlocked_dodge:
+				return &"Dodge"
+			else :
+				return &""
+		else :
+			return &"Dash"
 	return &""

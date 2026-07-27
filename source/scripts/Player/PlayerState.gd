@@ -2,14 +2,26 @@ class_name PlayerState
 extends State
 
 func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachine) -> void:
-	var player: Player = state_owner
-	gravity_handle(delta, state_owner as Player)
+	var player: Player = (state_owner as Player)
+	gravity_handle(delta, player)
 	state_machine.change_state(get_next_state(player))
 	player.move_and_slide()
 	if player.is_on_floor() or player.is_wall_sliding:
 		player.can_double_jump = true
 
 func get_next_state(player: Player) -> StringName:
+	if (
+		Input.is_action_just_pressed("Dash") and
+		player.dash_cooldown_timer.is_stopped() and
+		player.can_dash
+	):
+		if player.joystick.aim_direction == player.joystick.AimDirection.UP:
+			if player.dodge_cooldown_timer.is_stopped():
+				return &"Dodge"
+			else :
+				return &""
+		else :
+			return &"Dash"
 	return &""
 
 func gravity_handle(delta: float, player: Player):
