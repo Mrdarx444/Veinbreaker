@@ -14,6 +14,12 @@ func gravity_handle(delta: float, player: Player):
 func get_next_state(player: Player) -> StringName:
 	if player.is_on_floor():
 		return &"Idle"
+	if !can_wall_slide(player):
+		if player.is_on_floor():
+			return &"Idle"
+		else :
+			return &"Fall"
+		
 	# Second Condition: Has no meaning but is an additional protection
 	if Input.is_action_just_pressed("Jump") and player.unlocked_wall_jump:
 		if player.right_raycast.is_colliding():
@@ -23,11 +29,6 @@ func get_next_state(player: Player) -> StringName:
 		return &"Jump"
 	if player.joystick.move_direction == 0 or player.bottom_slide_stop_raycast.is_colliding():
 		return &"Fall"
-	if !can_wall_slide(player):
-		if player.is_on_floor():
-			return &"Idle"
-		else :
-			return &"Fall"
 	return &""
 
 func exit(state_owner: Node2D, state_machine: StateMachine) -> void:

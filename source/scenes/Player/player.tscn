@@ -14,10 +14,12 @@
 [ext_resource type="Script" uid="uid://dvswj5xgggsc1" path="res://source/scripts/Player/States/double_jump.gd" id="10_wj2h3"]
 [ext_resource type="Texture2D" uid="uid://cxpqtve140hr6" path="res://assets/Demo/Dash Button.png" id="11_uvchi"]
 [ext_resource type="Script" uid="uid://d2liice8vwrmb" path="res://source/scripts/Player/States/dodge_state.gd" id="11_wj2h3"]
+[ext_resource type="Script" uid="uid://bhpy6fo4n8ft" path="res://source/scripts/Player/States/stunned_state.gd" id="12_i6it3"]
 [ext_resource type="Script" uid="uid://dig3m88k5pkqe" path="res://source/classes/PlayerHUDButtons.gd" id="12_oyrgr"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yd3kj"]
-size = Vector2(60, 120)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wj2h3"]
+radius = 28.0
+height = 120.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_n0ac8"]
 blend_mode = 3
@@ -57,7 +59,8 @@ grow_vertical = 2
 color = Color(0, 0.57254905, 1, 1)
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=888884237]
-shape = SubResource("RectangleShape2D_yd3kj")
+shape = SubResource("CapsuleShape2D_wj2h3")
+debug_color = Color(1, 1, 1, 0.41960785)
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1120778986]
 zoom = Vector2(0.6, 0.6)
@@ -70,12 +73,12 @@ position_smoothing_speed = 7.0
 [node name="LeftWall" type="RayCast2D" parent="RayCasts" unique_id=1067981713]
 position = Vector2(0, -19)
 rotation = 1.5707964
-target_position = Vector2(0, 35)
+target_position = Vector2(0, 32)
 
 [node name="RightWall" type="RayCast2D" parent="RayCasts" unique_id=724376704]
 position = Vector2(0, -19)
 rotation = -1.5707964
-target_position = Vector2(0, 35)
+target_position = Vector2(0, 32)
 
 [node name="BottomSlideStop" type="RayCast2D" parent="RayCasts" unique_id=24949518]
 target_position = Vector2(0, 140)
@@ -127,6 +130,10 @@ metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
 script = ExtResource("11_wj2h3")
 metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
 
+[node name="Stunned" type="Node" parent="StateMachine" unique_id=419349326]
+script = ExtResource("12_i6it3")
+metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
+
 [node name="Timers" type="Node" parent="." unique_id=1895822513]
 
 [node name="CoyoteTimer" type="Timer" parent="Timers" unique_id=302265838]
@@ -145,6 +152,9 @@ one_shot = true
 one_shot = true
 
 [node name="DodgeCooldown" type="Timer" parent="Timers" unique_id=2112230708]
+one_shot = true
+
+[node name="StunningTimer" type="Timer" parent="Timers" unique_id=467017885]
 one_shot = true
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=69797456]
@@ -314,6 +324,7 @@ script = SubResource("GDScript_c4tgw")
 
 [node name="MovementTracerDebugger" type="CPUParticles2D" parent="." unique_id=993443028]
 show_behind_parent = true
+position = Vector2(0, 55)
 amount = 40
 lifetime = 2.0
 gravity = Vector2(0, 0)

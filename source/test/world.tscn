@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://bghqxvldmkdeg" path="res://source/scenes/Player/player.tscn" id="1_4loxo"]
 [ext_resource type="Script" uid="uid://ndyhlhric3kf" path="res://source/test/level_camera.gd" id="2_pdc63"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dihab"]
-size = Vector2(4000, 150)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v5nji"]
+size = Vector2(7000, 150)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pdc63"]
 size = Vector2(150, 1000)
@@ -15,17 +15,23 @@ size = Vector2(150, 1000)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_slmcd"]
 size = Vector2(150, 1000)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v5nji"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a81ga"]
+size = Vector2(150, 1200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jhwa0"]
 size = Vector2(150, 700)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2fwax"]
+size = Vector2(200, 70)
 
 [node name="World" type="Node2D" unique_id=57820806]
 
 [node name="Platform" type="StaticBody2D" parent="." unique_id=267754281]
-position = Vector2(549, 480)
+position = Vector2(2049, 480)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Platform" unique_id=2103790015]
-custom_minimum_size = Vector2(4000, 150)
+custom_minimum_size = Vector2(7000, 150)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -41,7 +47,10 @@ color = Color(0, 0.49862653, 0.20481673, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Collision" type="CollisionShape2D" parent="Platform" unique_id=667634196]
-shape = SubResource("RectangleShape2D_dihab")
+shape = SubResource("RectangleShape2D_v5nji")
+
+[node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_4loxo")]
+position = Vector2(2481, -691)
 
 [node name="Wall1" type="StaticBody2D" parent="." unique_id=718185708]
 position = Vector2(768, -95)
@@ -90,7 +99,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_4loxo")
 
 [node name="Wall4" type="StaticBody2D" parent="." unique_id=1208620106]
-position = Vector2(2474, -95)
+position = Vector2(3042, -335)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Wall4" unique_id=356711583]
@@ -111,6 +120,28 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Collision" type="CollisionShape2D" parent="Wall4" unique_id=1564733267]
 shape = SubResource("RectangleShape2D_slmcd")
+
+[node name="Wall5" type="StaticBody2D" parent="." unique_id=1572776073]
+position = Vector2(5474, -195)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Wall5" unique_id=1970519979]
+custom_minimum_size = Vector2(150, 1200)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -600.0
+offset_right = 75.0
+offset_bottom = 600.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.49862653, 0.20481673, 1)
+
+[node name="Collision" type="CollisionShape2D" parent="Wall5" unique_id=1628186839]
+shape = SubResource("RectangleShape2D_a81ga")
 
 [node name="Wall3" type="StaticBody2D" parent="." unique_id=492829394]
 position = Vector2(192, -245)
@@ -133,15 +164,54 @@ color = Color(0, 0.49862653, 0.20481673, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Collision" type="CollisionShape2D" parent="Wall3" unique_id=159511932]
-shape = SubResource("RectangleShape2D_v5nji")
+shape = SubResource("RectangleShape2D_jhwa0")
 
-[node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_4loxo")]
-position = Vector2(199, -718)
+[node name="Platform 2" type="StaticBody2D" parent="." unique_id=1739951661]
+position = Vector2(1451, -568)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Platform 2" unique_id=672698901]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -35.0
+offset_right = 100.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.49862653, 0.20481673, 1)
+
+[node name="Collision" type="CollisionShape2D" parent="Platform 2" unique_id=895910839]
+shape = SubResource("RectangleShape2D_2fwax")
+
+[node name="Platform 3" type="StaticBody2D" parent="." unique_id=1607670977]
+position = Vector2(2199, -568)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Platform 3" unique_id=1291433667]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -35.0
+offset_right = 100.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.49862653, 0.20481673, 1)
+
+[node name="Collision" type="CollisionShape2D" parent="Platform 3" unique_id=1973571050]
+shape = SubResource("RectangleShape2D_2fwax")
 
 [node name="LevelCamera" type="Camera2D" parent="." unique_id=893587825]
-visible = false
 limit_left = -1451
 limit_top = -800
 limit_right = 2549
 limit_bottom = 555
 script = ExtResource("2_pdc63")
+limit_border_enabled = false

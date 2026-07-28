@@ -10,18 +10,6 @@ func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachi
 		player.can_double_jump = true
 
 func get_next_state(player: Player) -> StringName:
-	if (
-		Input.is_action_just_pressed("Dash") and
-		player.dash_cooldown_timer.is_stopped() and
-		player.can_dash
-	):
-		if player.joystick.aim_direction == player.joystick.AimDirection.UP:
-			if player.dodge_cooldown_timer.is_stopped():
-				return &"Dodge"
-			else :
-				return &""
-		else :
-			return &"Dash"
 	return &""
 
 func gravity_handle(delta: float, player: Player):
@@ -31,7 +19,8 @@ func gravity_handle(delta: float, player: Player):
 	else :
 		player.velocity.y = 0
 
-func movement_handle(delta: float, player: Player):
+func movement_handle(delta: float, player: Player) -> void:
+	if !player.can_move: return
 	match player.joystick.current_zone:
 		player.joystick.AimZone.MOVE:
 			player.velocity.x = move_toward(
@@ -42,12 +31,13 @@ func movement_handle(delta: float, player: Player):
 		player.joystick.AimZone.MOVE_AIM_UP, player.joystick.AimZone.MOVE_AIM_DOWN:
 			player.velocity.x = move_toward(
 				player.velocity.x,
-				player.speed * player.joystick.move_direction * player.aiming_slowdown_ratio,
+				player.speed * player.joystick.move_direction * (player.aiming_slowdown_ratio if player.is_on_floor() else 1.0),
 				player.acceleration * delta
 			) * (player.air_resistence_coefficient if !player.is_on_floor() else 1.0)
 
 func can_wall_slide(player: Player) -> bool:
-	if !player.is_on_wall() or player.is_on_floor() or !player.unlocked_wall_slide: return false
+	# !player.is_on_wall() or
+	if player.is_on_floor() or !player.unlocked_wall_slide: return false
 	var moving_into_wall = (player.left_raycast.is_colliding() and player.joystick.move_direction == -1) or \
 	(player.right_raycast.is_colliding() and player.joystick.move_direction == 1)
 	return moving_into_wall and !player.bottom_slide_stop_raycast.is_colliding()
