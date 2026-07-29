@@ -157,6 +157,9 @@ one_shot = true
 [node name="StunningTimer" type="Timer" parent="Timers" unique_id=467017885]
 one_shot = true
 
+[node name="BigFallTimer" type="Timer" parent="Timers" unique_id=1508556588]
+one_shot = true
+
 [node name="HUD" type="CanvasLayer" parent="." unique_id=69797456]
 
 [node name="Controllers" type="Control" parent="HUD" unique_id=1221603634]

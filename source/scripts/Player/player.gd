@@ -20,6 +20,7 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export var coyote_time: float = 0.13
 @export var jump_buffer_time: float = 0.12
 @export var air_resistence_coefficient: float = 0.94
+@export var big_fall_time: float = 0.5 # After Reaching Max Fall velocity
 @export_subgroup("Wall slide & jump")
 @export_range(0, 1, .01) var wall_slide_coefficient: float = 1.1
 @export var wall_slide_initial_velocity: float = 120.0
@@ -75,9 +76,10 @@ var can_double_jump = false
 @onready var dodge_timer: Timer = $Timers/DodgeTimer
 @onready var dodge_cooldown_timer: Timer = $Timers/DodgeCooldown
 @onready var stunning_timer: Timer = $Timers/StunningTimer
+@onready var big_fall_timer: Timer = $Timers/BigFallTimer
 
 # Debugging
-const DEBUG_MODE: bool = false
+const DEBUG_MODE: bool = true
 @onready var debug_labels_container: Control = $HUD/Debug
 @onready var zone_label: Label = $HUD/Debug/Zone
 @onready var direction_label: Label = $HUD/Debug/Direction
@@ -103,6 +105,7 @@ func set_timers():
 	dash_cooldown_timer.wait_time = dash_cooldown_time
 	dodge_timer.wait_time = dodge_time
 	dodge_cooldown_timer.wait_time = dodge_cooldown_time
+	big_fall_timer.wait_time = big_fall_time
 
 func _debug():
 	zone_label.text = "Aim Zone: " + joystick.aim_zone_debbug[joystick.current_zone]

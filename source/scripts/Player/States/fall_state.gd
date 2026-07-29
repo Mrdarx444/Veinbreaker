@@ -21,7 +21,8 @@ func movement_handle(delta: float, player: Player):
 	super.movement_handle(delta, player)
 	if forced_fall:
 		player.velocity.x = 0
-	if player.velocity.y >= player.max_fall_speed:
+	if player.velocity.y >= player.max_fall_speed and !is_big_fall and player.big_fall_timer.is_stopped():
+		player.big_fall_timer.start()
 		is_big_fall = true
 
 func gravity_handle(delta: float, player: Player):
@@ -36,7 +37,7 @@ func gravity_handle(delta: float, player: Player):
 
 func get_next_state(player: Player) -> StringName:
 	if player.is_on_floor():
-		if is_big_fall:
+		if is_big_fall and player.big_fall_timer.is_stopped():
 			return &"Stunned"
 		if player.joystick.move_direction != 0 and player.can_move:
 			return &"Move"

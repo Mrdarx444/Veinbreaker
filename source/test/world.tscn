@@ -50,7 +50,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_v5nji")
 
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_4loxo")]
-position = Vector2(2502, -4217)
+position = Vector2(4185, -5229)
 
 [node name="Wall1" type="StaticBody2D" parent="." unique_id=718185708]
 position = Vector2(768, -95)
