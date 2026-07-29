@@ -16,16 +16,13 @@ func get_next_state(player: Player) -> StringName:
 	if !player.jump_buffer_timer.is_stopped() and player.can_jump:
 		player.jump_buffer_timer.stop()
 		return &"Jump"
-	if (
-		Input.is_action_just_pressed("Dash") and
-		player.dash_cooldown_timer.is_stopped() and
-		player.can_dash
-	):
+	if Input.is_action_just_pressed("Dash") and player.can_dash:
 		if player.joystick.aim_direction == player.joystick.AimDirection.UP:
 			if player.dodge_cooldown_timer.is_stopped() and player.unlocked_dodge:
 				return &"Dodge"
 			else :
 				return &""
 		else :
-			return &"Dash"
+			if player.dash_cooldown_timer.is_stopped():
+				return &"Dash"
 	return &""

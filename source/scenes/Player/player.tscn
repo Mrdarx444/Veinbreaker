@@ -307,6 +307,7 @@ text = "Dodge Cooldown: 0"
 label_settings = SubResource("LabelSettings_ck846")
 
 [node name="StateLabel" type="Label" parent="." unique_id=1840347626]
+z_index = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0

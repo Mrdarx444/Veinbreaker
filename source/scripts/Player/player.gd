@@ -75,7 +75,7 @@ var can_double_jump = false
 @onready var stunning_timer: Timer = $Timers/StunningTimer
 
 # Debugging
-const DEBUG_MODE: bool = false
+const DEBUG_MODE: bool = true
 @onready var debug_labels_container: Control = $HUD/Debug
 @onready var zone_label: Label = $HUD/Debug/Zone
 @onready var direction_label: Label = $HUD/Debug/Direction

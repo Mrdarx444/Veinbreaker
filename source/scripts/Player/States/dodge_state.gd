@@ -4,6 +4,7 @@ extends PlayerState
 func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
 	var player: Player = (state_owner as Player)
 	player.velocity.x = player.dodge_velocity * -player.facing_direction
+	player.velocity.y = 0
 	player.dodge_timer.start()
 	player.is_dodging = true
 

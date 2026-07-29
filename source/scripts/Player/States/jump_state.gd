@@ -17,16 +17,13 @@ func get_next_state(player: Player) -> StringName:
 		return &"Fall"
 	if can_wall_slide(player):
 		return &"WallSlide"
-	if (
-		Input.is_action_just_pressed("Dash") and
-		player.dash_cooldown_timer.is_stopped() and
-		player.can_dash
-	):
+	if Input.is_action_just_pressed("Dash") and player.can_dash:
 		if player.joystick.aim_direction == player.joystick.AimDirection.UP:
 			if player.dodge_cooldown_timer.is_stopped() and player.unlocked_dodge:
 				return &"Dodge"
 			else :
 				return &""
 		else :
-			return &"Dash"
+			if player.dash_cooldown_timer.is_stopped():
+				return &"Dash"
 	return &""
