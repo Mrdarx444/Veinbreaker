@@ -9,7 +9,10 @@ func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachi
 	super.physics_update(delta, state_owner, state_machine)
 
 func gravity_handle(delta: float, player: Player):
-	player.velocity.y = min(player.velocity.y + (player.gravity * delta * player.wall_slide_coefficient), player.wall_slide_max_gravity)
+	if player.joystick.current_zone == player.joystick.AimZone.MOVE_AIM_DOWN:
+		player.velocity.y = lerp(player.velocity.y, player.wall_slide_forced_fall_gravity, 0.15)
+	else :
+		player.velocity.y = min(player.velocity.y + (player.gravity * delta * player.wall_slide_coefficient), player.wall_slide_max_gravity)
 
 func get_next_state(player: Player) -> StringName:
 	if player.is_on_floor():
@@ -20,7 +23,6 @@ func get_next_state(player: Player) -> StringName:
 		else :
 			return &"Fall"
 		
-	# Second Condition: Has no meaning but is an additional protection
 	if Input.is_action_just_pressed("Jump") and player.unlocked_wall_jump:
 		if player.right_raycast.is_colliding():
 			player.velocity.x = -player.wall_jump_velocity_x

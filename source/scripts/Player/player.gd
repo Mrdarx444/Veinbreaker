@@ -25,6 +25,7 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export var wall_slide_initial_velocity: float = 120.0
 @export var wall_jump_velocity_x: float = 900.0
 @export var wall_slide_max_gravity: float = gravity * 0.25
+@export var wall_slide_forced_fall_gravity: float = gravity * 0.55
 var is_wall_sliding: bool = false
 @export_subgroup("Dash")
 @export var is_dashing: bool = true
