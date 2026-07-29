@@ -1,6 +1,7 @@
 extends PlayerState
 
 var forced_fall: bool = false
+var is_big_fall: bool = false
 
 func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachine) -> void:
 	var player: Player = state_owner
@@ -20,6 +21,8 @@ func movement_handle(delta: float, player: Player):
 	super.movement_handle(delta, player)
 	if forced_fall:
 		player.velocity.x = 0
+	if player.velocity.y >= player.max_fall_speed:
+		is_big_fall = true
 
 func gravity_handle(delta: float, player: Player):
 	if !player.is_on_floor():
@@ -33,6 +36,8 @@ func gravity_handle(delta: float, player: Player):
 
 func get_next_state(player: Player) -> StringName:
 	if player.is_on_floor():
+		if is_big_fall:
+			return &"Stunned"
 		if player.joystick.move_direction != 0 and player.can_move:
 			return &"Move"
 		else :
@@ -66,3 +71,4 @@ func get_next_state(player: Player) -> StringName:
 
 func exit(state_owner: Node2D, state_machine: StateMachine) -> void:
 	forced_fall = false
+	is_big_fall = false

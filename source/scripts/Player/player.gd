@@ -25,7 +25,7 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export var wall_slide_initial_velocity: float = 120.0
 @export var wall_jump_velocity_x: float = 900.0
 @export var wall_slide_max_gravity: float = gravity * 0.25
-@export var wall_slide_forced_fall_gravity: float = gravity * 0.55
+@export var wall_slide_forced_fall_gravity: float = gravity * 0.5
 var is_wall_sliding: bool = false
 @export_subgroup("Dash")
 @export var is_dashing: bool = true
@@ -44,6 +44,7 @@ var is_wall_sliding: bool = false
 @export var default_stunning_time: float = 0.4
 @export var default_stunning_friction: float = speed * 24
 @export var dodge_stunning_time: float = 0.18
+@export var big_fall_stunning_time: float = 0.6
 
 @export_category("Basic Abilities")
 @export var can_move: bool = true
@@ -76,7 +77,7 @@ var can_double_jump = false
 @onready var stunning_timer: Timer = $Timers/StunningTimer
 
 # Debugging
-const DEBUG_MODE: bool = true
+const DEBUG_MODE: bool = false
 @onready var debug_labels_container: Control = $HUD/Debug
 @onready var zone_label: Label = $HUD/Debug/Zone
 @onready var direction_label: Label = $HUD/Debug/Direction
