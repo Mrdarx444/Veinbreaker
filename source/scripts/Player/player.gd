@@ -31,7 +31,7 @@ var is_wall_sliding: bool = false
 @export_subgroup("Dash")
 @export var is_dashing: bool = true
 @export var dash_velocity: float = 2200.0
-@export var dash_time: float = 0.13
+@export var dash_time: float = 0.14
 @export var dash_cooldown_time: float = 0.8
 @export var dash_gravity_coefficient: float = 0.0
 @export_subgroup("Dodge")
@@ -90,6 +90,8 @@ const DEBUG_MODE: bool = true
 @onready var dash_cooldown_timer_label: Label = $HUD/Debug/DashCooldownTimer
 @onready var dodge_cooldown_timer_label: Label = $HUD/Debug/DodgeCooldownTimer
 
+var shaking: bool = false
+
 func _ready() -> void:
 	set_timers()
 	debug_labels_container.visible = DEBUG_MODE
@@ -120,7 +122,7 @@ func _debug():
 			move_direction_label.text = "Facing Direction: ?????"
 	
 	velocity_label.text = "Velocity:     x=%d    y=%d" % [velocity.x, velocity.y]
-	coyote_timer_label.text = "Coyote Timer: %.2f" % coyote_timer.time_left
-	buffer_timer_label.text = "Jump Buffer Timer: %.2f" % jump_buffer_timer.time_left
-	dash_cooldown_timer_label.text = "Dash Cooldown: %.2f" % dash_cooldown_timer.time_left
-	dodge_cooldown_timer_label.text = "Dodge Cooldown: %.2f" % dodge_cooldown_timer.time_left
+	coyote_timer_label.text = "Coyote Timer: %.2fs" % coyote_timer.time_left
+	buffer_timer_label.text = "Jump Buffer Timer: %.2fs" % jump_buffer_timer.time_left
+	dash_cooldown_timer_label.text = "Dash Cooldown: %.2fs" % dash_cooldown_timer.time_left
+	dodge_cooldown_timer_label.text = "Dodge Cooldown: %.2fs" % dodge_cooldown_timer.time_left

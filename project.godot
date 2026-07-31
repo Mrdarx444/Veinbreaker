@@ -19,6 +19,11 @@ boot_splash/stretch_mode=0
 boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
+[autoload]
+
+CameraManager="*uid://duvov6ycjp558"
+GameConstents="*uid://bq750t44uimnu"
+
 [debug]
 
 gdscript/warnings/unassigned_variable=0

@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bghqxvldmkdeg" path="res://source/scenes/Player/player.tscn" id="1_4loxo"]
 [ext_resource type="Script" uid="uid://ndyhlhric3kf" path="res://source/test/level_camera.gd" id="2_pdc63"]
+[ext_resource type="Texture2D" uid="uid://demhvvuo7dj3g" path="res://icon.svg" id="3_slmcd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v5nji"]
 size = Vector2(7000, 150)
@@ -25,6 +26,14 @@ size = Vector2(150, 700)
 size = Vector2(200, 70)
 
 [node name="World" type="Node2D" unique_id=57820806]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=446392219]
+offset_left = -1606.0
+offset_top = -1162.0
+offset_right = 5594.0
+offset_bottom = 680.0
+texture = ExtResource("3_slmcd")
+stretch_mode = 1
 
 [node name="Platform" type="StaticBody2D" parent="." unique_id=267754281]
 position = Vector2(2049, 480)
@@ -50,7 +59,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_v5nji")
 
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_4loxo")]
-position = Vector2(4185, -5229)
+position = Vector2(4187, -2555)
 
 [node name="Wall1" type="StaticBody2D" parent="." unique_id=718185708]
 position = Vector2(768, -95)
@@ -210,8 +219,7 @@ shape = SubResource("RectangleShape2D_2fwax")
 
 [node name="LevelCamera" type="Camera2D" parent="." unique_id=893587825]
 limit_left = -1451
-limit_top = -800
-limit_right = 2549
+limit_top = -1200
+limit_right = 5549
 limit_bottom = 555
 script = ExtResource("2_pdc63")
-limit_border_enabled = false
