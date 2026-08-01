@@ -7,10 +7,10 @@ func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
 	player.is_dashing = true
 	player.velocity.y = 0
 	player.velocity.x = player.dash_velocity * player.facing_direction
-	if player.is_on_floor():
-		CameraManager.camera_shake(GameConstents.CAMERA_SHAKE_FORCES.DASH)
-	else :
-		CameraManager.camera_shake(GameConstents.CAMERA_SHAKE_FORCES.AIR_DASH)
+	#if player.is_on_floor():
+		#CameraManager.camera_shake(GameConstents.CAMERA_SHAKE_FORCES.DASH)
+	#else :
+		#CameraManager.camera_shake(GameConstents.CAMERA_SHAKE_FORCES.AIR_DASH)
 
 func gravity_handle(delta: float, player: Player):
 	if !player.is_on_floor():

@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://bghqxvldmkdeg" path="res://source/scenes/Player/player.tscn" id="1_4loxo"]
 [ext_resource type="Script" uid="uid://ndyhlhric3kf" path="res://source/test/level_camera.gd" id="2_pdc63"]
-[ext_resource type="Texture2D" uid="uid://demhvvuo7dj3g" path="res://icon.svg" id="3_slmcd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v5nji"]
 size = Vector2(7000, 150)
@@ -26,14 +25,6 @@ size = Vector2(150, 700)
 size = Vector2(200, 70)
 
 [node name="World" type="Node2D" unique_id=57820806]
-
-[node name="TextureRect" type="TextureRect" parent="." unique_id=446392219]
-offset_left = -1606.0
-offset_top = -1162.0
-offset_right = 5594.0
-offset_bottom = 680.0
-texture = ExtResource("3_slmcd")
-stretch_mode = 1
 
 [node name="Platform" type="StaticBody2D" parent="." unique_id=267754281]
 position = Vector2(2049, 480)

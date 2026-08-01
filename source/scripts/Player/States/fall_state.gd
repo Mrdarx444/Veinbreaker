@@ -40,9 +40,9 @@ func gravity_handle(delta: float, player: Player):
 
 func get_next_state(player: Player) -> StringName:
 	if player.is_on_floor():
-		if forced_fall: CameraManager.camera_shake(0.65)
+		#if forced_fall: CameraManager.camera_shake(0.65)
 		if is_big_fall and player.big_fall_timer.is_stopped():
-			CameraManager.camera_shake(GameConstents.CAMERA_SHAKE_FORCES.BIG_FALL * time_after_big_fall)
+			#CameraManager.camera_shake(GameConstents.CAMERA_SHAKE_FORCES.BIG_FALL * time_after_big_fall)
 			return &"Stunned"
 		if player.joystick.move_direction != 0 and player.can_move:
 			return &"Move"
