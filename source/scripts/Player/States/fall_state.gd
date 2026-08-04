@@ -31,7 +31,7 @@ func movement_handle(delta: float, player: Player):
 func gravity_handle(delta: float, player: Player):
 	if !player.is_on_floor():
 		if player.velocity.y < player.max_fall_speed:
-			if forced_fall:
+			if forced_fall and player.velocity.y < player.forced_fall_velocity:
 				player.velocity.y = player.forced_fall_velocity
 			else :
 				player.velocity.y = min(player.velocity.y + player.gravity * delta, player.max_fall_speed)

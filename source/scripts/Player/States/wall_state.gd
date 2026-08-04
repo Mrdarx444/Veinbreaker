@@ -6,6 +6,7 @@ func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
 	player.is_wall_sliding = true
 
 func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachine) -> void:
+	var player: Player = state_owner as Player
 	super.physics_update(delta, state_owner, state_machine)
 
 func gravity_handle(delta: float, player: Player):

@@ -1,49 +1,47 @@
 extends CharacterBody2D
 class_name Player
 
-enum STUNNING_TYPES {DEFAULT, AFTER_DODGE}
-
 @export_category("Settings")
 @export_subgroup("Movement")
-@export var speed: float = 550.0
+@export var speed: float = 450.0
 var acceleration: float = speed * 10
-var friction: float = speed * 7
+var friction: float = speed * 10
 @export_range(0, 1, .01) var aiming_slowdown_ratio: float = 1.0 # Temp Canceling
 var facing_direction: int = 1 # Default Facing Direction = RIGHT
 @export_subgroup("Jump & Fall")
-var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2
-@export var max_fall_speed: float = 2300.0
-@export var forced_fall_velocity: float = 2300.0
-@export var jump_velocity: float = -980.0
-@export var double_jump_velocity: float = -830
+var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2.2
+@export var max_fall_speed: float = 2500.0
+@export var forced_fall_velocity: float = 1800.0
+@export var jump_velocity: float = -1050.0
+@export var double_jump_velocity: float = -800
 @export_range(0, 1, .01) var jump_cut_mult: float = 0.33
 @export var coyote_time: float = 0.13
 @export var jump_buffer_time: float = 0.12
-@export var air_resistence_coefficient: float = 0.94
+@export var air_resistence_coefficient: float = 1
 @export var big_fall_time: float = 0.5 # After Reaching Max Fall velocity
 @export_subgroup("Wall slide & jump")
 @export_range(0, 1, .01) var wall_slide_coefficient: float = 1.1
-@export var wall_slide_initial_velocity: float = 120.0
-@export var wall_jump_velocity_x: float = 900.0
-@export var wall_slide_max_gravity: float = gravity * 0.25
-@export var wall_slide_forced_fall_gravity: float = gravity * 0.5
+@export var wall_slide_initial_velocity: float = 230.0
+@export var wall_jump_velocity_x: float = 800.0
+@export var wall_slide_max_gravity: float = gravity * 0.3
+@export var wall_slide_forced_fall_gravity: float = gravity * 0.55
 var is_wall_sliding: bool = false
 @export_subgroup("Dash")
 @export var is_dashing: bool = true
 @export var dash_velocity: float = 2200.0
-@export var dash_time: float = 0.14
-@export var dash_cooldown_time: float = 0.8
+@export var dash_time: float = 0.13
+@export var dash_cooldown_time: float = 0.9
 @export var dash_gravity_coefficient: float = 0.0
 @export_subgroup("Dodge")
 @export var is_dodging: bool = true
-@export var dodge_velocity: float = 1400.0
-@export var dodge_time: float = 0.13
-@export var dodge_cooldown_time: float = 0.3
-@export var dodge_gravity_coefficient: float = 1.0
+@export var dodge_velocity: float = 1500.0
+@export var dodge_time: float = 0.06
+@export var dodge_cooldown_time: float = 0.5
+@export var dodge_gravity_coefficient: float = 2
 
 @export_subgroup("Stunning")
 @export var default_stunning_time: float = 0.4
-@export var default_stunning_friction: float = speed * 24
+@export var default_stunning_friction: float = speed * 23
 @export var dodge_stunning_time: float = 0.18
 @export var big_fall_stunning_time: float = 0.6
 

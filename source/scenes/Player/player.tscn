@@ -330,7 +330,6 @@ label_settings = SubResource("LabelSettings_c4tgw")
 script = SubResource("GDScript_c4tgw")
 
 [node name="MovementTracerDebugger" type="CPUParticles2D" parent="." unique_id=993443028]
-visible = false
 show_behind_parent = true
 position = Vector2(0, 55)
 amount = 40
