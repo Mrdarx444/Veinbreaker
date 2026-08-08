@@ -6,7 +6,7 @@ extends Camera2D
 
 func _ready() -> void:
 	if limit_border_enabled:
-		player_camera.limit_left = limit_left
-		player_camera.limit_top = limit_top
-		player_camera.limit_right = limit_right
-		player_camera.limit_bottom = limit_bottom
+			player_camera.set_limit(SIDE_LEFT, limit_left)
+			player_camera.set_limit(SIDE_TOP, limit_top)
+			player_camera.set_limit(SIDE_RIGHT, limit_right)
+			player_camera.set_limit(SIDE_BOTTOM, limit_bottom)

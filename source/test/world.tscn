@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bbcxbsd1jn3bh"]
 
 [ext_resource type="PackedScene" uid="uid://bghqxvldmkdeg" path="res://source/scenes/Player/player.tscn" id="1_4loxo"]
-[ext_resource type="Script" uid="uid://ndyhlhric3kf" path="res://source/test/level_camera.gd" id="2_pdc63"]
+[ext_resource type="Script" uid="uid://d1m3kmgxo6nep" path="res://source/classes/CameraArea.gd" id="3_slmcd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v5nji"]
 size = Vector2(7000, 150)
@@ -23,6 +23,9 @@ size = Vector2(150, 700)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2fwax"]
 size = Vector2(200, 70)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1hv3i"]
+size = Vector2(7002, 1444)
 
 [node name="World" type="Node2D" unique_id=57820806]
 
@@ -50,7 +53,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_v5nji")
 
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_4loxo")]
-position = Vector2(4187, -2555)
+position = Vector2(4187, 345)
 
 [node name="Wall1" type="StaticBody2D" parent="." unique_id=718185708]
 position = Vector2(768, -95)
@@ -208,9 +211,11 @@ color = Color(0, 0.49862653, 0.20481673, 1)
 [node name="Collision" type="CollisionShape2D" parent="Platform 3" unique_id=1973571050]
 shape = SubResource("RectangleShape2D_2fwax")
 
-[node name="LevelCamera" type="Camera2D" parent="." unique_id=893587825]
-limit_left = -1451
-limit_top = -1200
-limit_right = 5549
-limit_bottom = 555
-script = ExtResource("2_pdc63")
+[node name="CameraArea" type="Area2D" parent="." unique_id=356698564]
+script = ExtResource("3_slmcd")
+enabled = false
+metadata/_custom_type_script = "uid://d1m3kmgxo6nep"
+
+[node name="Collision" type="CollisionShape2D" parent="CameraArea" unique_id=269977807]
+position = Vector2(2050, -163)
+shape = SubResource("RectangleShape2D_1hv3i")

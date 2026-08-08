@@ -7,7 +7,11 @@ class_name Player
 var acceleration: float = speed * 10
 var friction: float = speed * 10
 @export_range(0, 1, .01) var aiming_slowdown_ratio: float = 1.0 # Temp Canceling
-var facing_direction: int = 1 # Default Facing Direction = RIGHT
+var facing_direction: int = 1:
+	set(dir):
+		if facing_direction != dir:
+			facing_direction = dir
+			CameraManager.set_facing_direction(dir)
 @export_subgroup("Jump & Fall")
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2.2
 @export var max_fall_speed: float = 2500.0
@@ -61,6 +65,7 @@ var can_double_jump = false
 
 #=== Nodes:
 @onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
+@onready var camera: PlayerCamera = $Camera
 # RayCasts:
 @onready var left_raycast: RayCast2D = $RayCasts/LeftWall
 @onready var right_raycast: RayCast2D = $RayCasts/RightWall
@@ -88,7 +93,6 @@ const DEBUG_MODE: bool = true
 @onready var dash_cooldown_timer_label: Label = $HUD/Debug/DashCooldownTimer
 @onready var dodge_cooldown_timer_label: Label = $HUD/Debug/DodgeCooldownTimer
 
-var shaking: bool = false
 
 func _ready() -> void:
 	set_timers()
