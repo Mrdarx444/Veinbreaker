@@ -1,29 +1,28 @@
 class_name PlayerCamera
 extends Camera2D
 
-## PlayerCamera
+## PlayerCamera (v3)
 ## ------------------------------------------------------------------
 ## Child of the Player scene. Every physics frame computes ONE target
-## position and assigns it to global_position once:
-##   X = player.x + forward_offset (own smoothing speed)
-##   Y = normal follow, OR vertical-locked + fall-lookahead while airborne
-## The engine's position_smoothing_speed + limit_* then smooth AND
-## clamp that final result automatically. Shake stays on `offset`
-## (not limit-clamped by the engine — see the Known Trade-off note
-## at the bottom of the accompanying doc; intentionally left as-is).
+## position and assigns it to global_position once (X = follow + own-
+## smoothing forward offset, Y = normal follow OR vertical-locked +
+## fall-lookahead while airborne). Engine smoothing + limit_* clamp
+## the result automatically, except during focus_on() where a Tween
+## takes exclusive control. Shake stays on `offset` (still not limit-
+## clamped by the engine — unchanged trade-off, still deliberate,
+## see §Known Trade-off at the bottom of the doc).
+##
+## v3 fixes (see "Camera System 3.md" §0 for full diagnosis):
+## - shake() power is now a DIRECT pixel amplitude (was silently
+##   capped above power≈10 by a /10 + trauma-clamp bug).
+## - Shake presets moved to GameConstants (enum, autocompletes).
+## - focus_on() takes a Vector2 + its own transition_duration.
+## - Do NOT add a per-frame `_locked_y = _player.global_position.y`
+##   line — that defeats Vertical Lock entirely. Call set_falling()
+##   from Player instead (see Player.gd snippet, §7).
 ## ------------------------------------------------------------------
 
 enum ShakeType { RANDOM, HORIZONTAL, VERTICAL }
-
-const SHAKE_PRESETS : Dictionary = {
-	"FAST_FALL":     {"power": 2.0, "duration": 0.1, "frequency": 10.0, "type": ShakeType.RANDOM},
-	"FORCED_FALL":   {"power": 6.0, "duration": 0.35, "frequency": 20.0, "type": ShakeType.RANDOM},
-	"BIG_FALL":      {"power": 70.0, "duration": 0.7, "frequency": 70.0, "type": ShakeType.RANDOM},
-	"HIT_LIGHT":     {"power": 4.0, "duration": 0.15, "frequency": 35.0, "type": ShakeType.RANDOM},
-	"HIT_HEAVY":     {"power": 9.0, "duration": 0.35, "frequency": 25.0, "type": ShakeType.RANDOM},
-	"PARRY_SUCCESS": {"power": 3.0, "duration": 0.0,  "frequency": 0.0,  "type": ShakeType.RANDOM},
-	"BOSS_INTRO":    {"power": 6.0, "duration": 0.6,  "frequency": 15.0, "type": ShakeType.RANDOM},
-}
 
 @export_group("Zoom")
 @export var default_zoom: Vector2 = Vector2(0.6, 0.6)
@@ -33,12 +32,15 @@ const SHAKE_PRESETS : Dictionary = {
 
 @export_group("Forward Offset")
 @export var forward_offset_distance: float = 70.0
-@export var forward_offset_smoothing_speed: float = 5.0  # independent from follow_smoothing_speed
+@export var forward_offset_smoothing_speed: float = 4.5
 
 @export_group("Vertical Behavior")
 @export var vertical_lock_enabled: bool = true
 @export var fall_lookahead_distance: float = 200.0
 @export var fall_lookahead_smoothing_speed: float = 3.0
+
+@export_group("Camera Area Transitions")
+@export var limit_transition_duration: float = 1.5
 
 @export_group("Shake Defaults")
 @export var default_shake_frequency: float = 30.0
@@ -56,69 +58,67 @@ var _locked_y: float = 0.0
 var _current_fall_lookahead: float = 0.0
 
 var _is_focusing: bool = false
-var _focus_target: Node2D = null
 
 var _trauma: float = 0.0
 var _trauma_decay_rate: float = 2.0
+var _shake_power: float = 0.0   # direct pixel amplitude, not /10-scaled
 var _shake_type: ShakeType = ShakeType.RANDOM
 var _shake_frequency: float = 30.0
 var _shake_seed: float = 0.0
 
 var _active_limits: Dictionary = {}  # area.instance_id -> Rect2
+var _limit_tween: Tween = null
+@onready var boss_area: CollisionShape2D = $"../../CameraAreas/BossArea/DetectionShape"
 
 
 func _ready() -> void:
 	_player = get_parent() as Player
 	if _player == null:
-		push_error("'PlayerCamera': must be a direct child of a Node2D (the Player). Reparent it.")
+		push_error("PlayerCamera: must be a direct child of a Player node. Reparent it.")
+
 	zoom = default_zoom
 	position_smoothing_enabled = true
 	position_smoothing_speed = follow_smoothing_speed
 	limit_smoothed = true
 	_shake_seed = randf() * 1000.0
-	_locked_y = global_position.y # It seems like problem mabye?
-	make_current() # Built-in
+	_locked_y = global_position.y
+	make_current()
 	_connect_to_camera_manager()
-	
+
 
 func _connect_to_camera_manager() -> void:
 	if not has_node("/root/CameraManager"):
 		push_warning("PlayerCamera: CameraManager autoload not found yet.")
 		return
-	
-	CameraManager.change_facing_direction.connect(set_facing_direction) # MY CODE
-	CameraManager.camera_shake.connect(shake) # MY CODE
-	CameraManager.camera_shake_preset.connect(shake_preset) # MY CODE
+	CameraManager.change_facing_direction.connect(set_facing_direction)
+	CameraManager.camera_shake.connect(shake)
+	CameraManager.camera_shake_preset.connect(shake_preset)
 	CameraManager.camera_area_entered.connect(_on_camera_area_entered)
 	CameraManager.camera_area_exited.connect(_on_camera_area_exited)
+
 
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(_player):
 		return
 
+	_update_trauma(delta)
+	offset = _compute_shake_offset()
+
+	if _is_focusing:
+		return  # a Tween owns global_position exclusively during focus_on()
+
 	_update_forward_offset(delta)
 	_update_vertical_behavior(delta)
-	_update_trauma(delta)
 
-	var follow_node: Node2D = _focus_target if (_is_focusing and is_instance_valid(_focus_target)) else _player
-
-	var target_x: float = follow_node.global_position.x
-	var target_y: float = follow_node.global_position.y
-
-	if not _is_focusing:
-		target_x += _current_forward_offset
-		target_y = _compute_target_y(follow_node)
-
+	var target_x: float = _player.global_position.x + _current_forward_offset
+	var target_y: float = _compute_target_y()
 	global_position = Vector2(target_x, target_y)
-	offset = _compute_shake_offset()
 	_locked_y = _player.global_position.y # MY CODE - REMOVEABLE ?
-
 
 # ---------------------------------------------------------------
 # Forward Offset
 # ---------------------------------------------------------------
 
-## Call whenever the Player's facing flips (once per flip, not every frame).
 func set_facing_direction(dir: int) -> void:
 	if dir == 0:
 		return
@@ -126,8 +126,6 @@ func set_facing_direction(dir: int) -> void:
 	_recompute_forward_offset_target()
 
 
-## Call on Fall-state enter/exit. Stopping/resuming is smoothed via
-## forward_offset_smoothing_speed like any other change to the offset.
 func set_forward_offset_enabled(enabled: bool) -> void:
 	_forward_offset_enabled = enabled
 	_recompute_forward_offset_target()
@@ -144,20 +142,10 @@ func _update_forward_offset(delta: float) -> void:
 
 
 # ---------------------------------------------------------------
-# Vertical Behavior — grounded follow / vertical lock / fall look-ahead
+# Vertical Behavior
 # ---------------------------------------------------------------
-# Interpretation of the referenced video's "horizontal-only follow":
-# while airborne, Y stops tracking the player and holds at the height
-# captured the moment they left the ground (X keeps following normally
-# the whole time — that's the "horizontal-only" part). During an actual
-# Fall (not the rising half of a jump), the locked Y is allowed to
-# gradually ease downward toward the player by up to
-# fall_lookahead_distance, so a long fall reveals more of what's below
-# before landing. On landing, Y smoothly re-syncs to the player via the
-# normal follow_smoothing_speed. If this isn't quite what the video
-# showed, only this block needs to change — nothing else depends on it.
 
-## Call whenever is_on_floor() changes.
+## Call every physics frame from Player with is_on_floor().
 func set_grounded(grounded: bool) -> void:
 	if grounded == _is_grounded:
 		return
@@ -166,9 +154,11 @@ func set_grounded(grounded: bool) -> void:
 		_locked_y = global_position.y
 
 
-## Call on Fall-state enter/exit (distinct from Jump: Jump = locked with
-## no look-ahead, Fall = locked + gradual downward look-ahead).
+## Call every physics frame from Player. See §7 for the exact line —
+## this is the call that was missing and caused the reported bug.
 func set_falling(falling: bool) -> void:
+	if falling == _is_falling:
+		return
 	_is_falling = falling
 	set_forward_offset_enabled(not falling)
 
@@ -180,27 +170,40 @@ func _update_vertical_behavior(delta: float) -> void:
 	)
 
 
-func _compute_target_y(follow_node: Node2D) -> float:
+func _compute_target_y() -> float:
 	if _is_grounded or not vertical_lock_enabled:
-		return follow_node.global_position.y
+		return _player.global_position.y
 	return _locked_y + _current_fall_lookahead
 
 
 # ---------------------------------------------------------------
-# Focus (cinematic retarget — boss intros, cutscene beats)
+# Focus (cinematic — boss intros, cutscene beats)
 # ---------------------------------------------------------------
 
-## Temporarily follows `target` directly (no forward-offset / vertical
-## lock — those are player-specific concepts) for `duration` seconds,
-## then reverts to the Player automatically.
-func focus_on(target: Node2D, duration: float = 1.0) -> void:
-	if not is_instance_valid(target):
-		return
-	_focus_target = target
+## Pans to a world-space point over `transition_duration`, holds for
+## `hold_duration`, then pans back to the Player over the same
+## transition_duration. Takes a Vector2 (not a Node2D) so there's no
+## dangling-reference risk if whatever you were focusing gets freed
+## mid-focus — read its global_position once before calling this.
+func focus_on(target_position: Vector2, transition_duration: float = 0.6, hold_duration: float = 1.0) -> void:
 	_is_focusing = true
-	await get_tree().create_timer(duration).timeout
+	position_smoothing_enabled = false  # tween owns the motion, no double-smoothing on top
+
+	var in_tween := create_tween()
+	in_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	in_tween.tween_property(self, "global_position", target_position, transition_duration)
+	await in_tween.finished
+
+	await get_tree().create_timer(hold_duration).timeout
+
+	var return_position: Vector2 = _player.global_position if is_instance_valid(_player) else global_position
+	var out_tween := create_tween()
+	out_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	out_tween.tween_property(self, "global_position", return_position, transition_duration)
+	await out_tween.finished
+
+	position_smoothing_enabled = true
 	_is_focusing = false
-	_focus_target = null
 
 
 # ---------------------------------------------------------------
@@ -217,8 +220,6 @@ func reset_zoom(duration: float = 0.3) -> void:
 	zoom_to(default_zoom, duration)
 
 
-## Quick FOV widen while dashing (reinforces the Speed pillar). Call on
-## dash start; zoom eases back to default_zoom on its own.
 func dash_zoom_pulse(zoom_multiplier: float = 1.05, duration: float = 0.5) -> void:
 	var pulse_zoom: Vector2 = default_zoom * zoom_multiplier
 	var tw := create_tween()
@@ -230,8 +231,8 @@ func dash_zoom_pulse(zoom_multiplier: float = 1.05, duration: float = 0.5) -> vo
 # Shake
 # ---------------------------------------------------------------
 
-## duration <= 0.0 triggers an INSTANT shake (single sharp kick, snaps
-## back almost immediately) instead of the continuous trauma version.
+## power is now a DIRECT pixel amplitude — see §0 diagnosis for why
+## v2's power scaling silently broke anything above ~power=10.
 func shake(power: float = 8.0, duration: float = 0.3,
 		frequency: float = default_shake_frequency,
 		type: ShakeType = ShakeType.RANDOM) -> void:
@@ -240,17 +241,18 @@ func shake(power: float = 8.0, duration: float = 0.3,
 		return
 	_shake_type = type
 	_shake_frequency = frequency
-	_trauma = clampf(_trauma + power / 10.0, 0.0, 1.0)
+	_shake_power = maxf(_shake_power, power)  # overlapping shakes: keep the stronger one
+	_trauma = 1.0
 	_trauma_decay_rate = 1.0 / maxf(duration, 0.01)
 
 
-## Named presets: HIT_LIGHT, HIT_HEAVY, PARRY_SUCCESS (instant),
-## BOSS_INTRO. Add more entries to SHAKE_PRESETS as needed.
-func shake_preset(preset_name: StringName) -> void:
-	if not SHAKE_PRESETS.has(preset_name):
-		push_warning("PlayerCamera: unknown shake preset '%s'" % preset_name)
+## Looks up GameConstants.ShakePreset (enum) — autocompletes in the
+## editor, unlike the old raw StringName version.
+func shake_preset(preset: GameConstants.ShakePreset) -> void:
+	if not GameConstants.SHAKE_PRESETS.has(preset):
+		push_warning("PlayerCamera: unknown shake preset '%s'" % preset)
 		return
-	var p: Dictionary = SHAKE_PRESETS[preset_name]
+	var p: Dictionary = GameConstants.SHAKE_PRESETS[preset]
 	shake(p["power"], p["duration"], p["frequency"], p["type"])
 
 
@@ -262,17 +264,19 @@ func _shake_instant(power: float, type: ShakeType) -> void:
 
 func _update_trauma(delta: float) -> void:
 	_trauma = maxf(_trauma - _trauma_decay_rate * delta, 0.0)
+	if _trauma <= 0.0:
+		_shake_power = 0.0
 
 
 func _compute_shake_offset() -> Vector2:
 	if _trauma <= 0.0:
 		return Vector2.ZERO
-	var amount: float = _trauma * _trauma
+	var envelope: float = _trauma * _trauma
 	var t: float = Time.get_ticks_msec() / 1000.0
 	var dir := _direction_for_type(_shake_type)
 	var noise_x := sin(t * _shake_frequency + _shake_seed)
 	var noise_y := sin(t * (_shake_frequency * 0.9) + _shake_seed * 2.0)
-	return Vector2(noise_x * dir.x, noise_y * dir.y) * amount * 16.0
+	return Vector2(noise_x * dir.x, noise_y * dir.y) * envelope * _shake_power
 
 
 func _direction_for_type(type: ShakeType) -> Vector2:
@@ -286,7 +290,7 @@ func _direction_for_type(type: ShakeType) -> Vector2:
 
 
 # ---------------------------------------------------------------
-# CameraArea stacking — "smallest active area wins"
+# CameraArea stacking + smoothed limit transitions
 # ---------------------------------------------------------------
 
 func _on_camera_area_entered(area: Area2D, limits: Rect2) -> void:
@@ -301,7 +305,7 @@ func _on_camera_area_exited(area: Area2D) -> void:
 
 func _apply_smallest_limit() -> void:
 	if _active_limits.is_empty():
-		_reset_limits_to_default()
+		_tween_limits_to(Rect2(Vector2(-10000000, -10000000), Vector2(20000000, 20000000)))
 		return
 	var smallest: Rect2 = Rect2()
 	var smallest_size: float = INF
@@ -310,14 +314,18 @@ func _apply_smallest_limit() -> void:
 		if size < smallest_size:
 			smallest_size = size
 			smallest = rect
-	limit_left = int(smallest.position.x)
-	limit_top = int(smallest.position.y)
-	limit_right = int(smallest.position.x + smallest.size.x)
-	limit_bottom = int(smallest.position.y + smallest.size.y)
+	_tween_limits_to(smallest)
 
 
-func _reset_limits_to_default() -> void:
-	limit_left = -10000000
-	limit_top = -10000000
-	limit_right = 10000000
-	limit_bottom = 10000000
+## v3: limits tween into place instead of snapping — combined with an
+## inset DetectionShape (see CameraArea.gd), the player crosses into
+## the new room before the bound finishes moving, hiding the switch.
+func _tween_limits_to(rect: Rect2) -> void:
+	if _limit_tween and _limit_tween.is_valid():
+		_limit_tween.kill()
+	_limit_tween = create_tween()
+	_limit_tween.set_parallel(true)
+	_limit_tween.tween_property(self, "limit_left", int(rect.position.x), limit_transition_duration)
+	_limit_tween.tween_property(self, "limit_top", int(rect.position.y), limit_transition_duration)
+	_limit_tween.tween_property(self, "limit_right", int(rect.position.x + rect.size.x), limit_transition_duration)
+	_limit_tween.tween_property(self, "limit_bottom", int(rect.position.y + rect.size.y), limit_transition_duration)

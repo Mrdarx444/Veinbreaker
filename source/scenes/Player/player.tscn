@@ -88,6 +88,8 @@ debug_color = Color(1, 1, 1, 0.41960785)
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
+drag_vertical_enabled = true
+editor_draw_drag_margin = true
 script = ExtResource("2_rywlg")
 
 [node name="RayCasts" type="Node2D" parent="." unique_id=1068774341]

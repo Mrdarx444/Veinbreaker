@@ -22,7 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 CameraManager="*uid://duvov6ycjp558"
-GameConstents="*uid://bq750t44uimnu"
+GameConstants="*uid://bq750t44uimnu"
 
 [debug]
 

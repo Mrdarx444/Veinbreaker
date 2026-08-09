@@ -92,10 +92,12 @@ const DEBUG_MODE: bool = false
 @onready var buffer_timer_label: Label = $HUD/Debug/BufferTimer
 @onready var dash_cooldown_timer_label: Label = $HUD/Debug/DashCooldownTimer
 @onready var dodge_cooldown_timer_label: Label = $HUD/Debug/DodgeCooldownTimer
+@onready var movement_tracer_debugger: CPUParticles2D = $MovementTracerDebugger
 
 func _ready() -> void:
 	set_timers()
 	debug_labels_container.visible = DEBUG_MODE
+	movement_tracer_debugger.emitting = DEBUG_MODE
 	facing_direction = 1
 
 func _physics_process(delta: float) -> void:

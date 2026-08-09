@@ -24,7 +24,7 @@ func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachi
 	if is_big_fall and player.big_fall_timer.is_stopped():
 		time_after_big_fall += delta
 	if player.velocity.y >= player.max_fall_speed:
-		CameraManager.apply_camera_shake_preset("FAST_FALL")
+		CameraManager.apply_camera_shake_preset(GameConstants.ShakePreset.FAST_FALL)
 
 func movement_handle(delta: float, player: Player):
 	super.movement_handle(delta, player)
@@ -46,9 +46,9 @@ func gravity_handle(delta: float, player: Player):
 
 func get_next_state(player: Player) -> StringName:
 	if player.is_on_floor():
-		if forced_fall: CameraManager.apply_camera_shake_preset("FORCED_FALL")
+		if forced_fall: CameraManager.apply_camera_shake_preset(GameConstants.ShakePreset.FORCED_FALL)
 		if is_big_fall and player.big_fall_timer.is_stopped():
-			CameraManager.apply_camera_shake_preset("BIG_FALL")
+			CameraManager.apply_camera_shake_preset(GameConstants.ShakePreset.BIG_FALL)
 			return &"Stunned"
 		if player.joystick.move_direction != 0 and player.can_move:
 			return &"Move"
