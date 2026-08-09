@@ -7,7 +7,7 @@ class_name Player
 var acceleration: float = speed * 10
 var friction: float = speed * 10
 @export_range(0, 1, .01) var aiming_slowdown_ratio: float = 1.0 # Temp Canceling
-var facing_direction: int = 1:
+var facing_direction: int = 0:
 	set(dir):
 		if facing_direction != dir:
 			facing_direction = dir
@@ -82,7 +82,7 @@ var can_double_jump = false
 @onready var big_fall_timer: Timer = $Timers/BigFallTimer
 
 # Debugging
-const DEBUG_MODE: bool = true
+const DEBUG_MODE: bool = false
 @onready var debug_labels_container: Control = $HUD/Debug
 @onready var zone_label: Label = $HUD/Debug/Zone
 @onready var direction_label: Label = $HUD/Debug/Direction
@@ -93,12 +93,13 @@ const DEBUG_MODE: bool = true
 @onready var dash_cooldown_timer_label: Label = $HUD/Debug/DashCooldownTimer
 @onready var dodge_cooldown_timer_label: Label = $HUD/Debug/DodgeCooldownTimer
 
-
 func _ready() -> void:
 	set_timers()
 	debug_labels_container.visible = DEBUG_MODE
+	facing_direction = 1
 
 func _physics_process(delta: float) -> void:
+	camera.set_grounded(is_on_floor())
 	if joystick.move_direction: facing_direction = int(joystick.move_direction)
 	if DEBUG_MODE: _debug()
 

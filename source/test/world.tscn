@@ -25,7 +25,10 @@ size = Vector2(150, 700)
 size = Vector2(200, 70)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1hv3i"]
-size = Vector2(7002, 1444)
+size = Vector2(6999, 1765)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m1geh"]
+size = Vector2(2460, 945)
 
 [node name="World" type="Node2D" unique_id=57820806]
 
@@ -53,7 +56,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_v5nji")
 
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_4loxo")]
-position = Vector2(4187, 345)
+position = Vector2(4318, -4940)
 
 [node name="Wall1" type="StaticBody2D" parent="." unique_id=718185708]
 position = Vector2(768, -95)
@@ -213,9 +216,19 @@ shape = SubResource("RectangleShape2D_2fwax")
 
 [node name="CameraArea" type="Area2D" parent="." unique_id=356698564]
 script = ExtResource("3_slmcd")
-enabled = false
 metadata/_custom_type_script = "uid://d1m3kmgxo6nep"
 
 [node name="Collision" type="CollisionShape2D" parent="CameraArea" unique_id=269977807]
-position = Vector2(2050, -163)
+position = Vector2(2048.5, -323.5)
 shape = SubResource("RectangleShape2D_1hv3i")
+debug_color = Color(0.9882353, 0.99607843, 0, 0)
+
+[node name="CameraArea2" type="Area2D" parent="." unique_id=1631387974]
+script = ExtResource("3_slmcd")
+active = false
+metadata/_custom_type_script = "uid://d1m3kmgxo6nep"
+
+[node name="Collision2" type="CollisionShape2D" parent="CameraArea2" unique_id=1064358773]
+position = Vector2(4262, 16.5)
+shape = SubResource("RectangleShape2D_m1geh")
+debug_color = Color(0.9882353, 0.99607843, 0, 0)

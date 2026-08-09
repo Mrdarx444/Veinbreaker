@@ -1,4 +1,5 @@
 extends Camera2D
+class_name LevelCameraDemo
 
 @onready var player_camera: Camera2D = $"../Player".get_node("Camera")
 

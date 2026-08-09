@@ -1,8 +1,5 @@
 extends PlayerState
 
-func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
-	var player: Player = (state_owner as Player)
-
 func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachine) -> void:
 	slow_down(delta, state_owner as Player)
 	super.physics_update(delta, state_owner, state_machine)

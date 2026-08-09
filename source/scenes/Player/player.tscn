@@ -28,6 +28,27 @@ blend_mode = 3
 [sub_resource type="LabelSettings" id="LabelSettings_ck846"]
 font_size = 20
 
+[sub_resource type="GDScript" id="GDScript_rywlg"]
+script/source = "extends Line2D
+
+# X axis
+func _ready() -> void:
+	var v_size: Vector2 = get_viewport_rect().size
+	var points_x: PackedVector2Array = [Vector2(0.0, v_size.y/2), Vector2(v_size.x, v_size.y/2)]
+	points = points_x
+"
+
+[sub_resource type="GDScript" id="GDScript_x30bj"]
+script/source = "extends Line2D
+
+# Y axis
+func _ready() -> void:
+	var v_size: Vector2 = get_viewport_rect().size
+	var points_y: PackedVector2Array = [Vector2(v_size.x/2, 0.0), Vector2(v_size.x/2, v_size.y)]
+	points = points_y
+	
+"
+
 [sub_resource type="LabelSettings" id="LabelSettings_c4tgw"]
 font_size = 30
 outline_size = 2
@@ -41,7 +62,7 @@ func _on_state_machine_state_changed(from_state: StringName, to_state: StringNam
 	text = \"State: \" + str(to_state)
 "
 
-[node name="Player" type="CharacterBody2D" unique_id=1568325260]
+[node name="Player" type="CharacterBody2D" unique_id=1568325260 groups=["player"]]
 script = ExtResource("1_31g4s")
 
 [node name="TempSprite" type="ColorRect" parent="." unique_id=739025270]
@@ -63,12 +84,11 @@ color = Color(0, 0.57254905, 1, 1)
 shape = SubResource("CapsuleShape2D_wj2h3")
 debug_color = Color(1, 1, 1, 0.41960785)
 
-[node name="Camera" type="Camera2D" parent="." unique_id=1120778986 node_paths=PackedStringArray("player")]
+[node name="Camera" type="Camera2D" parent="." unique_id=1120778986]
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 script = ExtResource("2_rywlg")
-player = NodePath("..")
 
 [node name="RayCasts" type="Node2D" parent="." unique_id=1068774341]
 
@@ -310,6 +330,14 @@ offset_right = 347.0
 offset_bottom = 237.0
 text = "Dodge Cooldown: 0"
 label_settings = SubResource("LabelSettings_ck846")
+
+[node name="X" type="Line2D" parent="HUD/Debug" unique_id=83847539]
+width = 1.0
+script = SubResource("GDScript_rywlg")
+
+[node name="Y" type="Line2D" parent="HUD/Debug" unique_id=1495283358]
+width = 1.0
+script = SubResource("GDScript_x30bj")
 
 [node name="StateLabel" type="Label" parent="." unique_id=1840347626]
 z_index = 1

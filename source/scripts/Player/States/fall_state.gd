@@ -4,6 +4,10 @@ var forced_fall: bool = false
 var is_big_fall: bool = false
 var time_after_big_fall: float = 0
 
+func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
+	var player: Player = state_owner as Player
+	player.camera.set_falling(true)
+
 func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachine) -> void:
 	var player: Player = state_owner
 	movement_handle(delta, player)
@@ -19,6 +23,8 @@ func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachi
 	super.physics_update(delta, state_owner, state_machine)
 	if is_big_fall and player.big_fall_timer.is_stopped():
 		time_after_big_fall += delta
+	if player.velocity.y >= player.max_fall_speed:
+		CameraManager.apply_camera_shake_preset("FAST_FALL")
 
 func movement_handle(delta: float, player: Player):
 	super.movement_handle(delta, player)
@@ -40,9 +46,9 @@ func gravity_handle(delta: float, player: Player):
 
 func get_next_state(player: Player) -> StringName:
 	if player.is_on_floor():
-		#if forced_fall: CameraManager.camera_shake(0.65)
+		if forced_fall: CameraManager.apply_camera_shake_preset("FORCED_FALL")
 		if is_big_fall and player.big_fall_timer.is_stopped():
-			#CameraManager.camera_shake(GameConstents.CAMERA_SHAKE_FORCES.BIG_FALL * time_after_big_fall)
+			CameraManager.apply_camera_shake_preset("BIG_FALL")
 			return &"Stunned"
 		if player.joystick.move_direction != 0 and player.can_move:
 			return &"Move"
@@ -76,6 +82,8 @@ func get_next_state(player: Player) -> StringName:
 	return &""
 
 func exit(state_owner: Node2D, state_machine: StateMachine) -> void:
+	var player: Player = state_owner as Player
+	player.camera.set_falling(false)
 	forced_fall = false
 	is_big_fall = false
 	time_after_big_fall = 0
