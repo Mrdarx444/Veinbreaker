@@ -28,10 +28,10 @@ size = Vector2(200, 70)
 size = Vector2(6999, 1491)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1hv3i"]
-size = Vector2(6999, 1765)
+size = Vector2(6941, 1712)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x5fkc"]
-size = Vector2(1407, 673)
+size = Vector2(1567, 823)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m1geh"]
 size = Vector2(1696, 1016)
@@ -62,7 +62,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_v5nji")
 
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_4loxo")]
-position = Vector2(-293, 345)
+position = Vector2(-334, -3858)
 
 [node name="Wall1" type="StaticBody2D" parent="." unique_id=718185708]
 position = Vector2(768, -95)
@@ -111,7 +111,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_4loxo")
 
 [node name="Wall4" type="StaticBody2D" parent="." unique_id=1208620106]
-position = Vector2(3783, -343)
+position = Vector2(3212, -343)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Wall4" unique_id=356711583]
@@ -236,7 +236,7 @@ debug_color = Color(0.61960787, 0.16862746, 0.8117647, 0.0627451)
 metadata/_edit_group_ = true
 
 [node name="LimitsShape" type="CollisionShape2D" parent="CameraAreas/MainArea" unique_id=1387786726]
-position = Vector2(2048.5, -327.5)
+position = Vector2(2051.5, -354)
 shape = SubResource("RectangleShape2D_1hv3i")
 disabled = true
 debug_color = Color(0.9882353, 0.99607843, 0, 0)
@@ -249,13 +249,13 @@ metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="DetectionShape" type="CollisionShape2D" parent="CameraAreas/BossArea" unique_id=1276151852]
-position = Vector2(4692.5, 63.5)
+position = Vector2(4609.5, -6.5)
 shape = SubResource("RectangleShape2D_x5fkc")
 debug_color = Color(0.61960787, 0.16862746, 0.8117647, 0.0627451)
 metadata/_edit_group_ = true
 
 [node name="LimitsShape" type="CollisionShape2D" parent="CameraAreas/BossArea" unique_id=1993124715]
-position = Vector2(4631, 0)
+position = Vector2(4363, -6)
 shape = SubResource("RectangleShape2D_m1geh")
 disabled = true
 debug_color = Color(1, 1, 0, 0)

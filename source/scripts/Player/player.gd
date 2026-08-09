@@ -83,6 +83,7 @@ var can_double_jump = false
 
 # Debugging
 const DEBUG_MODE: bool = false
+@onready var state_label: Label = $StateLabel
 @onready var debug_labels_container: Control = $HUD/Debug
 @onready var zone_label: Label = $HUD/Debug/Zone
 @onready var direction_label: Label = $HUD/Debug/Direction
@@ -98,6 +99,7 @@ func _ready() -> void:
 	set_timers()
 	debug_labels_container.visible = DEBUG_MODE
 	movement_tracer_debugger.emitting = DEBUG_MODE
+	state_label.visible = DEBUG_MODE
 	facing_direction = 1
 
 func _physics_process(delta: float) -> void:
