@@ -82,7 +82,7 @@ var can_double_jump = false
 @onready var big_fall_timer: Timer = $Timers/BigFallTimer
 
 # Debugging
-const DEBUG_MODE: bool = false
+const DEBUG_MODE: bool = true
 @onready var state_label: Label = $StateLabel
 @onready var debug_labels_container: Control = $HUD/Debug
 @onready var zone_label: Label = $HUD/Debug/Zone
@@ -101,6 +101,7 @@ func _ready() -> void:
 	movement_tracer_debugger.emitting = DEBUG_MODE
 	state_label.visible = DEBUG_MODE
 	facing_direction = 1
+	print("Viewport Size: %s"%get_viewport_rect().size)
 
 func _physics_process(delta: float) -> void:
 	camera.set_grounded(is_on_floor())

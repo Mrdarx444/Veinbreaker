@@ -37,6 +37,7 @@ gdscript/warnings/shadowed_variable_base_class=0
 
 [display]
 
+window/size/viewport_width=1252
 window/size/viewport_height=550
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"

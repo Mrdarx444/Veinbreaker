@@ -40,8 +40,7 @@ enum ShakeType { RANDOM, HORIZONTAL, VERTICAL }
 @export var fall_lookahead_smoothing_speed: float = 4.0
 
 @export_group("Camera Area Transitions")
-@export var limit_transition_duration: float = 1.0
-var current_limit_transition_duration: float = 0.0
+@export var limit_transition_duration: float = 1.5
 
 @export_group("Shake Defaults")
 @export var default_shake_frequency: float = 30.0
@@ -326,9 +325,7 @@ func _tween_limits_to(rect: Rect2) -> void:
 		_limit_tween.kill()
 	_limit_tween = create_tween()
 	_limit_tween.set_parallel(true)
-	_limit_tween.tween_property(self, "limit_left", int(rect.position.x), current_limit_transition_duration)
-	_limit_tween.tween_property(self, "limit_top", int(rect.position.y), current_limit_transition_duration)
-	_limit_tween.tween_property(self, "limit_right", int(rect.position.x + rect.size.x), current_limit_transition_duration)
-	_limit_tween.tween_property(self, "limit_bottom", int(rect.position.y + rect.size.y), current_limit_transition_duration)
-	if current_limit_transition_duration == 0:
-		current_limit_transition_duration = limit_transition_duration
+	_limit_tween.tween_property(self, "limit_left", int(rect.position.x), limit_transition_duration)
+	_limit_tween.tween_property(self, "limit_top", int(rect.position.y), limit_transition_duration)
+	_limit_tween.tween_property(self, "limit_right", int(rect.position.x + rect.size.x), limit_transition_duration)
+	_limit_tween.tween_property(self, "limit_bottom", int(rect.position.y + rect.size.y), limit_transition_duration)

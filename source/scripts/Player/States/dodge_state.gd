@@ -8,7 +8,7 @@ func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
 	player.dodge_timer.start()
 	player.is_dodging = true
 	CameraManager.apply_camera_shake_preset(GameConstants.ShakePreset.DODGE)
-	player.camera.dash_zoom_pulse(1.05, 0.4)
+	player.camera.dash_zoom_pulse(1.03, 0.3)
 
 func gravity_handle(delta: float, player: Player):
 	if !player.is_on_floor():
