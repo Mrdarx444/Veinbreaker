@@ -65,7 +65,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_v5nji")
 
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_4loxo")]
-position = Vector2(4423, -982)
+position = Vector2(-588, -847)
 
 [node name="Wall1" type="StaticBody2D" parent="." unique_id=718185708]
 position = Vector2(768, -95)
@@ -292,6 +292,7 @@ metadata/_edit_lock_ = true
 
 [node name="BossArea" type="Area2D" parent="CameraAreas" unique_id=87301903]
 script = ExtResource("3_slmcd")
+transition_duration = 2.0
 metadata/_custom_type_script = "uid://d1m3kmgxo6nep"
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true

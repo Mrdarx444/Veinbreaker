@@ -371,4 +371,14 @@ gravity = Vector2(0, 0)
 scale_amount_min = 10.0
 scale_amount_max = 10.0
 
+[node name="PlayerLineX" type="Line2D" parent="." unique_id=1117721064]
+points = PackedVector2Array(2000, 0, -2000, 0)
+width = 2.0
+default_color = Color(1, 0.5803922, 0, 1)
+
+[node name="PlayerLineY" type="Line2D" parent="." unique_id=1946784778]
+points = PackedVector2Array(0, 2000, 0, -2000)
+width = 2.0
+default_color = Color(1, 0.5803922, 0, 1)
+
 [connection signal="state_changed" from="StateMachine" to="StateLabel" method="_on_state_machine_state_changed"]

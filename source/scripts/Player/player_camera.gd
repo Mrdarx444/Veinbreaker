@@ -1,7 +1,7 @@
 class_name PlayerCamera
 extends Camera2D
 
-## PlayerCamera (v3)
+## PlayerCamera (v4)
 ## ------------------------------------------------------------------
 ## Child of the Player scene. Every physics frame computes ONE target
 ## position and assigns it to global_position once (X = follow + own-
@@ -9,17 +9,18 @@ extends Camera2D
 ## fall-lookahead while airborne). Engine smoothing + limit_* clamp
 ## the result automatically, except during focus_on() where a Tween
 ## takes exclusive control. Shake stays on `offset` (still not limit-
-## clamped by the engine — unchanged trade-off, still deliberate,
-## see §Known Trade-off at the bottom of the doc).
+## clamped by the engine — unchanged trade-off, still deliberate).
 ##
-## v3 fixes (see "Camera System 3.md" §0 for full diagnosis):
-## - shake() power is now a DIRECT pixel amplitude (was silently
-##   capped above power≈10 by a /10 + trauma-clamp bug).
-## - Shake presets moved to GameConstants (enum, autocompletes).
-## - focus_on() takes a Vector2 + its own transition_duration.
-## - Do NOT add a per-frame `_locked_y = _player.global_position.y`
-##   line — that defeats Vertical Lock entirely. Call set_falling()
-##   from Player instead (see Player.gd snippet, §7).
+## v4 changes (see "Camera System 4.md" §0 for full diagnosis):
+## - REMOVED `_locked_y = _player.global_position.y` again — it was
+##   still defeating Vertical Lock. set_falling() was already wired
+##   correctly via your Fall state; that was never the bug.
+## - CameraArea limits apply INSTANTLY by default (not tweened). This
+##   is closer to how Hollow Knight-style trigger-zone cameras work,
+##   and it fully eliminates the "reveals full screen" bug instead of
+##   patching around it. Per-area tweening is opt-in via
+##   CameraArea.transition_duration for special rooms.
+## - Added priority_override support, read from the signal payload.
 ## ------------------------------------------------------------------
 
 enum ShakeType { RANDOM, HORIZONTAL, VERTICAL }
@@ -38,9 +39,6 @@ enum ShakeType { RANDOM, HORIZONTAL, VERTICAL }
 @export var vertical_lock_enabled: bool = true
 @export var fall_lookahead_distance: float = 200.0
 @export var fall_lookahead_smoothing_speed: float = 4.0
-
-@export_group("Camera Area Transitions")
-@export var limit_transition_duration: float = 1.5
 
 @export_group("Shake Defaults")
 @export var default_shake_frequency: float = 30.0
@@ -61,14 +59,14 @@ var _is_focusing: bool = false
 
 var _trauma: float = 0.0
 var _trauma_decay_rate: float = 2.0
-var _shake_power: float = 0.0   # direct pixel amplitude, not /10-scaled
+var _shake_power: float = 0.0
 var _shake_type: ShakeType = ShakeType.RANDOM
 var _shake_frequency: float = 30.0
 var _shake_seed: float = 0.0
 
-var _active_limits: Dictionary = {}  # area.instance_id -> Rect2
+# area.instance_id -> {"rect": Rect2, "duration": float, "priority": int}
+var _active_limits: Dictionary = {}
 var _limit_tween: Tween = null
-@onready var boss_area: CollisionShape2D = $"../../CameraAreas/BossArea/DetectionShape"
 
 
 func _ready() -> void:
@@ -113,7 +111,9 @@ func _physics_process(delta: float) -> void:
 	var target_x: float = _player.global_position.x + _current_forward_offset
 	var target_y: float = _compute_target_y()
 	global_position = Vector2(target_x, target_y)
-	_locked_y = _player.global_position.y # MY CODE - REMOVEABLE ?
+	# Deliberately nothing else here — see header note on why the
+	# per-frame `_locked_y = ...` line was removed.
+
 
 # ---------------------------------------------------------------
 # Forward Offset
@@ -145,7 +145,6 @@ func _update_forward_offset(delta: float) -> void:
 # Vertical Behavior
 # ---------------------------------------------------------------
 
-## Call every physics frame from Player with is_on_floor().
 func set_grounded(grounded: bool) -> void:
 	if grounded == _is_grounded:
 		return
@@ -154,8 +153,6 @@ func set_grounded(grounded: bool) -> void:
 		_locked_y = global_position.y
 
 
-## Call every physics frame from Player. See §7 for the exact line —
-## this is the call that was missing and caused the reported bug.
 func set_falling(falling: bool) -> void:
 	if falling == _is_falling:
 		return
@@ -180,14 +177,9 @@ func _compute_target_y() -> float:
 # Focus (cinematic — boss intros, cutscene beats)
 # ---------------------------------------------------------------
 
-## Pans to a world-space point over `transition_duration`, holds for
-## `hold_duration`, then pans back to the Player over the same
-## transition_duration. Takes a Vector2 (not a Node2D) so there's no
-## dangling-reference risk if whatever you were focusing gets freed
-## mid-focus — read its global_position once before calling this.
 func focus_on(target_position: Vector2, transition_duration: float = 0.6, hold_duration: float = 1.0) -> void:
 	_is_focusing = true
-	position_smoothing_enabled = false  # tween owns the motion, no double-smoothing on top
+	position_smoothing_enabled = false
 
 	var in_tween := create_tween()
 	in_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
@@ -231,8 +223,6 @@ func dash_zoom_pulse(zoom_multiplier: float = 1.05, duration: float = 0.5) -> vo
 # Shake
 # ---------------------------------------------------------------
 
-## power is now a DIRECT pixel amplitude — see §0 diagnosis for why
-## v2's power scaling silently broke anything above ~power=10.
 func shake(power: float = 8.0, duration: float = 0.3,
 		frequency: float = default_shake_frequency,
 		type: ShakeType = ShakeType.RANDOM) -> void:
@@ -241,13 +231,11 @@ func shake(power: float = 8.0, duration: float = 0.3,
 		return
 	_shake_type = type
 	_shake_frequency = frequency
-	_shake_power = maxf(_shake_power, power)  # overlapping shakes: keep the stronger one
+	_shake_power = maxf(_shake_power, power)
 	_trauma = 1.0
 	_trauma_decay_rate = 1.0 / maxf(duration, 0.01)
 
 
-## Looks up GameConstants.ShakePreset (enum) — autocompletes in the
-## editor, unlike the old raw StringName version.
 func shake_preset(preset: GameConstants.ShakePreset) -> void:
 	if not GameConstants.SHAKE_PRESETS.has(preset):
 		push_warning("PlayerCamera: unknown shake preset '%s'" % preset)
@@ -290,42 +278,69 @@ func _direction_for_type(type: ShakeType) -> Vector2:
 
 
 # ---------------------------------------------------------------
-# CameraArea stacking + smoothed limit transitions
+# CameraArea stacking — priority override, else smallest wins;
+# limits apply instantly unless the winning area asks for a tween.
 # ---------------------------------------------------------------
 
-func _on_camera_area_entered(area: Area2D, limits: Rect2) -> void:
-	_active_limits[area.get_instance_id()] = limits
-	_apply_smallest_limit()
+func _on_camera_area_entered(area: CameraArea, limits: Rect2, transition_duration: float) -> void:
+	_active_limits[area.get_instance_id()] = {
+		"rect": limits,
+		"duration": transition_duration,
+		"priority": area.priority_override,
+	}
+	_apply_active_limit()
 
 
-func _on_camera_area_exited(area: Area2D) -> void:
+func _on_camera_area_exited(area: CameraArea) -> void:
 	_active_limits.erase(area.get_instance_id())
-	_apply_smallest_limit()
+	_apply_active_limit()
 
 
-func _apply_smallest_limit() -> void:
+func _apply_active_limit() -> void:
 	if _active_limits.is_empty():
-		_tween_limits_to(Rect2(Vector2(-10000000, -10000000), Vector2(20000000, 20000000)))
+		_apply_limit(Rect2(Vector2(-10000000, -10000000), Vector2(20000000, 20000000)), 0.0)
 		return
-	var smallest: Rect2 = Rect2()
+
+	var best_priority: int = -1
+	var priority_entry: Dictionary = {}
+	for entry in _active_limits.values():
+		if entry["priority"] > best_priority:
+			best_priority = entry["priority"]
+			priority_entry = entry
+
+	if best_priority >= 0:
+		_apply_limit(priority_entry["rect"], priority_entry["duration"])
+		return
+
+	var smallest_entry: Dictionary = {}
 	var smallest_size: float = INF
-	for rect in _active_limits.values():
+	for entry in _active_limits.values():
+		var rect: Rect2 = entry["rect"]
 		var size: float = rect.size.x * rect.size.y
 		if size < smallest_size:
 			smallest_size = size
-			smallest = rect
-	_tween_limits_to(smallest)
+			smallest_entry = entry
+
+	_apply_limit(smallest_entry["rect"], smallest_entry["duration"])
 
 
-## v3: limits tween into place instead of snapping — combined with an
-## inset DetectionShape (see CameraArea.gd), the player crosses into
-## the new room before the bound finishes moving, hiding the switch.
-func _tween_limits_to(rect: Rect2) -> void:
+## duration <= 0.0 (the default) snaps instantly — see doc §0 for why
+## this replaced the always-tweened v3 behavior. duration > 0.0 still
+## tweens, for a room that wants a deliberate slow reveal.
+func _apply_limit(rect: Rect2, duration: float) -> void:
 	if _limit_tween and _limit_tween.is_valid():
 		_limit_tween.kill()
+
+	if duration <= 0.0:
+		limit_left = int(rect.position.x)
+		limit_top = int(rect.position.y)
+		limit_right = int(rect.position.x + rect.size.x)
+		limit_bottom = int(rect.position.y + rect.size.y)
+		return
+
 	_limit_tween = create_tween()
 	_limit_tween.set_parallel(true)
-	_limit_tween.tween_property(self, "limit_left", int(rect.position.x), limit_transition_duration)
-	_limit_tween.tween_property(self, "limit_top", int(rect.position.y), limit_transition_duration)
-	_limit_tween.tween_property(self, "limit_right", int(rect.position.x + rect.size.x), limit_transition_duration)
-	_limit_tween.tween_property(self, "limit_bottom", int(rect.position.y + rect.size.y), limit_transition_duration)
+	_limit_tween.tween_property(self, "limit_left", int(rect.position.x), duration)
+	_limit_tween.tween_property(self, "limit_top", int(rect.position.y), duration)
+	_limit_tween.tween_property(self, "limit_right", int(rect.position.x + rect.size.x), duration)
+	_limit_tween.tween_property(self, "limit_bottom", int(rect.position.y + rect.size.y), duration)
