@@ -27,16 +27,22 @@ size = Vector2(200, 70)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bdb0c"]
 size = Vector2(1772, 150)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vj1f1"]
-size = Vector2(6999, 1491)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1hv3i"]
-size = Vector2(6941, 1712)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x5fkc"]
-size = Vector2(1767, 915.5)
+size = Vector2(6940, 1479)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m1geh"]
+size = Vector2(6941, 1712)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vj1f1"]
+size = Vector2(6941, 1712)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bim1v"]
+size = Vector2(877, 516.9375)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n48ev"]
+size = Vector2(1880, 1014)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x5fkc"]
 size = Vector2(1881, 1016)
 
 [node name="World" type="Node2D" unique_id=57820806]
@@ -65,7 +71,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_v5nji")
 
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_4loxo")]
-position = Vector2(-588, -847)
+position = Vector2(2588, 357)
 
 [node name="Wall1" type="StaticBody2D" parent="." unique_id=718185708]
 position = Vector2(768, -95)
@@ -275,16 +281,23 @@ metadata/_custom_type_script = "uid://d1m3kmgxo6nep"
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="DetectionShape" type="CollisionShape2D" parent="CameraAreas/MainArea" unique_id=1930114111]
-position = Vector2(2048.5, -190.5)
-shape = SubResource("RectangleShape2D_vj1f1")
-debug_color = Color(0.61960787, 0.16862746, 0.8117647, 0.0627451)
+[node name="EntranceShape" type="CollisionShape2D" parent="CameraAreas/MainArea" unique_id=1930114111]
+position = Vector2(2052, -238.5)
+shape = SubResource("RectangleShape2D_1hv3i")
+debug_color = Color(0.88633907, 0.72368115, 0.9800554, 0.0627451)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="ExitShape" type="CollisionShape2D" parent="CameraAreas/MainArea" unique_id=1367824012]
+position = Vector2(2051.5, -354)
+shape = SubResource("RectangleShape2D_m1geh")
+debug_color = Color(0.8156863, 0.29803923, 0.6627451, 0.05882353)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="LimitsShape" type="CollisionShape2D" parent="CameraAreas/MainArea" unique_id=1387786726]
 position = Vector2(2051.5, -354)
-shape = SubResource("RectangleShape2D_1hv3i")
+shape = SubResource("RectangleShape2D_vj1f1")
 disabled = true
 debug_color = Color(0.9882353, 0.99607843, 0, 0)
 metadata/_edit_group_ = true
@@ -292,21 +305,29 @@ metadata/_edit_lock_ = true
 
 [node name="BossArea" type="Area2D" parent="CameraAreas" unique_id=87301903]
 script = ExtResource("3_slmcd")
-transition_duration = 2.0
+transition_duration = 1.0
 metadata/_custom_type_script = "uid://d1m3kmgxo6nep"
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="DetectionShape" type="CollisionShape2D" parent="CameraAreas/BossArea" unique_id=1276151852]
-position = Vector2(4510.5, -55.25)
-shape = SubResource("RectangleShape2D_x5fkc")
-debug_color = Color(0.61960787, 0.16862746, 0.8117647, 0.0627451)
+[node name="EntranceShape" type="CollisionShape2D" parent="CameraAreas/BossArea" unique_id=24297886]
+position = Vector2(4962.5, 140.46875)
+shape = SubResource("RectangleShape2D_bim1v")
+debug_color = Color(0.88633907, 0.72368115, 0.9800554, 0.0627451)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="ExitShape" type="CollisionShape2D" parent="CameraAreas/BossArea" unique_id=754528304]
+position = Vector2(4524, -7)
+shape = SubResource("RectangleShape2D_n48ev")
+debug_color = Color(0.8156863, 0.29803923, 0.6627451, 0.05882353)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="LimitsShape" type="CollisionShape2D" parent="CameraAreas/BossArea" unique_id=1993124715]
 position = Vector2(4523.5, -6)
-shape = SubResource("RectangleShape2D_m1geh")
+shape = SubResource("RectangleShape2D_x5fkc")
 disabled = true
 debug_color = Color(1, 1, 0, 0)
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
