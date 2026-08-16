@@ -6,6 +6,17 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v5nji"]
 size = Vector2(7000, 150)
 
+[sub_resource type="LabelSettings" id="LabelSettings_pdc63"]
+font_size = 80
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.23921569)
+shadow_offset = Vector2(4, 4)
+
+[sub_resource type="LabelSettings" id="LabelSettings_slmcd"]
+font_size = 30
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 0.13725491)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pdc63"]
 size = Vector2(150, 1000)
 
@@ -37,13 +48,13 @@ size = Vector2(6941, 1712)
 size = Vector2(6941, 1712)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bim1v"]
-size = Vector2(877, 516.9375)
+size = Vector2(1016, 992.9375)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n48ev"]
-size = Vector2(1880, 1014)
+size = Vector2(1968, 1168)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x5fkc"]
-size = Vector2(1881, 1016)
+size = Vector2(2017, 1171)
 
 [node name="World" type="Node2D" unique_id=57820806]
 
@@ -70,8 +81,31 @@ metadata/_edit_use_anchors_ = true
 [node name="Collision" type="CollisionShape2D" parent="Platform" unique_id=667634196]
 shape = SubResource("RectangleShape2D_v5nji")
 
+[node name="BOSSArea" type="Label" parent="." unique_id=2064018711]
+visible = false
+offset_left = 4392.0
+offset_top = -226.0
+offset_right = 4797.0
+offset_bottom = -116.0
+text = "BOSS Area"
+label_settings = SubResource("LabelSettings_pdc63")
+
+[node name="Tutorial" type="Label" parent="." unique_id=922692945]
+visible = false
+offset_left = -1053.0
+offset_top = -97.0
+offset_right = -545.0
+offset_bottom = 170.0
+text = "Joystick Left/Right To Move
+Press \"Jump\" to Jump
+Press \"Jump\" in air to double jump
+Press \"Dash\" to Dash
+Press \"Dash\"+ Joystick UP to Dodge
+Jump in Wall To wall Jump"
+label_settings = SubResource("LabelSettings_slmcd")
+
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_4loxo")]
-position = Vector2(2588, 357)
+position = Vector2(-651, -3325)
 
 [node name="Wall1" type="StaticBody2D" parent="." unique_id=718185708]
 position = Vector2(768, -95)
@@ -120,7 +154,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_4loxo")
 
 [node name="Wall4" type="StaticBody2D" parent="." unique_id=1208620106]
-position = Vector2(3552, -343)
+position = Vector2(3552, -294)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Wall4" unique_id=356711583]
@@ -251,7 +285,7 @@ color = Color(0, 0.49862653, 0.20481673, 1)
 shape = SubResource("RectangleShape2D_2fwax")
 
 [node name="Roof" type="StaticBody2D" parent="." unique_id=1723023621]
-position = Vector2(4513, -535)
+position = Vector2(4513, -719)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Roof" unique_id=396252137]
@@ -270,7 +304,6 @@ color = Color(0, 0.49862653, 0.20481673, 1)
 
 [node name="Collision" type="CollisionShape2D" parent="Roof" unique_id=1845630993]
 shape = SubResource("RectangleShape2D_bdb0c")
-disabled = true
 
 [node name="CameraAreas" type="Node2D" parent="." unique_id=1106948543]
 metadata/_edit_lock_ = true
@@ -311,21 +344,21 @@ metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="EntranceShape" type="CollisionShape2D" parent="CameraAreas/BossArea" unique_id=24297886]
-position = Vector2(4962.5, 140.46875)
+position = Vector2(4893, -97.53125)
 shape = SubResource("RectangleShape2D_bim1v")
 debug_color = Color(0.88633907, 0.72368115, 0.9800554, 0.0627451)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="ExitShape" type="CollisionShape2D" parent="CameraAreas/BossArea" unique_id=754528304]
-position = Vector2(4524, -7)
+position = Vector2(4540, -84)
 shape = SubResource("RectangleShape2D_n48ev")
 debug_color = Color(0.8156863, 0.29803923, 0.6627451, 0.05882353)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="LimitsShape" type="CollisionShape2D" parent="CameraAreas/BossArea" unique_id=1993124715]
-position = Vector2(4523.5, -6)
+position = Vector2(4513.5, -83.5)
 shape = SubResource("RectangleShape2D_x5fkc")
 disabled = true
 debug_color = Color(1, 1, 0, 0)

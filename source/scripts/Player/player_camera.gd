@@ -37,7 +37,7 @@ enum ShakeType { RANDOM, HORIZONTAL, VERTICAL }
 
 @export_group("Vertical Behavior")
 @export var vertical_lock_enabled: bool = true
-@export var fall_lookahead_distance: float = 200.0
+@export var fall_lookahead_distance: float = 300.0
 @export var fall_lookahead_smoothing_speed: float = 4.0
 
 @export_group("Shake Defaults")
@@ -67,7 +67,6 @@ var _shake_seed: float = 0.0
 # area.instance_id -> {"rect": Rect2, "duration": float, "priority": int}
 var _active_limits: Dictionary = {}
 var _limit_tween: Tween = null
-
 
 func _ready() -> void:
 	_player = get_parent() as Player
@@ -113,6 +112,7 @@ func _physics_process(delta: float) -> void:
 	global_position = Vector2(target_x, target_y)
 	# Deliberately nothing else here — see header note on why the
 	# per-frame `_locked_y = ...` line was removed.
+	_locked_y = _player.global_position.y
 
 
 # ---------------------------------------------------------------
@@ -149,8 +149,8 @@ func set_grounded(grounded: bool) -> void:
 	if grounded == _is_grounded:
 		return
 	_is_grounded = grounded
-	if not grounded:
-		_locked_y = global_position.y
+	#if not grounded:
+		#_locked_y = global_position.y
 
 
 func set_falling(falling: bool) -> void:
@@ -298,7 +298,7 @@ func _on_camera_area_exited(area: CameraArea) -> void:
 
 func _apply_active_limit() -> void:
 	if _active_limits.is_empty():
-		_apply_limit(Rect2(Vector2(-10000000, -10000000), Vector2(20000000, 20000000)), 0.0)
+		_apply_limit(Rect2(Vector2(-10000, -10000000), Vector2(20000000, 20000000)), 0.0)
 		return
 
 	var best_priority: int = -1
@@ -320,7 +320,7 @@ func _apply_active_limit() -> void:
 		if size < smallest_size:
 			smallest_size = size
 			smallest_entry = entry
-
+	
 	_apply_limit(smallest_entry["rect"], smallest_entry["duration"])
 
 

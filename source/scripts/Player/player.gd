@@ -94,14 +94,18 @@ const DEBUG_MODE: bool = true
 @onready var dash_cooldown_timer_label: Label = $HUD/Debug/DashCooldownTimer
 @onready var dodge_cooldown_timer_label: Label = $HUD/Debug/DodgeCooldownTimer
 @onready var movement_tracer_debugger: CPUParticles2D = $MovementTracerDebugger
+@onready var player_line_x: Line2D = $PlayerLineX
+@onready var player_line_y: Line2D = $PlayerLineY
+
 
 func _ready() -> void:
 	set_timers()
 	debug_labels_container.visible = DEBUG_MODE
 	movement_tracer_debugger.emitting = DEBUG_MODE
 	state_label.visible = DEBUG_MODE
+	player_line_x.visible = DEBUG_MODE
+	player_line_y.visible = DEBUG_MODE
 	facing_direction = 1
-	print("Viewport Size: %s"%get_viewport_rect().size)
 
 func _physics_process(delta: float) -> void:
 	camera.set_grounded(is_on_floor())

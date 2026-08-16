@@ -85,10 +85,6 @@ shape = SubResource("CapsuleShape2D_wj2h3")
 debug_color = Color(1, 1, 1, 0.41960785)
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1120778986]
-limit_left = -10000
-limit_top = -3000
-limit_right = 10000
-limit_bottom = 3000
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
