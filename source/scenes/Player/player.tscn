@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://ceej0isvs6nyv" path="res://source/scripts/Player/player.gd" id="1_31g4s"]
 [ext_resource type="Script" uid="uid://d17itavn1yymn" path="res://source/scripts/Player/Component/aim_component.gd" id="2_ck846"]
-[ext_resource type="Script" uid="uid://ddolicw4yugkb" path="res://source/scripts/Player/player_camera.gd" id="2_rywlg"]
 [ext_resource type="Script" uid="uid://sffei5k4nmay" path="res://source/classes/FSM/StateMachine.gd" id="3_8vvwm"]
 [ext_resource type="Script" uid="uid://cn7aqx2ivd87l" path="res://source/scripts/Player/States/idle_state.gd" id="4_0wpal"]
 [ext_resource type="Script" uid="uid://d2t4p3epldlyl" path="res://source/scripts/Player/States/move_state.gd" id="5_ryax5"]
@@ -83,14 +82,6 @@ color = Color(0, 0.57254905, 1, 1)
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=888884237]
 shape = SubResource("CapsuleShape2D_wj2h3")
 debug_color = Color(1, 1, 1, 0.41960785)
-
-[node name="Camera" type="Camera2D" parent="." unique_id=1120778986]
-limit_smoothed = true
-position_smoothing_enabled = true
-position_smoothing_speed = 8.0
-drag_vertical_enabled = true
-editor_draw_drag_margin = true
-script = ExtResource("2_rywlg")
 
 [node name="RayCasts" type="Node2D" parent="." unique_id=1068774341]
 

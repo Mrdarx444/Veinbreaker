@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+GameManager="*uid://mo3q3ddve4fw"
 CameraManager="*uid://duvov6ycjp558"
 GameConstants="*uid://bq750t44uimnu"
 DisplayManager="*uid://pdv34y1fby6c"
@@ -50,6 +51,7 @@ enabled=PackedStringArray("res://addons/virtual_joystick_DX/plugin.cfg")
 [global_group]
 
 player="The Player Group"
+CameraArea=""
 
 [input]
 

@@ -1,10 +1,16 @@
 [gd_scene format=3 uid="uid://bbcxbsd1jn3bh"]
 
 [ext_resource type="PackedScene" uid="uid://bghqxvldmkdeg" path="res://source/scenes/Player/player.tscn" id="1_4loxo"]
+[ext_resource type="Script" uid="uid://bb3rseb3rlx6d" path="res://source/test/door.gd" id="2_v5nji"]
 [ext_resource type="Script" uid="uid://d1m3kmgxo6nep" path="res://source/classes/CameraArea.gd" id="3_slmcd"]
+[ext_resource type="Script" uid="uid://ddolicw4yugkb" path="res://source/scripts/Player/player_camera.gd" id="3_v5nji"]
+
+[sub_resource type="GDScript" id="GDScript_pdc63"]
+script/source = "extends StaticBody2D
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v5nji"]
-size = Vector2(7000, 150)
+size = Vector2(10000, 150)
 
 [sub_resource type="LabelSettings" id="LabelSettings_pdc63"]
 font_size = 80
@@ -17,6 +23,9 @@ font_size = 30
 shadow_size = 3
 shadow_color = Color(0, 0, 0, 0.13725491)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a81ga"]
+size = Vector2(40, 200)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pdc63"]
 size = Vector2(150, 1000)
 
@@ -26,9 +35,6 @@ size = Vector2(150, 1000)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_slmcd"]
 size = Vector2(150, 1000)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a81ga"]
-size = Vector2(150, 1200)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jhwa0"]
 size = Vector2(150, 700)
 
@@ -36,34 +42,26 @@ size = Vector2(150, 700)
 size = Vector2(200, 70)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bdb0c"]
-size = Vector2(1772, 150)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1hv3i"]
-size = Vector2(6940, 1479)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m1geh"]
-size = Vector2(6941, 1712)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vj1f1"]
-size = Vector2(6941, 1712)
+size = Vector2(1772, 300)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bim1v"]
-size = Vector2(1016, 992.9375)
+size = Vector2(655, 896)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n48ev"]
-size = Vector2(1968, 1168)
+size = Vector2(1968, 1082)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x5fkc"]
-size = Vector2(2017, 1171)
+size = Vector2(2017, 1220)
 
 [node name="World" type="Node2D" unique_id=57820806]
 
 [node name="Platform" type="StaticBody2D" parent="." unique_id=267754281]
-position = Vector2(2049, 480)
+position = Vector2(3549, 480)
+script = SubResource("GDScript_pdc63")
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Platform" unique_id=2103790015]
-custom_minimum_size = Vector2(7000, 150)
+custom_minimum_size = Vector2(10000, 150)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -105,7 +103,55 @@ Jump in Wall To wall Jump"
 label_settings = SubResource("LabelSettings_slmcd")
 
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_4loxo")]
-position = Vector2(-651, -3325)
+position = Vector2(-252, -3422)
+
+[node name="Door1" type="AnimatableBody2D" parent="." unique_id=692781374]
+position = Vector2(3607, 106)
+script = ExtResource("2_v5nji")
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Door1" unique_id=188461349]
+custom_minimum_size = Vector2(40, 200)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -100.0
+offset_right = 20.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.21960784, 0.09803922, 0.6509804, 1)
+
+[node name="Collision" type="CollisionShape2D" parent="Door1" unique_id=2131083886]
+shape = SubResource("RectangleShape2D_a81ga")
+debug_color = Color(0, 0.6, 0.69803923, 0.4117647)
+
+[node name="Door2" type="AnimatableBody2D" parent="." unique_id=1399139388]
+position = Vector2(5419, 106)
+script = ExtResource("2_v5nji")
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Door2" unique_id=390945443]
+custom_minimum_size = Vector2(40, 200)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -100.0
+offset_right = 20.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.21960784, 0.09803922, 0.6509804, 1)
+
+[node name="Collision" type="CollisionShape2D" parent="Door2" unique_id=1611296569]
+shape = SubResource("RectangleShape2D_a81ga")
+debug_color = Color(0, 0.6, 0.69803923, 0.4117647)
 
 [node name="Wall1" type="StaticBody2D" parent="." unique_id=718185708]
 position = Vector2(768, -95)
@@ -176,27 +222,28 @@ metadata/_edit_use_anchors_ = true
 [node name="Collision" type="CollisionShape2D" parent="Wall4" unique_id=1564733267]
 shape = SubResource("RectangleShape2D_slmcd")
 
-[node name="Wall5" type="StaticBody2D" parent="." unique_id=1572776073]
-position = Vector2(5474, -195)
+[node name="Wall5" type="StaticBody2D" parent="." unique_id=1152098476]
+position = Vector2(5474, -294)
 metadata/_edit_group_ = true
 
-[node name="ColorRect" type="ColorRect" parent="Wall5" unique_id=1970519979]
-custom_minimum_size = Vector2(150, 1200)
+[node name="ColorRect" type="ColorRect" parent="Wall5" unique_id=1508256806]
+custom_minimum_size = Vector2(150, 1000)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -75.0
-offset_top = -600.0
+offset_top = -150.0
 offset_right = 75.0
-offset_bottom = 600.0
+offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0.49862653, 0.20481673, 1)
+metadata/_edit_use_anchors_ = true
 
-[node name="Collision" type="CollisionShape2D" parent="Wall5" unique_id=1628186839]
-shape = SubResource("RectangleShape2D_a81ga")
+[node name="Collision" type="CollisionShape2D" parent="Wall5" unique_id=1459680221]
+shape = SubResource("RectangleShape2D_slmcd")
 
 [node name="Wall3" type="StaticBody2D" parent="." unique_id=492829394]
 position = Vector2(192, -245)
@@ -284,8 +331,113 @@ color = Color(0, 0.49862653, 0.20481673, 1)
 [node name="Collision" type="CollisionShape2D" parent="Platform 4" unique_id=758241004]
 shape = SubResource("RectangleShape2D_2fwax")
 
+[node name="Platform 5" type="StaticBody2D" parent="." unique_id=623535509]
+position = Vector2(5965, 9)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Platform 5" unique_id=1064908442]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -35.0
+offset_right = 100.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.49862653, 0.20481673, 1)
+
+[node name="Collision" type="CollisionShape2D" parent="Platform 5" unique_id=1103701102]
+shape = SubResource("RectangleShape2D_2fwax")
+
+[node name="Platform 6" type="StaticBody2D" parent="." unique_id=461014065]
+position = Vector2(6539, -258)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Platform 6" unique_id=1564435671]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -35.0
+offset_right = 100.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.49862653, 0.20481673, 1)
+
+[node name="Collision" type="CollisionShape2D" parent="Platform 6" unique_id=190433831]
+shape = SubResource("RectangleShape2D_2fwax")
+
+[node name="Platform 7" type="StaticBody2D" parent="." unique_id=1981458537]
+position = Vector2(5951, -639)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Platform 7" unique_id=499738762]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -35.0
+offset_right = 100.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.49862653, 0.20481673, 1)
+
+[node name="Collision" type="CollisionShape2D" parent="Platform 7" unique_id=1771791452]
+shape = SubResource("RectangleShape2D_2fwax")
+
+[node name="Platform 8" type="StaticBody2D" parent="." unique_id=1748321194]
+position = Vector2(6742, -844)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Platform 8" unique_id=1121537864]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -35.0
+offset_right = 100.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.49862653, 0.20481673, 1)
+
+[node name="Collision" type="CollisionShape2D" parent="Platform 8" unique_id=213156448]
+shape = SubResource("RectangleShape2D_2fwax")
+
+[node name="Platform 9" type="StaticBody2D" parent="." unique_id=1031448005]
+position = Vector2(7362, -868)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Platform 9" unique_id=868430092]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -35.0
+offset_right = 100.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.49862653, 0.20481673, 1)
+
+[node name="Collision" type="CollisionShape2D" parent="Platform 9" unique_id=784244907]
+shape = SubResource("RectangleShape2D_2fwax")
+
 [node name="Roof" type="StaticBody2D" parent="." unique_id=1723023621]
-position = Vector2(4513, -719)
+position = Vector2(4513, -644)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Roof" unique_id=396252137]
@@ -295,9 +447,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -886.0
-offset_top = -75.0
+offset_top = -150.0
 offset_right = 886.0
-offset_bottom = 75.0
+offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0.49862653, 0.20481673, 1)
@@ -308,35 +460,7 @@ shape = SubResource("RectangleShape2D_bdb0c")
 [node name="CameraAreas" type="Node2D" parent="." unique_id=1106948543]
 metadata/_edit_lock_ = true
 
-[node name="MainArea" type="Area2D" parent="CameraAreas" unique_id=1730337677]
-script = ExtResource("3_slmcd")
-metadata/_custom_type_script = "uid://d1m3kmgxo6nep"
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
-
-[node name="EntranceShape" type="CollisionShape2D" parent="CameraAreas/MainArea" unique_id=1930114111]
-position = Vector2(2052, -238.5)
-shape = SubResource("RectangleShape2D_1hv3i")
-debug_color = Color(0.88633907, 0.72368115, 0.9800554, 0.0627451)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
-
-[node name="ExitShape" type="CollisionShape2D" parent="CameraAreas/MainArea" unique_id=1367824012]
-position = Vector2(2051.5, -354)
-shape = SubResource("RectangleShape2D_m1geh")
-debug_color = Color(0.8156863, 0.29803923, 0.6627451, 0.05882353)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
-
-[node name="LimitsShape" type="CollisionShape2D" parent="CameraAreas/MainArea" unique_id=1387786726]
-position = Vector2(2051.5, -354)
-shape = SubResource("RectangleShape2D_vj1f1")
-disabled = true
-debug_color = Color(0.9882353, 0.99607843, 0, 0)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
-
-[node name="BossArea" type="Area2D" parent="CameraAreas" unique_id=87301903]
+[node name="BossArea" type="Area2D" parent="CameraAreas" unique_id=87301903 groups=["CameraArea"]]
 script = ExtResource("3_slmcd")
 transition_duration = 1.0
 metadata/_custom_type_script = "uid://d1m3kmgxo6nep"
@@ -344,23 +468,39 @@ metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="EntranceShape" type="CollisionShape2D" parent="CameraAreas/BossArea" unique_id=24297886]
-position = Vector2(4893, -97.53125)
+position = Vector2(5073.5, -43)
 shape = SubResource("RectangleShape2D_bim1v")
-debug_color = Color(0.88633907, 0.72368115, 0.9800554, 0.0627451)
+debug_color = Color(0, 0.7254902, 0, 0.0627451)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="ExitShape" type="CollisionShape2D" parent="CameraAreas/BossArea" unique_id=754528304]
-position = Vector2(4540, -84)
+position = Vector2(4540, -127)
 shape = SubResource("RectangleShape2D_n48ev")
 debug_color = Color(0.8156863, 0.29803923, 0.6627451, 0.05882353)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="LimitsShape" type="CollisionShape2D" parent="CameraAreas/BossArea" unique_id=1993124715]
-position = Vector2(4513.5, -83.5)
+position = Vector2(4513.5, -59)
 shape = SubResource("RectangleShape2D_x5fkc")
 disabled = true
 debug_color = Color(1, 1, 0, 0)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
+
+[node name="Camera" type="Camera2D" parent="." unique_id=49822024 node_paths=PackedStringArray("target")]
+unique_name_in_owner = true
+zoom = Vector2(0.6, 0.6)
+limit_left = -1448
+limit_top = -3891
+limit_right = 9859
+limit_bottom = 551
+limit_smoothed = true
+drag_vertical_enabled = true
+drag_top_margin = 0.05
+drag_bottom_margin = 0.0
+editor_draw_limits = true
+editor_draw_drag_margin = true
+script = ExtResource("3_v5nji")
+target = NodePath("../Player")

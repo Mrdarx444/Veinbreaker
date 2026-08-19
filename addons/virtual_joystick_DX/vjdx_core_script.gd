@@ -269,6 +269,10 @@ var _origin_pos: Vector2 = Vector2.ZERO
 
 # Inicialización y Sincronización
 func _ready() -> void:
+	#if OS.has_feature("Mobile"):
+		#visible = true
+	#else :
+		#visible = false
 	_origin_pos = position
 	_center = size / 2.0
 # Nuevo: el pivot_offset siempre queda centrado

@@ -8,10 +8,15 @@ var acceleration: float = speed * 10
 var friction: float = speed * 10
 @export_range(0, 1, .01) var aiming_slowdown_ratio: float = 1.0 # Temp Canceling
 var facing_direction: int = 0:
-	set(dir):
-		if facing_direction != dir:
-			facing_direction = dir
-			CameraManager.set_facing_direction(dir)
+	set(value):
+		if facing_direction == value:
+			return
+
+		facing_direction = value
+
+		if has_node("/root/CameraManager"):
+			CameraManager.set_facing_direction(value)
+
 @export_subgroup("Jump & Fall")
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2.2
 @export var max_fall_speed: float = 2500.0
@@ -65,7 +70,7 @@ var can_double_jump = false
 
 #=== Nodes:
 @onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
-@onready var camera: PlayerCamera = $Camera
+@onready var camera: PlayerCamera = %Camera
 # RayCasts:
 @onready var left_raycast: RayCast2D = $RayCasts/LeftWall
 @onready var right_raycast: RayCast2D = $RayCasts/RightWall
@@ -82,7 +87,7 @@ var can_double_jump = false
 @onready var big_fall_timer: Timer = $Timers/BigFallTimer
 
 # Debugging
-const DEBUG_MODE: bool = true
+var DEBUG_MODE: bool = OS.has_feature("Demo") or OS.has_feature("Debug")
 @onready var state_label: Label = $StateLabel
 @onready var debug_labels_container: Control = $HUD/Debug
 @onready var zone_label: Label = $HUD/Debug/Zone
