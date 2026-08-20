@@ -11,9 +11,7 @@ var facing_direction: int = 0:
 	set(value):
 		if facing_direction == value:
 			return
-
 		facing_direction = value
-
 		if has_node("/root/CameraManager"):
 			CameraManager.set_facing_direction(value)
 
@@ -68,7 +66,7 @@ var can_double_jump = false
 @export var unlocked_wall_jump: bool = true
 @export var unlocked_dodge: bool = true
 
-#=== Nodes:
+# Components:
 @onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
 @onready var camera: PlayerCamera = %Camera
 # RayCasts:
@@ -86,36 +84,14 @@ var can_double_jump = false
 @onready var stunning_timer: Timer = $Timers/StunningTimer
 @onready var big_fall_timer: Timer = $Timers/BigFallTimer
 
-# Debugging
-var DEBUG_MODE: bool = OS.has_feature("Demo") or OS.has_feature("Debug")
-@onready var state_label: Label = $StateLabel
-@onready var debug_labels_container: Control = $HUD/Debug
-@onready var zone_label: Label = $HUD/Debug/Zone
-@onready var direction_label: Label = $HUD/Debug/Direction
-@onready var move_direction_label: Label = $HUD/Debug/move_direction
-@onready var velocity_label: Label = $HUD/Debug/Velocity
-@onready var coyote_timer_label: Label = $HUD/Debug/CoyoteTimer
-@onready var buffer_timer_label: Label = $HUD/Debug/BufferTimer
-@onready var dash_cooldown_timer_label: Label = $HUD/Debug/DashCooldownTimer
-@onready var dodge_cooldown_timer_label: Label = $HUD/Debug/DodgeCooldownTimer
-@onready var movement_tracer_debugger: CPUParticles2D = $MovementTracerDebugger
-@onready var player_line_x: Line2D = $PlayerLineX
-@onready var player_line_y: Line2D = $PlayerLineY
-
-
 func _ready() -> void:
+	DebugOverlay.player = self
 	set_timers()
-	debug_labels_container.visible = DEBUG_MODE
-	movement_tracer_debugger.emitting = DEBUG_MODE
-	state_label.visible = DEBUG_MODE
-	player_line_x.visible = DEBUG_MODE
-	player_line_y.visible = DEBUG_MODE
 	facing_direction = 1
 
 func _physics_process(delta: float) -> void:
 	camera.set_grounded(is_on_floor())
 	if joystick.move_direction: facing_direction = int(joystick.move_direction)
-	if DEBUG_MODE: _debug()
 
 func set_timers():
 	coyote_timer.wait_time = coyote_time
@@ -125,21 +101,3 @@ func set_timers():
 	dodge_timer.wait_time = dodge_time
 	dodge_cooldown_timer.wait_time = dodge_cooldown_time
 	big_fall_timer.wait_time = big_fall_time
-
-func _debug():
-	zone_label.text = "Aim Zone: " + joystick.aim_zone_debbug[joystick.current_zone]
-	direction_label.text = "Aim Direction: " + joystick.aim_direction_debbug[joystick.aim_direction]
-	
-	match int(facing_direction):
-		-1:
-			move_direction_label.text = "Facing Direction: Left"
-		1:
-			move_direction_label.text = "Facing Direction: Right"
-		_:
-			move_direction_label.text = "Facing Direction: ?????"
-	
-	velocity_label.text = "Velocity:     x=%d    y=%d" % [velocity.x, velocity.y]
-	coyote_timer_label.text = "Coyote Timer: %.2fs" % coyote_timer.time_left
-	buffer_timer_label.text = "Jump Buffer Timer: %.2fs" % jump_buffer_timer.time_left
-	dash_cooldown_timer_label.text = "Dash Cooldown: %.2fs" % dash_cooldown_timer.time_left
-	dodge_cooldown_timer_label.text = "Dodge Cooldown: %.2fs" % dodge_cooldown_timer.time_left

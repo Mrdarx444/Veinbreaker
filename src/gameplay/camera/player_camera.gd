@@ -183,7 +183,7 @@ func _ready() -> void:
 	if target == null:
 		push_error("PlayerCamera: target is not assigned.")
 		return
-	
+		
 	global_position = target.global_position
 	
 	position_smoothing_enabled = false
@@ -706,11 +706,9 @@ func zoom_to(
 	target_zoom: Vector2,
 	duration: float = 0.3
 ) -> void:
-
 	var tween := create_tween()
-
 	tween.set_trans(Tween.TRANS_SINE)
-	tween.set_ease(Tween.EASE_IN_OUT)
+	#tween.set_ease(Tween.EASE_OUT)
 
 	tween.tween_property(
 		self,

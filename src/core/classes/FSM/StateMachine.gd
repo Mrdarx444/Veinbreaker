@@ -46,9 +46,5 @@ func change_state(next_state_name: StringName) -> void:
 
 func _debug() -> void:
 	if initiate_state == null:
-		push_error("There is no initial state")
+		push_error("'%s': There is no initial state"%name)
 		return
-	state_changed.connect(Callable(self, "_state_changed_message"))
-
-func _state_changed_message(from: StringName, to: StringName):
-	print("'%s' Changed state from '%s' to '%s'"%[owner.name, from, to])

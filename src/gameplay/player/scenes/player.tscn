@@ -1,0 +1,203 @@
+[gd_scene format=3 uid="uid://bghqxvldmkdeg"]
+
+[ext_resource type="Script" uid="uid://ceej0isvs6nyv" path="res://src/gameplay/player/scripts/player.gd" id="1_31g4s"]
+[ext_resource type="Script" uid="uid://d17itavn1yymn" path="res://src/gameplay/player/scripts/Component/aim_component.gd" id="2_ck846"]
+[ext_resource type="Script" uid="uid://c3hpeqmeelksw" path="res://src/gameplay/player/scripts/player_state_machine.gd" id="3_g30lu"]
+[ext_resource type="Script" uid="uid://cn7aqx2ivd87l" path="res://src/gameplay/player/scripts/States/idle_state.gd" id="4_0wpal"]
+[ext_resource type="Script" uid="uid://d2t4p3epldlyl" path="res://src/gameplay/player/scripts/States/move_state.gd" id="5_ryax5"]
+[ext_resource type="Script" uid="uid://booc1r8m0sjrd" path="res://src/gameplay/player/scripts/States/fall_state.gd" id="6_c4tgw"]
+[ext_resource type="Script" uid="uid://t641dacx3nys" path="res://src/gameplay/player/scripts/States/jump_state.gd" id="7_c4tgw"]
+[ext_resource type="Script" uid="uid://cpdvjkqdtfej1" path="res://src/gameplay/player/scripts/States/wall_state.gd" id="8_1w3qr"]
+[ext_resource type="Script" uid="uid://ivwe8m6c8rct" path="res://src/gameplay/player/scripts/States/dash_state.gd" id="9_2ebov"]
+[ext_resource type="Texture2D" uid="uid://bck3upoq50wf3" path="res://assets/Demo/Melee Button.png" id="10_n0ac8"]
+[ext_resource type="Script" uid="uid://5gqtc4enpg5c" path="res://addons/virtual_joystick_DX/vjdx_core_script.gd" id="10_pwbjc"]
+[ext_resource type="Script" uid="uid://dvswj5xgggsc1" path="res://src/gameplay/player/scripts/States/double_jump.gd" id="10_wj2h3"]
+[ext_resource type="Texture2D" uid="uid://cxpqtve140hr6" path="res://assets/Demo/Dash Button.png" id="11_uvchi"]
+[ext_resource type="Script" uid="uid://d2liice8vwrmb" path="res://src/gameplay/player/scripts/States/dodge_state.gd" id="11_wj2h3"]
+[ext_resource type="Script" uid="uid://bhpy6fo4n8ft" path="res://src/gameplay/player/scripts/States/stunned_state.gd" id="12_i6it3"]
+[ext_resource type="Script" uid="uid://dig3m88k5pkqe" path="res://src/debug/PlayerHUDButtons.gd" id="12_oyrgr"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wj2h3"]
+radius = 28.0
+height = 120.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_n0ac8"]
+blend_mode = 3
+
+[node name="Player" type="CharacterBody2D" unique_id=1568325260 groups=["player"]]
+script = ExtResource("1_31g4s")
+
+[node name="TempSprite" type="ColorRect" parent="." unique_id=739025270]
+custom_minimum_size = Vector2(60, 120)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.57254905, 1, 1)
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=888884237]
+shape = SubResource("CapsuleShape2D_wj2h3")
+debug_color = Color(1, 1, 1, 0.41960785)
+
+[node name="RayCasts" type="Node2D" parent="." unique_id=1068774341]
+
+[node name="LeftWall" type="RayCast2D" parent="RayCasts" unique_id=1067981713]
+position = Vector2(0, -19)
+rotation = 1.5707964
+target_position = Vector2(0, 32)
+
+[node name="RightWall" type="RayCast2D" parent="RayCasts" unique_id=724376704]
+position = Vector2(0, -19)
+rotation = -1.5707964
+target_position = Vector2(0, 32)
+
+[node name="BottomSlideStop" type="RayCast2D" parent="RayCasts" unique_id=24949518]
+target_position = Vector2(0, 140)
+
+[node name="ForcedFall" type="RayCast2D" parent="RayCasts" unique_id=263831735]
+target_position = Vector2(0, 1000)
+
+[node name="Components" type="Node" parent="." unique_id=2138234143]
+
+[node name="PlayerAimComponent" type="Node" parent="Components" unique_id=1738510395]
+script = ExtResource("2_ck846")
+IDLE_THRESHOLD = 0.3
+metadata/_custom_type_script = "uid://d17itavn1yymn"
+
+[node name="StateMachine" type="Node" parent="." unique_id=393924244 node_paths=PackedStringArray("initiate_state")]
+script = ExtResource("3_g30lu")
+initiate_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://sffei5k4nmay"
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=619413992]
+script = ExtResource("4_0wpal")
+metadata/_custom_type_script = "uid://c2d84vxcs81cy"
+
+[node name="Move" type="Node" parent="StateMachine" unique_id=1796069242]
+script = ExtResource("5_ryax5")
+metadata/_custom_type_script = "uid://c2d84vxcs81cy"
+
+[node name="Fall" type="Node" parent="StateMachine" unique_id=1787499065]
+script = ExtResource("6_c4tgw")
+metadata/_custom_type_script = "uid://c2d84vxcs81cy"
+
+[node name="Jump" type="Node" parent="StateMachine" unique_id=866311513]
+script = ExtResource("7_c4tgw")
+metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
+
+[node name="WallSlide" type="Node" parent="StateMachine" unique_id=1392095955]
+script = ExtResource("8_1w3qr")
+metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
+
+[node name="Dash" type="Node" parent="StateMachine" unique_id=1287062347]
+script = ExtResource("9_2ebov")
+metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
+
+[node name="DoubleJump" type="Node" parent="StateMachine" unique_id=1562791271]
+script = ExtResource("10_wj2h3")
+metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
+
+[node name="Dodge" type="Node" parent="StateMachine" unique_id=807096119]
+script = ExtResource("11_wj2h3")
+metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
+
+[node name="Stunned" type="Node" parent="StateMachine" unique_id=419349326]
+script = ExtResource("12_i6it3")
+metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
+
+[node name="Timers" type="Node" parent="." unique_id=1895822513]
+
+[node name="CoyoteTimer" type="Timer" parent="Timers" unique_id=302265838]
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="Timers" unique_id=687490601]
+one_shot = true
+
+[node name="DashTimer" type="Timer" parent="Timers" unique_id=2005891131]
+one_shot = true
+
+[node name="DashCooldown" type="Timer" parent="Timers" unique_id=768993380]
+one_shot = true
+
+[node name="DodgeTimer" type="Timer" parent="Timers" unique_id=1013118344]
+one_shot = true
+
+[node name="DodgeCooldown" type="Timer" parent="Timers" unique_id=2112230708]
+one_shot = true
+
+[node name="StunningTimer" type="Timer" parent="Timers" unique_id=467017885]
+one_shot = true
+
+[node name="BigFallTimer" type="Timer" parent="Timers" unique_id=1508556588]
+one_shot = true
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=69797456]
+
+[node name="Controllers" type="Control" parent="HUD" unique_id=1221603634]
+layout_direction = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VirtualJoystickDX" type="Control" parent="HUD/Controllers" unique_id=340634429]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = -266.0
+offset_right = 263.0
+offset_bottom = 9.0
+grow_vertical = 0
+pivot_offset = Vector2(137, 137.5)
+mouse_filter = 2
+script = ExtResource("10_pwbjc")
+joystick_radius = 90.0
+thumb_radius = 50.0
+dpad_radius = 120.0
+deadzone = 0.0
+joystick_mode = 2
+action_left = &"Left"
+action_right = &"Right"
+action_up = &"Up"
+action_down = &"Down"
+region_y = 150.0
+region_h = 400.0
+"Colors - D-Pad" = null
+"Textures - D-Pad" = null
+Cardinals = null
+Diagonals = null
+metadata/_custom_type_script = "uid://5gqtc4enpg5c"
+
+[node name="JumpButton" type="TouchScreenButton" parent="HUD/Controllers" unique_id=1566731449]
+material = SubResource("CanvasItemMaterial_n0ac8")
+position = Vector2(967, 416)
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("10_n0ac8")
+passby_press = true
+action = "Jump"
+script = ExtResource("12_oyrgr")
+offset = Vector2(120, 25)
+
+[node name="DashButton" type="TouchScreenButton" parent="HUD/Controllers" unique_id=1920385870]
+material = SubResource("CanvasItemMaterial_n0ac8")
+position = Vector2(1042, 277)
+scale = Vector2(0.43, 0.43)
+texture_normal = ExtResource("11_uvchi")
+passby_press = true
+action = "Dash"
+script = ExtResource("12_oyrgr")
+offset = Vector2(30, 160)
+
+[connection signal="state_changed" from="StateMachine" to="StateMachine" method="_on_state_changed"]

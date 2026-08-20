@@ -2,13 +2,11 @@ extends PlayerState
 
 func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
 	var player: Player = state_owner
-	print("Dash Distance = %.2f" % (player.dash_velocity * player.dash_time))
 	player.dash_timer.start()
 	player.is_dashing = true
 	player.velocity.y = 0
 	player.velocity.x = player.dash_velocity * player.facing_direction
-	#CameraManager.apply_camera_shake_preset(GameConstents.SHAKE_PRESETS.)
-	player.camera.dash_zoom_pulse(1.02, 0.3)
+	player.camera.dash_zoom_pulse(1.025, 0.4)
 
 func gravity_handle(delta: float, player: Player):
 	if !player.is_on_floor():
@@ -37,3 +35,5 @@ func exit(state_owner: Node2D, state_machine: StateMachine) -> void:
 	player.dash_cooldown_timer.start()
 	player.is_dashing = false
 	player.velocity.x = 0
+	if !player.is_on_floor():
+		player.dodge_cooldown_timer.start()
