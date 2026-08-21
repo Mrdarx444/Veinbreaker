@@ -18,10 +18,10 @@ enum ShakePreset {
 }
 
 const SHAKE_PRESETS: Dictionary = {
-	ShakePreset.FAST_FALL:     {"power": 4.0,  "duration": 0.05,  "frequency": 60.0, "type": PlayerCamera.ShakeType.RANDOM},
-	ShakePreset.FORCED_FALL:   {"power": 6.0,  "duration": 0.2, "frequency": 20.0, "type": PlayerCamera.ShakeType.RANDOM},
-	ShakePreset.BIG_FALL:      {"power": 20.0, "duration": 0.5,  "frequency": 70.0, "type": PlayerCamera.ShakeType.RANDOM},
-	ShakePreset.DODGE:         {"power": 5.5, "duration": 0.2,  "frequency": 30.0, "type": PlayerCamera.ShakeType.RANDOM},
+	ShakePreset.FAST_FALL:     {"power": 6.0,  "duration": 0.04,  "frequency": 60.0, "type": PlayerCamera.ShakeType.RANDOM},
+	ShakePreset.FORCED_FALL:   {"power": 8.0,  "duration": 0.16, "frequency": 20.0, "type": PlayerCamera.ShakeType.VERTICAL},
+	ShakePreset.BIG_FALL:      {"power": 15.0, "duration": 0.5,  "frequency": 70.0, "type": PlayerCamera.ShakeType.RANDOM},
+	ShakePreset.DODGE:         {"power": 7.5, "duration": 0.15,  "frequency": 40.0, "type": PlayerCamera.ShakeType.HORIZONTAL},
 	#ShakePreset.HIT_LIGHT:     {"power": 4.0,  "duration": 0.15, "frequency": 35.0, "type": PlayerCamera.ShakeType.RANDOM},
 	#ShakePreset.HIT_HEAVY:     {"power": 9.0,  "duration": 0.35, "frequency": 25.0, "type": PlayerCamera.ShakeType.RANDOM},
 	#ShakePreset.PARRY_SUCCESS: {"power": 3.0,  "duration": 0.0,  "frequency": 0.0,  "type": PlayerCamera.ShakeType.RANDOM},

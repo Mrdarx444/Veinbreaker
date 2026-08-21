@@ -22,11 +22,13 @@ shadow_color = Color(0, 0, 0, 0.13725491)
 [sub_resource type="GDScript" id="GDScript_v7unp"]
 script/source = "extends Label
 
+@export var Hide: bool = false
+
 func _ready() -> void:
-	if OS.has_feature(\"pc\"):
-		visible = true
-	else :
+	if !OS.has_feature(\"pc\") or Hide:
 		visible = false
+	else :
+		visible = true
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2fwax"]
@@ -113,6 +115,7 @@ Press \"Dash\"+ Joystick UP to Dodge
 Jump in Wall To wall Jump"
 label_settings = SubResource("LabelSettings_slmcd")
 script = SubResource("GDScript_v7unp")
+Hide = true
 
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_v7unp")]
 position = Vector2(-408, -3455)

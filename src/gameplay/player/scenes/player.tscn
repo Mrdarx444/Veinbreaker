@@ -18,7 +18,7 @@
 [ext_resource type="Script" uid="uid://dig3m88k5pkqe" path="res://src/debug/PlayerHUDButtons.gd" id="12_oyrgr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wj2h3"]
-radius = 28.0
+radius = 27.0
 height = 120.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_n0ac8"]
@@ -34,10 +34,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -30.0
+offset_top = -60.0
+offset_right = 30.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0.57254905, 1, 1)
@@ -92,16 +92,16 @@ metadata/_custom_type_script = "uid://c2d84vxcs81cy"
 script = ExtResource("7_c4tgw")
 metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
 
+[node name="DoubleJump" type="Node" parent="StateMachine" unique_id=1562791271]
+script = ExtResource("10_wj2h3")
+metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
+
 [node name="WallSlide" type="Node" parent="StateMachine" unique_id=1392095955]
 script = ExtResource("8_1w3qr")
 metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
 
 [node name="Dash" type="Node" parent="StateMachine" unique_id=1287062347]
 script = ExtResource("9_2ebov")
-metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
-
-[node name="DoubleJump" type="Node" parent="StateMachine" unique_id=1562791271]
-script = ExtResource("10_wj2h3")
 metadata/_custom_type_script = "uid://c6ee1ed1fi5b1"
 
 [node name="Dodge" type="Node" parent="StateMachine" unique_id=807096119]
@@ -199,5 +199,13 @@ passby_press = true
 action = "Dash"
 script = ExtResource("12_oyrgr")
 offset = Vector2(30, 160)
+
+[node name="PathTracingParticels" type="CPUParticles2D" parent="." unique_id=1987618094]
+position = Vector2(0, 55)
+amount = 20
+lifetime = 2.0
+gravity = Vector2(0, 0)
+scale_amount_min = 10.0
+scale_amount_max = 10.0
 
 [connection signal="state_changed" from="StateMachine" to="StateMachine" method="_on_state_changed"]

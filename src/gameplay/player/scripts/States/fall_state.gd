@@ -1,8 +1,9 @@
 extends PlayerState
 
-var forced_fall: bool = false
+@export var fall_shake_max_vel_coeff: float = 0.85
+var was_forced_fall: bool = false
 var is_big_fall: bool = false
-var time_after_big_fall: float = 0
+var _time_after_big_fall: float = 0
 
 func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
 	var player: Player = state_owner as Player
@@ -17,18 +18,18 @@ func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachi
 			player.forced_fall_raycast.is_colliding() and
 			player.unlocked_forced_fall
 		):
-			forced_fall = true
+			was_forced_fall = true
 		else :
 			player.jump_buffer_timer.start()
 	super.physics_update(delta, state_owner, state_machine)
 	if is_big_fall and player.big_fall_timer.is_stopped():
-		time_after_big_fall += delta
-	if player.velocity.y >= player.max_fall_speed:
+		_time_after_big_fall += delta
+	if player.velocity.y >= player.max_fall_speed * fall_shake_max_vel_coeff:
 		CameraManager.apply_camera_shake_preset(GameConstants.ShakePreset.FAST_FALL)
 
 func movement_handle(delta: float, player: Player):
 	super.movement_handle(delta, player)
-	if forced_fall:
+	if was_forced_fall:
 		player.velocity.x = 0
 	if player.velocity.y >= player.max_fall_speed and !is_big_fall and player.big_fall_timer.is_stopped():
 		player.big_fall_timer.start()
@@ -37,16 +38,16 @@ func movement_handle(delta: float, player: Player):
 func gravity_handle(delta: float, player: Player):
 	if !player.is_on_floor():
 		if player.velocity.y < player.max_fall_speed:
-			if forced_fall and player.velocity.y < player.forced_fall_velocity:
-				player.velocity.y = player.forced_fall_velocity
+			if was_forced_fall and player.velocity.y < player.forced_fall_velocity:
+				player.velocity.y = lerp(player.velocity.y, player.forced_fall_velocity, player.forced_fall_transition)
 			else :
-				player.velocity.y = min(player.velocity.y + player.gravity * delta, player.max_fall_speed)
+				player.velocity.y = min(player.velocity.y + get_gravity(player) * delta, player.max_fall_speed)
 	else :
 		player.velocity.y = 0
 
 func get_next_state(player: Player) -> StringName:
 	if player.is_on_floor():
-		if forced_fall: CameraManager.apply_camera_shake_preset(GameConstants.ShakePreset.FORCED_FALL)
+		if was_forced_fall: CameraManager.apply_camera_shake_preset(GameConstants.ShakePreset.FORCED_FALL)
 		if is_big_fall and player.big_fall_timer.is_stopped():
 			CameraManager.apply_camera_shake_preset(GameConstants.ShakePreset.BIG_FALL)
 			return &"Stunned"
@@ -84,6 +85,6 @@ func get_next_state(player: Player) -> StringName:
 func exit(state_owner: Node2D, state_machine: StateMachine) -> void:
 	var player: Player = state_owner as Player
 	player.camera.set_falling(false)
-	forced_fall = false
+	was_forced_fall = false
 	is_big_fall = false
-	time_after_big_fall = 0
+	_time_after_big_fall = 0

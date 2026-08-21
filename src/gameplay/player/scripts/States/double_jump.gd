@@ -13,7 +13,7 @@ func get_next_state(player: Player) -> StringName:
 	if player.velocity.y >= 0:
 		return &"Fall"
 	if !Input.is_action_pressed("Jump"):
-		player.velocity.y *= player.jump_cut_mult
+		player.velocity.y *= player.double_jump_cut_mult
 		return &"Fall"
 	if can_wall_slide(player):
 		return &"WallSlide"
