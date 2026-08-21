@@ -7,6 +7,8 @@ func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
 	player.velocity.y = 0
 	player.velocity.x = player.dash_velocity * player.facing_direction
 	player.camera.dash_zoom_pulse(1.025, 0.4)
+	if player.is_on_floor():
+		CameraManager.apply_camera_shake_preset(GameConstants.ShakePreset.GROUND_DASH)
 
 func gravity_handle(delta: float, player: Player):
 	if !player.is_on_floor():

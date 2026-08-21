@@ -53,10 +53,10 @@ size = Vector2(150, 700)
 size = Vector2(1772, 300)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bim1v"]
-size = Vector2(655, 896)
+size = Vector2(782, 683)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n48ev"]
-size = Vector2(1968, 1082)
+size = Vector2(1952, 1082)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x5fkc"]
 size = Vector2(2017, 1220)
@@ -504,19 +504,19 @@ metadata/_edit_lock_ = true
 
 [node name="BossArea" type="Area2D" parent="CameraAreas" unique_id=87301903 groups=["CameraArea"]]
 script = ExtResource("3_3p7ki")
-transition_duration = 0.5
+transition_duration = 1.0
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="EntranceShape" type="CollisionShape2D" parent="CameraAreas/BossArea" unique_id=24297886]
-position = Vector2(5073.5, -43)
+position = Vector2(4539, 63.5)
 shape = SubResource("RectangleShape2D_bim1v")
 debug_color = Color(0, 0.7254902, 0, 0.0627451)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="ExitShape" type="CollisionShape2D" parent="CameraAreas/BossArea" unique_id=754528304]
-position = Vector2(4540, -127)
+position = Vector2(4518, -127)
 shape = SubResource("RectangleShape2D_n48ev")
 debug_color = Color(0.8156863, 0.29803923, 0.6627451, 0.05882353)
 metadata/_edit_group_ = true

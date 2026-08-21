@@ -201,6 +201,7 @@ script = ExtResource("12_oyrgr")
 offset = Vector2(30, 160)
 
 [node name="PathTracingParticels" type="CPUParticles2D" parent="." unique_id=1987618094]
+show_behind_parent = true
 position = Vector2(0, 55)
 amount = 20
 lifetime = 2.0
