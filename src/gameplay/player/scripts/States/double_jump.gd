@@ -24,6 +24,6 @@ func get_next_state(player: Player) -> StringName:
 			else :
 				return &""
 		else :
-			if player.dash_cooldown_timer.is_stopped():
+			if player.dash_cooldown_timer.is_stopped() and player.air_dash_current_times > 0:
 				return &"Dash"
 	return &""

@@ -53,7 +53,7 @@ size = Vector2(150, 700)
 size = Vector2(1772, 300)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bim1v"]
-size = Vector2(782, 683)
+size = Vector2(782, 899)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n48ev"]
 size = Vector2(1952, 1082)
@@ -118,7 +118,7 @@ script = SubResource("GDScript_v7unp")
 Hide = true
 
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_v7unp")]
-position = Vector2(-408, -3455)
+position = Vector2(-540, 345)
 
 [node name="Platforms" type="Node2D" parent="." unique_id=1237263674]
 
@@ -456,7 +456,7 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_slmcd")
 
 [node name="Wall3" type="StaticBody2D" parent="Walls" unique_id=492829394]
-position = Vector2(192, -245)
+position = Vector2(336, -245)
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Walls/Wall3" unique_id=1704805394]
@@ -504,12 +504,12 @@ metadata/_edit_lock_ = true
 
 [node name="BossArea" type="Area2D" parent="CameraAreas" unique_id=87301903 groups=["CameraArea"]]
 script = ExtResource("3_3p7ki")
-transition_duration = 1.0
+transition_duration = 1.5
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="EntranceShape" type="CollisionShape2D" parent="CameraAreas/BossArea" unique_id=24297886]
-position = Vector2(4539, 63.5)
+position = Vector2(4539, -44.5)
 shape = SubResource("RectangleShape2D_bim1v")
 debug_color = Color(0, 0.7254902, 0, 0.0627451)
 metadata/_edit_group_ = true

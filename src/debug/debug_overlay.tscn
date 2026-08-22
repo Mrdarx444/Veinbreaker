@@ -11,6 +11,12 @@ outline_size = 2
 shadow_size = 5
 shadow_color = Color(0, 0, 0, 0.25490198)
 
+[sub_resource type="LabelSettings" id="LabelSettings_oop0h"]
+font_size = 25
+font_color = Color(1, 1, 0, 1)
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 0.09411765)
+
 [sub_resource type="LabelSettings" id="LabelSettings_wo3de"]
 font_size = 25
 font_color = Color(1, 1, 0, 1)
@@ -31,115 +37,89 @@ func _on_toggled(toggled_on: bool) -> void:
 layer = 128
 script = ExtResource("1_ggiji")
 
-[node name="Debug" type="Control" parent="." unique_id=1877418112]
+[node name="MainDebugContainer" type="MarginContainer" parent="." unique_id=1572072097]
 layout_direction = 2
-layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
 
-[node name="ZoneLabel" type="Label" parent="Debug" unique_id=1393975548]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainDebugContainer" unique_id=82211809]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="PlayerData" type="VBoxContainer" parent="MainDebugContainer/HBoxContainer" unique_id=19039800]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="ZoneLabel" type="Label" parent="MainDebugContainer/HBoxContainer/PlayerData" unique_id=1393975548]
 layout_direction = 2
-layout_mode = 0
-offset_left = 24.0
-offset_top = 20.0
-offset_right = 332.0
-offset_bottom = 75.0
+layout_mode = 2
 text = "Aim Zone: None"
 label_settings = SubResource("LabelSettings_ggiji")
 
-[node name="DirectionLabel" type="Label" parent="Debug" unique_id=640803363]
+[node name="DirectionLabel" type="Label" parent="MainDebugContainer/HBoxContainer/PlayerData" unique_id=640803363]
 layout_direction = 2
-layout_mode = 0
-offset_left = 24.0
-offset_top = 43.0
-offset_right = 414.0
-offset_bottom = 98.0
+layout_mode = 2
 text = "Aim Direction: None"
 label_settings = SubResource("LabelSettings_ggiji")
 
-[node name="VelocityLabel" type="Label" parent="Debug" unique_id=1756133386]
+[node name="VelocityLabel" type="Label" parent="MainDebugContainer/HBoxContainer/PlayerData" unique_id=1756133386]
 layout_direction = 2
-layout_mode = 0
-offset_left = 23.0
-offset_top = 64.0
-offset_right = 196.0
-offset_bottom = 119.0
+layout_mode = 2
 text = "Velocity:    x=     y="
 label_settings = SubResource("LabelSettings_ggiji")
 
-[node name="DashCooldownTimerLabel" type="Label" parent="Debug" unique_id=1772766121]
+[node name="DashCooldownTimerLabel" type="Label" parent="MainDebugContainer/HBoxContainer/PlayerData" unique_id=1772766121]
 layout_direction = 2
-layout_mode = 0
-offset_left = 23.0
-offset_top = 88.0
-offset_right = 347.0
-offset_bottom = 143.0
+layout_mode = 2
 text = "Dash Cooldown: 0"
 label_settings = SubResource("LabelSettings_ggiji")
 
-[node name="DodgeCooldownTimerLabel" type="Label" parent="Debug" unique_id=1663336223]
+[node name="DodgeCooldownTimerLabel" type="Label" parent="MainDebugContainer/HBoxContainer/PlayerData" unique_id=1663336223]
 layout_direction = 2
-layout_mode = 0
-offset_left = 23.0
-offset_top = 110.0
-offset_right = 347.0
-offset_bottom = 165.0
+layout_mode = 2
 text = "Dodge Cooldown: 0"
 label_settings = SubResource("LabelSettings_ggiji")
 
-[node name="StateLabel" type="Label" parent="Debug" unique_id=269706923]
+[node name="StateLabel" type="Label" parent="MainDebugContainer/HBoxContainer/PlayerData" unique_id=269706923]
 z_index = 1
-layout_mode = 1
-offset_left = 24.0
-offset_top = 136.0
-offset_right = 193.0
-offset_bottom = 178.0
+layout_mode = 2
 text = "State: None"
 label_settings = SubResource("LabelSettings_5rve3")
 
-[node name="VersionLabel" type="Label" parent="Debug" unique_id=1575196463]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -174.0
-offset_top = 16.0
-offset_right = -24.0
-offset_bottom = 51.0
-grow_horizontal = 0
-text = "Vesion: 0.1.0"
-label_settings = SubResource("LabelSettings_wo3de")
+[node name="GameInfo" type="VBoxContainer" parent="MainDebugContainer/HBoxContainer" unique_id=1112031987]
+layout_mode = 2
+size_flags_horizontal = 10
 
-[node name="FPSLabel" type="Label" parent="Debug" unique_id=596691440]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -173.0
-offset_top = 48.0
-offset_right = -46.0
-offset_bottom = 83.0
-grow_horizontal = 0
+[node name="VersionLabel" type="Label" parent="MainDebugContainer/HBoxContainer/GameInfo" unique_id=1575196463]
+layout_mode = 2
+text = "Vesion: 0.1.0"
+label_settings = SubResource("LabelSettings_oop0h")
+horizontal_alignment = 3
+
+[node name="FPSLabel" type="Label" parent="MainDebugContainer/HBoxContainer/GameInfo" unique_id=596691440]
+layout_mode = 2
 text = "FPS: 00"
 label_settings = SubResource("LabelSettings_wo3de")
+horizontal_alignment = 3
 
-[node name="DebugModeSwitch" type="CheckButton" parent="." unique_id=1940875195]
+[node name="DebugModeSwitch" type="CheckButton" parent="." unique_id=201948277]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -72.99997
-offset_top = 23.999996
-offset_right = 73.0
-offset_bottom = 55.0
+offset_left = -155.0
+offset_right = 155.0
+offset_bottom = 31.0
 grow_horizontal = 2
-scale = Vector2(1.6, 1.6)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
-text = "Debug Mode"
+text = "Debug Mod:"
 script = SubResource("GDScript_ggiji")
 
 [connection signal="toggled" from="DebugModeSwitch" to="DebugModeSwitch" method="_on_toggled"]

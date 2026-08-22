@@ -5,7 +5,7 @@ class_name Player
 @export_subgroup("Movement")
 @export var speed: float = 450.0
 var acceleration: float = speed * 10
-var friction: float = speed * 10
+var friction: float = speed * 15
 @export_range(0, 1, .01) var aiming_slowdown_ratio: float = 1.0 # Temp Canceling
 var facing_direction: int = 0:
 	set(value):
@@ -20,38 +20,45 @@ var facing_direction: int = 0:
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") * 2.5
 @export var max_fall_speed: float = 2200.0
 @export var forced_fall_velocity: float = 1700.0
-@export_range(0, 1, .01) var forced_fall_transition: float = 0.8
-@export var air_hang_threshold: float = 40.0
+@export_range(0, 1, .01) var forced_fall_transition: float = 0.88
+@export var air_hang_threshold: float = 30.0
 @export_range(0, 1, .01) var air_hang_coefficient: float = 0.6
-@export var big_fall_time: float = 0.3 # After Reaching Max Fall velocity
+@export var big_fall_time: float = 0.15 # After Reaching Max Fall velocity
 @export_subgroup("Air Movement/Jump")
 @export_range(0, 1, .01) var jump_gravity_coefficient: float = 0.75
 @export var jump_velocity: float = -1100.0
 @export_range(0, 1, .01) var jump_cut_mult: float = 0.3
-@export_range(0, 1, .01) var small_jump_max_time: float = 0.15
+@export_range(0, 1, .01) var small_jump_max_time: float = 0.12
 @export_range(0, 1, .01) var small_jump_cut_mult: float = 0.01
-@export var coyote_time: float = 0.13
+@export var coyote_time: float = 0.12
 @export var jump_buffer_time: float = 0.12
 @export var air_resistence_coefficient: float = 1
 @export_subgroup("Air Movement/Double Jump")
-@export_range(0, 1, .01) var double_jump_velocity_ratio: float = 0.82
+@export_range(0, 1, .01) var double_jump_velocity_ratio: float = 0.8
 var double_jump_velocity: float = jump_velocity * double_jump_velocity_ratio
 @export_range(0, 1, .01) var double_jump_cut_mult: float = 0.05
 @export_subgroup("Wall Movement")
 @export_subgroup("Wall Movement/Wall Slide")
 @export_range(0, 2, .01) var wall_slide_coefficient: float = 1.15
-@export var wall_slide_initial_velocity: float = 230.0
-@export var wall_slide_max_gravity: float = gravity * 0.3
-@export var wall_slide_forced_fall_gravity: float = gravity * 0.55
+@export var wall_slide_initial_velocity: float = 250.0
+@export_range(0, 1, .01) var wall_slide_max_gravity_coefficient: float = 0.3
+var wall_slide_max_gravity: float = gravity * wall_slide_max_gravity_coefficient
+@export_range(0, 1, .01) var wall_forced_gravity_coefficient: float = 0.55
+var wall_slide_forced_fall_gravity: float = gravity * wall_forced_gravity_coefficient
 var is_wall_sliding: bool = false
 @export_subgroup("Wall Movement/Wall Jump")
-@export var wall_jump_velocity_x: float = 720.0 # Update it!
+@export var wall_jump_velocity: Vector2 = Vector2(730, -1000)
+@export_range(0, 1, .01) var wall_jump_cut_mult: float = 0.2
 @export_subgroup("Dash")
 @export var is_dashing: bool = false
 @export var dash_velocity: float = 2200.0
-@export var dash_time: float = 0.13
+@export var dash_time: float = 0.133
 @export var dash_cooldown_time: float = 0.9
-@export var dash_gravity_coefficient: float = 0.0
+@export_range(0, 1, .01) var dash_gravity_coefficient: float = 0.0
+@export var air_dash_max_times: int = 2
+var air_dash_current_times: int = air_dash_max_times:
+	set(value):
+		air_dash_current_times = clamp(value, 0, air_dash_max_times)
 @export_subgroup("Dodge")
 var is_dodging: bool = false
 @export var dodge_velocity: float = 1500.0
@@ -89,8 +96,8 @@ var can_double_jump = false
 @onready var dash_button: PlayerHUDRightButton = $HUD/Controllers/DashButton
 
 # RayCasts:
-@onready var left_raycast: RayCast2D = $RayCasts/LeftWall
-@onready var right_raycast: RayCast2D = $RayCasts/RightWall
+@onready var left_wall_raycasts: WallRayCastSet = $RayCasts/LeftWall
+@onready var right_wall_raycasts: WallRayCastSet = $RayCasts/RightWall
 @onready var bottom_slide_stop_raycast: RayCast2D = $RayCasts/BottomSlideStop
 @onready var forced_fall_raycast: RayCast2D = $RayCasts/ForcedFall
 # Timers:

@@ -34,11 +34,7 @@ func get_next_state(player: Player) -> StringName:
 			return &"Fall"
 		
 	if Input.is_action_just_pressed("Jump") and player.unlocked_wall_jump:
-		if player.right_raycast.is_colliding():
-			player.velocity.x = -player.wall_jump_velocity_x
-		elif player.left_raycast.is_colliding():
-			player.velocity.x = player.wall_jump_velocity_x
-		return &"Jump"
+		return &"WallJump"
 	if player.joystick.move_direction == 0 or player.bottom_slide_stop_raycast.is_colliding():
 		return &"Fall"
 	return &""

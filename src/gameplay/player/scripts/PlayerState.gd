@@ -8,6 +8,8 @@ func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachi
 	player.move_and_slide()
 	if player.is_on_floor() or player.is_wall_sliding:
 		player.can_double_jump = true
+		if player.air_dash_current_times != player.air_dash_max_times:
+			player.air_dash_current_times = player.air_dash_max_times
 
 func get_next_state(player: Player) -> StringName:
 	return &""
@@ -43,6 +45,6 @@ func movement_handle(delta: float, player: Player) -> void:
 
 func can_wall_slide(player: Player) -> bool:
 	if player.is_on_floor() or !player.unlocked_wall_slide: return false
-	var moving_into_wall = (player.left_raycast.is_colliding() and player.joystick.move_direction == -1) or \
-	(player.right_raycast.is_colliding() and player.joystick.move_direction == 1)
+	var moving_into_wall = (player.left_wall_raycasts.is_colliding() and player.joystick.move_direction == -1) or \
+	(player.right_wall_raycasts.is_colliding() and player.joystick.move_direction == 1)
 	return moving_into_wall and !player.bottom_slide_stop_raycast.is_colliding()
