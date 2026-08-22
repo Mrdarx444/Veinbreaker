@@ -49,7 +49,7 @@ var follow_smoothing_speed_y: float = 15.0
 # ============================================================
 
 @export_group("Forward Look")
-@export var forward_offset_distance: float = 70.0
+@export var forward_offset_distance: float = 80.0
 
 @export_range(0.1, 30.0, 0.1)
 var forward_offset_speed: float = 5.0
@@ -68,14 +68,14 @@ var forward_offset_speed: float = 5.0
 var vertical_look_speed: float = 7.0
 
 @export var vertical_look_enabled: bool = true
-
+@export var vertical_look_input_time: float = 1.2
 
 # ============================================================
 # Ledge Look
 # ============================================================
 
 @export_group("Ledge Look")
-@export var ledge_offset: float = 80.0
+@export var ledge_offset: float = 75.0
 
 @export_range(0.1, 30.0, 0.1)
 var ledge_offset_speed: float = 4.0
@@ -330,6 +330,8 @@ func set_vertical_look_offset(offset_value: float) -> void:
 		_target_vertical_offset = 0.0
 		return
 
+	set_forward_offset_enabled(not bool(offset_value))
+
 	_target_vertical_offset = clamp(
 		offset_value,
 		-vertical_look_offset,
@@ -383,7 +385,6 @@ func set_grounded(value: bool) -> void:
 
 func set_falling(value: bool) -> void:
 	_is_falling = value
-	set_forward_offset_enabled(not value)
 
 
 # ============================================================

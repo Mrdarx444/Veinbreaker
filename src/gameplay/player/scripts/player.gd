@@ -52,7 +52,7 @@ var is_wall_sliding: bool = false
 @export_subgroup("Dash")
 @export var is_dashing: bool = false
 @export var dash_velocity: float = 2200.0
-@export var dash_time: float = 0.133
+@export var dash_time: float = 0.13
 @export var dash_cooldown_time: float = 0.9
 @export_range(0, 1, .01) var dash_gravity_coefficient: float = 0.0
 @export var air_dash_max_times: int = 2
