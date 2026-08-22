@@ -96,8 +96,8 @@ var can_double_jump = false
 @onready var dash_button: PlayerHUDRightButton = $HUD/Controllers/DashButton
 
 # RayCasts:
-@onready var left_wall_raycasts: WallRayCastSet = $RayCasts/LeftWall
-@onready var right_wall_raycasts: WallRayCastSet = $RayCasts/RightWall
+@onready var left_wall_raycasts: RayCastsSet = $RayCasts/LeftWall
+@onready var right_wall_raycasts: RayCastsSet = $RayCasts/RightWall
 @onready var bottom_slide_stop_raycast: RayCast2D = $RayCasts/BottomSlideStop
 @onready var forced_fall_raycast: RayCast2D = $RayCasts/ForcedFall
 # Timers:

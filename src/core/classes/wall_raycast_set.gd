@@ -1,7 +1,11 @@
 extends Node2D
-class_name WallRayCastSet
+class_name RayCastsSet
 
 @export var disabled: bool = false
+
+func _ready() -> void:
+	if get_children().is_empty():
+		push_warning("'%s': There is no chilren for this Racast Set"%name)
 
 func is_colliding():
 	if disabled: return false

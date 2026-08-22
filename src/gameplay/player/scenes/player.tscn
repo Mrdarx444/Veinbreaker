@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ceej0isvs6nyv" path="res://src/gameplay/player/scripts/player.gd" id="1_31g4s"]
 [ext_resource type="Script" uid="uid://d17itavn1yymn" path="res://src/gameplay/player/scripts/Component/aim_component.gd" id="2_ck846"]
-[ext_resource type="Script" uid="uid://drq6qk2w4v6k4" path="res://src/gameplay/player/scripts/Component/wall_raycast_set.gd" id="2_k1oig"]
+[ext_resource type="Script" uid="uid://drq6qk2w4v6k4" path="res://src/core/classes/wall_raycast_set.gd" id="2_k1oig"]
 [ext_resource type="Script" uid="uid://c3hpeqmeelksw" path="res://src/gameplay/player/scripts/player_state_machine.gd" id="3_g30lu"]
 [ext_resource type="Script" uid="uid://cn7aqx2ivd87l" path="res://src/gameplay/player/scripts/States/idle_state.gd" id="4_0wpal"]
 [ext_resource type="Script" uid="uid://d2t4p3epldlyl" path="res://src/gameplay/player/scripts/States/move_state.gd" id="5_ryax5"]
