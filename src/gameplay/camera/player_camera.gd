@@ -62,10 +62,10 @@ var forward_offset_speed: float = 5.0
 # ============================================================
 
 @export_group("Vertical Look")
-@export var vertical_look_offset: float = 100.0
+@export var vertical_look_offset: float = 300.0
 
 @export_range(0.1, 30.0, 0.1)
-var vertical_look_speed: float = 5.0
+var vertical_look_speed: float = 7.0
 
 @export var vertical_look_enabled: bool = true
 

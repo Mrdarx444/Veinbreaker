@@ -1,8 +1,15 @@
 extends PlayerState
 
+func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
+	var player: Player = state_owner as Player
+	await get_tree().process_frame # Remove after adding long clicking condition
+	player.camera.vertical_look_enabled = true
+
 func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachine) -> void:
 	slow_down(delta, state_owner as Player)
 	super.physics_update(delta, state_owner, state_machine)
+	var player: Player = state_owner as Player
+	player.camera.set_vertical_look_offset(player.joystick.aim_direction * player.camera.vertical_look_offset)
 
 func slow_down(delta: float, player: Player):
 	player.velocity.x = move_toward(
@@ -33,3 +40,7 @@ func get_next_state(player: Player) -> StringName:
 			if player.dash_cooldown_timer.is_stopped():
 				return &"Dash"
 	return &""
+
+func exit(state_owner: Node2D, state_machine: StateMachine) -> void:
+	var player: Player = state_owner as Player
+	player.camera.vertical_look_enabled = false

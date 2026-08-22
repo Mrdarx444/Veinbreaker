@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ceej0isvs6nyv" path="res://src/gameplay/player/scripts/player.gd" id="1_31g4s"]
 [ext_resource type="Script" uid="uid://d17itavn1yymn" path="res://src/gameplay/player/scripts/Component/aim_component.gd" id="2_ck846"]
-[ext_resource type="Script" uid="uid://drq6qk2w4v6k4" path="res://src/core/classes/wall_raycast_set.gd" id="2_k1oig"]
+[ext_resource type="Script" uid="uid://drq6qk2w4v6k4" path="res://src/core/classes/raycast_set.gd" id="2_k1oig"]
 [ext_resource type="Script" uid="uid://c3hpeqmeelksw" path="res://src/gameplay/player/scripts/player_state_machine.gd" id="3_g30lu"]
 [ext_resource type="Script" uid="uid://cn7aqx2ivd87l" path="res://src/gameplay/player/scripts/States/idle_state.gd" id="4_0wpal"]
 [ext_resource type="Script" uid="uid://d2t4p3epldlyl" path="res://src/gameplay/player/scripts/States/move_state.gd" id="5_ryax5"]
@@ -60,17 +60,17 @@ target_position = Vector2(0, 1000)
 script = ExtResource("2_k1oig")
 
 [node name="RayCast1" type="RayCast2D" parent="RayCasts/LeftWall" unique_id=1067981713]
-position = Vector2(0, -27)
+position = Vector2(0, -37)
 rotation = 1.5707964
 target_position = Vector2(0, 32)
 
 [node name="RayCast2" type="RayCast2D" parent="RayCasts/LeftWall" unique_id=2059368477]
-position = Vector2(0, -10)
+position = Vector2(0, -13)
 rotation = 1.5707964
 target_position = Vector2(0, 32)
 
 [node name="RayCast3" type="RayCast2D" parent="RayCasts/LeftWall" unique_id=1014671555]
-position = Vector2(0, 10)
+position = Vector2(0, 8)
 rotation = 1.5707964
 target_position = Vector2(0, 32)
 
@@ -83,17 +83,17 @@ target_position = Vector2(0, 32)
 script = ExtResource("2_k1oig")
 
 [node name="RayCast1" type="RayCast2D" parent="RayCasts/RightWall" unique_id=724376704]
-position = Vector2(0, -27)
+position = Vector2(0, -37)
 rotation = -1.5707964
 target_position = Vector2(0, 32)
 
 [node name="RayCast2" type="RayCast2D" parent="RayCasts/RightWall" unique_id=1648930700]
-position = Vector2(0, -10)
+position = Vector2(0, -13)
 rotation = -1.5707964
 target_position = Vector2(0, 32)
 
 [node name="RayCast3" type="RayCast2D" parent="RayCasts/RightWall" unique_id=2119827912]
-position = Vector2(0, 10)
+position = Vector2(-1, 8)
 rotation = -1.5707964
 target_position = Vector2(0, 32)
 

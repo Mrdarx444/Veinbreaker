@@ -2,7 +2,7 @@ class_name PlayerAimComponent
 extends Node
 
 enum AimZone { MOVE, MOVE_AIM_UP, MOVE_AIM_DOWN, AIM_UP_IDLE, AIM_DOWN_IDLE }
-enum AimDirection { FORWARD, UP, DOWN }
+enum AimDirection { FORWARD = 0, UP = -1, DOWN = 1}
 
 # Debugg
 var aim_zone_debbug := {

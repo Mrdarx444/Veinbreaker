@@ -100,13 +100,11 @@ size_flags_horizontal = 10
 layout_mode = 2
 text = "Vesion: 0.1.0"
 label_settings = SubResource("LabelSettings_oop0h")
-horizontal_alignment = 3
 
 [node name="FPSLabel" type="Label" parent="MainDebugContainer/HBoxContainer/GameInfo" unique_id=596691440]
 layout_mode = 2
 text = "FPS: 00"
 label_settings = SubResource("LabelSettings_wo3de")
-horizontal_alignment = 3
 
 [node name="DebugModeSwitch" type="CheckButton" parent="." unique_id=201948277]
 anchors_preset = 5
