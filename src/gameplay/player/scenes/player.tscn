@@ -62,22 +62,22 @@ script = ExtResource("2_k1oig")
 [node name="RayCast1" type="RayCast2D" parent="RayCasts/LeftWall" unique_id=1067981713]
 position = Vector2(0, -37)
 rotation = 1.5707964
-target_position = Vector2(0, 32)
+target_position = Vector2(0, 38)
 
 [node name="RayCast2" type="RayCast2D" parent="RayCasts/LeftWall" unique_id=2059368477]
 position = Vector2(0, -13)
 rotation = 1.5707964
-target_position = Vector2(0, 32)
+target_position = Vector2(0, 38)
 
 [node name="RayCast3" type="RayCast2D" parent="RayCasts/LeftWall" unique_id=1014671555]
 position = Vector2(0, 8)
 rotation = 1.5707964
-target_position = Vector2(0, 32)
+target_position = Vector2(0, 38)
 
 [node name="RayCast4" type="RayCast2D" parent="RayCasts/LeftWall" unique_id=645199659]
 position = Vector2(0, 28)
 rotation = 1.5707964
-target_position = Vector2(0, 32)
+target_position = Vector2(0, 38)
 
 [node name="RightWall" type="Node2D" parent="RayCasts" unique_id=1304195570]
 script = ExtResource("2_k1oig")
@@ -85,22 +85,22 @@ script = ExtResource("2_k1oig")
 [node name="RayCast1" type="RayCast2D" parent="RayCasts/RightWall" unique_id=724376704]
 position = Vector2(0, -37)
 rotation = -1.5707964
-target_position = Vector2(0, 32)
+target_position = Vector2(0, 38)
 
 [node name="RayCast2" type="RayCast2D" parent="RayCasts/RightWall" unique_id=1648930700]
 position = Vector2(0, -13)
 rotation = -1.5707964
-target_position = Vector2(0, 32)
+target_position = Vector2(0, 38)
 
 [node name="RayCast3" type="RayCast2D" parent="RayCasts/RightWall" unique_id=2119827912]
 position = Vector2(-1, 8)
 rotation = -1.5707964
-target_position = Vector2(0, 32)
+target_position = Vector2(0, 38)
 
 [node name="RayCast4" type="RayCast2D" parent="RayCasts/RightWall" unique_id=1453389226]
 position = Vector2(0, 28)
 rotation = -1.5707964
-target_position = Vector2(0, 32)
+target_position = Vector2(0, 38)
 
 [node name="Components" type="Node" parent="." unique_id=2138234143]
 
@@ -245,8 +245,8 @@ offset = Vector2(30, 160)
 [node name="PathTracingParticels" type="CPUParticles2D" parent="." unique_id=1987618094]
 show_behind_parent = true
 position = Vector2(0, 55)
-amount = 100
-lifetime = 2.0
+amount = 60
+lifetime = 1.5999999999999999
 gravity = Vector2(0, 0)
 scale_amount_min = 10.0
 scale_amount_max = 10.0
