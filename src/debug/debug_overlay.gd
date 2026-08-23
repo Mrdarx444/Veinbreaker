@@ -3,7 +3,7 @@ extends CanvasLayer
 signal player_state_changed(from: StringName, to: StringName)
 const VERSION_SETTING = "application/config/version"
 
-@export var show_player_state_changes: bool = false
+@export var show_player_state_changes: bool = true
 
 var player: Player = null
 

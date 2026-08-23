@@ -4,6 +4,7 @@ func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
 	var player: Player = (state_owner as Player)
 	player.velocity.y = player.double_jump_velocity
 	player.can_double_jump = false
+	CameraManager.apply_camera_shake_preset(GameConstants.ShakePreset.DOUBLE_JUMP)
 
 func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachine) -> void:
 	movement_handle(delta, state_owner as Player)

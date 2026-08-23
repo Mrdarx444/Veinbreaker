@@ -44,7 +44,8 @@ func movement_handle(delta: float, player: Player) -> void:
 			) * (player.air_resistence_coefficient if !player.is_on_floor() else 1.0)
 
 func can_wall_slide(player: Player) -> bool:
-	if player.is_on_floor() or !player.unlocked_wall_slide: return false
+	if player.is_on_floor() or !player.unlocked_wall_slide:
+		return false
 	var moving_into_wall = (player.left_wall_raycasts.is_colliding() and player.joystick.move_direction == -1) or \
 	(player.right_wall_raycasts.is_colliding() and player.joystick.move_direction == 1)
 	return moving_into_wall and !player.bottom_slide_stop_raycast.is_colliding()

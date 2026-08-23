@@ -14,7 +14,6 @@ func close():
 	var tween: Tween = create_tween()
 	tween.tween_property(self, "global_position", Vector2(global_position.x, global_position.y + close_offset), close_speed)
 	is_closed = true
-	print("close")
 
 func open():
 	if !is_closed: return

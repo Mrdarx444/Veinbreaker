@@ -37,10 +37,12 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export_range(0, 1, .01) var double_jump_velocity_ratio: float = 0.8
 var double_jump_velocity: float = jump_velocity * double_jump_velocity_ratio
 @export_range(0, 1, .01) var double_jump_cut_mult: float = 0.05
+var can_double_jump = false
 @export_subgroup("Wall Movement")
 @export_subgroup("Wall Movement/Wall Slide")
 @export_range(0, 2, .01) var wall_slide_coefficient: float = 1.15
-@export var wall_slide_initial_velocity: float = 250.0
+@export var wall_slide_initial_velocity_coefficient: float = 0.15
+var wall_slide_initial_velocity: float = gravity * wall_slide_initial_velocity_coefficient
 @export_range(0, 1, .01) var wall_slide_max_gravity_coefficient: float = 0.3
 var wall_slide_max_gravity: float = gravity * wall_slide_max_gravity_coefficient
 @export_range(0, 1, .01) var wall_forced_gravity_coefficient: float = 0.55
@@ -48,7 +50,7 @@ var wall_slide_forced_fall_gravity: float = gravity * wall_forced_gravity_coeffi
 var is_wall_sliding: bool = false
 @export_subgroup("Wall Movement/Wall Jump")
 @export var wall_jump_velocity: Vector2 = Vector2(730, -1000)
-@export_range(0, 1, .01) var wall_jump_cut_mult: float = 0.2
+@export_range(0, 1, .01) var wall_jump_cut_mult: float = 0.05
 @export_subgroup("Dash")
 @export var is_dashing: bool = false
 @export var dash_velocity: float = 2200.0
@@ -80,7 +82,6 @@ var is_dodging: bool = false
 @export_category("Skills")
 # Default = false
 @export var unlocked_double_jump: bool = true
-var can_double_jump = false
 @export var unlocked_forced_fall: bool = true
 @export var unlocked_wall_slide: bool = true
 @export var unlocked_wall_jump: bool = true

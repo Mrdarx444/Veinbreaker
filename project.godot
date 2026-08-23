@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Veinbreaker Project"
-config/version="pre-alpha 0.1.0"
+config/version="pre-alpha 0.1.1"
 run/main_scene="uid://bbcxbsd1jn3bh"
 config/features=PackedStringArray("4.7", "Mobile")
 run/max_fps=60

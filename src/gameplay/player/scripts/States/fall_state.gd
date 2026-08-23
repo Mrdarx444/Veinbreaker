@@ -1,6 +1,6 @@
 extends PlayerState
 
-@export var fall_shake_max_vel_coeff: float = 0.85
+@export var fall_shake_max_vel_coeff: float = 0.9
 var was_forced_fall: bool = false
 var is_big_fall: bool = false
 var _time_after_big_fall: float = 0
