@@ -26,7 +26,7 @@ const SHAKE_PRESETS: Dictionary = {
 	ShakePreset.FAST_FALL:       {"power": 6.0,  "duration": 0.04,  "frequency": 60.0, "type": PlayerCamera.ShakeType.RANDOM},
 	ShakePreset.FORCED_FALL:     {"power": 8.0,  "duration": 0.16, "frequency": 20.0, "type": PlayerCamera.ShakeType.VERTICAL},
 	ShakePreset.BIG_FALL:        {"power": 15.0, "duration": 0.5,  "frequency": 70.0, "type": PlayerCamera.ShakeType.RANDOM},
-	ShakePreset.DOUBLE_JUMP:     {"power": 6.0, "duration": 0.2,  "frequency": 70.0, "type": PlayerCamera.ShakeType.RANDOM},
+	ShakePreset.DOUBLE_JUMP:     {"power": 6.0, "duration": 0.2,  "frequency": 50.0, "type": PlayerCamera.ShakeType.RANDOM},
 	ShakePreset.GROUND_DASH:     {"power": 8, "duration": 0.1,  "frequency": 30.0, "type": PlayerCamera.ShakeType.HORIZONTAL},
 	ShakePreset.DODGE:           {"power": 7.5, "duration": 0.15,  "frequency": 40.0, "type": PlayerCamera.ShakeType.HORIZONTAL},
 	ShakePreset.WALL_STICK:      {"power": 7, "duration": 0.14,  "frequency": 30.0, "type": PlayerCamera.ShakeType.HORIZONTAL},

@@ -68,14 +68,15 @@ var forward_offset_speed: float = 5.0
 var vertical_look_speed: float = 7.0
 
 @export var vertical_look_enabled: bool = true
-@export var vertical_look_input_time: float = 1.2
+@export var vertical_look_input_time: float = 1.1
+var is_looking_vertical: bool = false
 
 # ============================================================
 # Ledge Look
 # ============================================================
 
 @export_group("Ledge Look")
-@export var ledge_offset: float = 75.0
+@export var ledge_offset: float = 120.0
 
 @export_range(0.1, 30.0, 0.1)
 var ledge_offset_speed: float = 4.0
@@ -252,7 +253,7 @@ func _physics_process(delta: float) -> void:
 	global_position = _current_position
 
 	offset = _compute_shake_offset()
-
+	
 
 # ============================================================
 # Target Position
@@ -329,9 +330,9 @@ func set_vertical_look_offset(offset_value: float) -> void:
 	if not vertical_look_enabled:
 		_target_vertical_offset = 0.0
 		return
-
-	set_forward_offset_enabled(not bool(offset_value))
-
+	
+	is_looking_vertical = bool(offset_value)
+	
 	_target_vertical_offset = clamp(
 		offset_value,
 		-vertical_look_offset,
@@ -358,7 +359,7 @@ func _update_vertical_offset(delta: float) -> void:
 # ============================================================
 
 func set_ledge_detected(detected: bool) -> void:
-	if not ledge_look_enabled:
+	if not ledge_look_enabled or is_looking_vertical:
 		_target_ledge_offset = 0.0
 		return
 

@@ -14,6 +14,7 @@ var facing_direction: int = 0:
 		facing_direction = value
 		if has_node("/root/CameraManager"):
 			CameraManager.set_facing_direction(value)
+			flip_component.flip(value)
 
 @export_subgroup("Air Movement")
 @export_subgroup("Air Movement/Fall")
@@ -89,6 +90,7 @@ var is_dodging: bool = false
 
 # Components:
 @onready var joystick: PlayerAimComponent = $Components/PlayerAimComponent
+@onready var flip_component: FlipComponent = $Components/FlipComponent
 @onready var camera: PlayerCamera = %Camera
 @onready var path_tracing_particels: CPUParticles2D = $PathTracingParticels
 @onready var controllers: Control = $HUD/Controllers
@@ -101,6 +103,9 @@ var is_dodging: bool = false
 @onready var right_wall_raycasts: RayCastsSet = $RayCasts/RightWall
 @onready var bottom_slide_stop_raycast: RayCast2D = $RayCasts/BottomSlideStop
 @onready var forced_fall_raycast: RayCast2D = $RayCasts/ForcedFall
+@onready var front_ledge_detectors: RayCastsSet = $RayCasts/FrontLedgeDetectors
+@onready var back_ledge_detectors: RayCastsSet = $RayCasts/BackLedgeDetectors
+
 # Timers:
 @onready var coyote_timer: Timer = $Timers/CoyoteTimer
 @onready var jump_buffer_timer: Timer = $Timers/JumpBufferTimer

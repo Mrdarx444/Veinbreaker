@@ -4,8 +4,9 @@ var _vetrtical_look_input_timer: float = 0.0
 
 func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
 	var player: Player = state_owner as Player
-	await get_tree().process_frame # Remove after adding long clicking condition
+	await get_tree().process_frame
 	player.camera.vertical_look_enabled = true
+	player.camera.ledge_look_enabled = true
 
 func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachine) -> void:
 	slow_down(delta, state_owner as Player)
@@ -20,6 +21,8 @@ func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachi
 	if _vetrtical_look_input_timer > player.camera.vertical_look_input_time:
 			player.camera.set_vertical_look_offset(player.joystick.aim_direction * player.camera.vertical_look_offset)
 			_vetrtical_look_input_timer = 0
+	player.camera.set_ledge_detected(!player.front_ledge_detectors.is_colliding() and player.back_ledge_detectors.is_colliding())
+	
 
 func slow_down(delta: float, player: Player):
 	player.velocity.x = move_toward(
@@ -55,4 +58,6 @@ func exit(state_owner: Node2D, state_machine: StateMachine) -> void:
 	var player: Player = state_owner as Player
 	player.camera.set_vertical_look_offset(0)
 	player.camera.vertical_look_enabled = false
+	player.camera.set_ledge_detected(false)
+	player.camera.ledge_look_enabled = false
 	_vetrtical_look_input_timer = 0
