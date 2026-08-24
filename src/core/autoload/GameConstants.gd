@@ -37,3 +37,9 @@ const SHAKE_PRESETS: Dictionary = {
 	#ShakePreset.PARRY_SUCCESS:   {"power": 3.0,  "duration": 0.0,  "frequency": 0.0,  "type": PlayerCamera.ShakeType.RANDOM},
 	#ShakePreset.BOSS_INTRO:      {"power": 6.0,  "duration": 0.6,  "frequency": 15.0, "type": PlayerCamera.ShakeType.RANDOM},
 }
+
+# TEMP Until Fix Resulution
+const CAMERA_DEFAULT_ZOOMS: Dictionary = {
+	"mobile": Vector2(0.6, 0.6),
+	"pc": Vector2(0.5, 0.5)
+}

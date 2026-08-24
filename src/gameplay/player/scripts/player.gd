@@ -24,7 +24,7 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") *
 @export_range(0, 1, .01) var forced_fall_transition: float = 0.88
 @export var air_hang_threshold: float = 30.0
 @export_range(0, 1, .01) var air_hang_coefficient: float = 0.6
-@export var big_fall_time: float = 0.15 # After Reaching Max Fall velocity
+@export var big_fall_time: float = 0.26 # After Reaching Max Fall velocity
 @export_subgroup("Air Movement/Jump")
 @export_range(0, 1, .01) var jump_gravity_coefficient: float = 0.75
 @export var jump_velocity: float = -1100.0

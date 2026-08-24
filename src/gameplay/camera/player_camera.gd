@@ -89,7 +89,7 @@ var ledge_offset_speed: float = 4.0
 # ============================================================
 
 @export_group("Zoom")
-@export var default_zoom: Vector2 = Vector2(0.6, 0.6)
+@export var default_zoom: Vector2 = GameConstants.CAMERA_DEFAULT_ZOOMS.mobile if OS.has_feature("mobile") else GameConstants.CAMERA_DEFAULT_ZOOMS.pc
 
 
 # ============================================================
