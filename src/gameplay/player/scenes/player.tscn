@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://5gqtc4enpg5c" path="res://addons/virtual_joystick_DX/vjdx_core_script.gd" id="10_pwbjc"]
 [ext_resource type="Script" uid="uid://dvswj5xgggsc1" path="res://src/gameplay/player/scripts/States/double_jump.gd" id="10_wj2h3"]
 [ext_resource type="Script" uid="uid://clccxv8asvtcx" path="res://src/gameplay/player/scripts/States/wall_jump_state.gd" id="11_lrbp7"]
-[ext_resource type="Texture2D" uid="uid://cxpqtve140hr6" path="res://assets/Demo/Dash Button.png" id="11_uvchi"]
+[ext_resource type="Texture2D" uid="uid://ycbmjfaxq6sl" path="res://assets/Demo/Dash Button.png" id="11_uvchi"]
 [ext_resource type="Script" uid="uid://d2liice8vwrmb" path="res://src/gameplay/player/scripts/States/dodge_state.gd" id="11_wj2h3"]
 [ext_resource type="Script" uid="uid://bhpy6fo4n8ft" path="res://src/gameplay/player/scripts/States/stunned_state.gd" id="12_i6it3"]
 [ext_resource type="Script" uid="uid://dig3m88k5pkqe" path="res://src/debug/PlayerHUDButtons.gd" id="12_oyrgr"]
@@ -253,13 +253,13 @@ one_shot = true
 [node name="HUD" type="CanvasLayer" parent="." unique_id=69797456]
 
 [node name="Controllers" type="Control" parent="HUD" unique_id=1221603634]
-layout_direction = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+layout_direction = 2
 
 [node name="VirtualJoystickDX" type="Control" parent="HUD/Controllers" unique_id=340634429]
 custom_minimum_size = Vector2(180, 180)

@@ -1,6 +1,7 @@
 extends PlayerState
 
 var _vetrtical_look_input_timer: float = 0.0
+var _ledge_detection_timer: float = 0.0
 
 func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
 	var player: Player = state_owner as Player
@@ -21,7 +22,13 @@ func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachi
 	if _vetrtical_look_input_timer > player.camera.vertical_look_input_time:
 			player.camera.set_vertical_look_offset(player.joystick.aim_direction * player.camera.vertical_look_offset)
 			_vetrtical_look_input_timer = 0
-	player.camera.set_ledge_detected(!player.front_ledge_detectors.is_colliding() and player.back_ledge_detectors.is_colliding())
+	
+	var is_on_ledge: bool = !player.front_ledge_detectors.is_colliding() and player.back_ledge_detectors.is_colliding()
+	if is_on_ledge:
+		_ledge_detection_timer += delta
+	else :
+		_ledge_detection_timer = 0.0
+	player.camera.set_ledge_detected(is_on_ledge and _ledge_detection_timer > player.camera.ledge_look_delay)
 	
 
 func slow_down(delta: float, player: Player):
@@ -61,3 +68,4 @@ func exit(state_owner: Node2D, state_machine: StateMachine) -> void:
 	player.camera.set_ledge_detected(false)
 	player.camera.ledge_look_enabled = false
 	_vetrtical_look_input_timer = 0
+	_ledge_detection_timer = 0

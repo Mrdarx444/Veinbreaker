@@ -83,6 +83,7 @@ var ledge_offset_speed: float = 4.0
 
 @export var ledge_look_enabled: bool = true
 
+@export var ledge_look_delay: float = 0.5
 
 # ============================================================
 # Zoom
