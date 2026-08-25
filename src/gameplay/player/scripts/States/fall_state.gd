@@ -8,6 +8,7 @@ var _time_after_big_fall: float = 0
 func enter(state_owner: Node2D, state_machine: StateMachine) -> void:
 	var player: Player = state_owner as Player
 	player.camera.set_falling(true)
+	player.wall_jump_coyote_timer.start()
 
 func physics_update(delta: float, state_owner: Node2D, state_machine: StateMachine) -> void:
 	var player: Player = state_owner
@@ -55,6 +56,8 @@ func get_next_state(player: Player) -> StringName:
 			return &"Move"
 		else :
 			return &"Idle"
+	if Input.is_action_just_pressed("Jump") and !player.is_on_floor() and !player.wall_jump_coyote_timer.is_stopped():
+		return &"WallJump"
 	if Input.is_action_just_pressed("Jump") and player.can_jump and player.unlocked_double_jump:
 		if !player.coyote_timer.is_stopped(): # Still in Coyote time window
 			return &"Jump"

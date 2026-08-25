@@ -9,6 +9,10 @@ func _ready() -> void:
 	for cameraArea in get_tree().get_nodes_in_group("CameraArea"):
 		(cameraArea as CameraArea).camera_area_entered.connect(close)
 
+func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("interact") and is_closed:
+		open()
+
 func close():
 	if is_closed: return
 	var tween: Tween = create_tween()

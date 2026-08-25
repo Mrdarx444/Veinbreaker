@@ -118,7 +118,7 @@ script = SubResource("GDScript_v7unp")
 Hide = true
 
 [node name="Player" parent="." unique_id=1568325260 instance=ExtResource("1_v7unp")]
-position = Vector2(-591, -3272)
+position = Vector2(381, 345)
 
 [node name="Platforms" type="Node2D" parent="." unique_id=1237263674]
 

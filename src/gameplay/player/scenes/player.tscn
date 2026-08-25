@@ -29,6 +29,7 @@ blend_mode = 3
 
 [node name="Player" type="CharacterBody2D" unique_id=1568325260 groups=["player"]]
 script = ExtResource("1_31g4s")
+unlocked_double_jump = false
 
 [node name="TempSprite" type="ColorRect" parent="." unique_id=739025270]
 custom_minimum_size = Vector2(60, 120)
@@ -50,7 +51,6 @@ shape = SubResource("CapsuleShape2D_wj2h3")
 debug_color = Color(1, 1, 1, 0.41960785)
 
 [node name="RayCasts" type="Node2D" parent="." unique_id=1068774341]
-visible = false
 
 [node name="BottomSlideStop" type="RayCast2D" parent="RayCasts" unique_id=24949518]
 target_position = Vector2(0, 140)
@@ -65,22 +65,22 @@ metadata/_custom_type_script = "uid://drq6qk2w4v6k4"
 [node name="RayCast1" type="RayCast2D" parent="RayCasts/LeftWall" unique_id=1067981713]
 position = Vector2(0, -36)
 rotation = 1.5707964
-target_position = Vector2(0, 34)
+target_position = Vector2(0, 32)
 
 [node name="RayCast2" type="RayCast2D" parent="RayCasts/LeftWall" unique_id=2059368477]
-position = Vector2(0, -18)
+position = Vector2(0, -23)
 rotation = 1.5707964
-target_position = Vector2(0, 34)
+target_position = Vector2(0, 32)
 
 [node name="RayCast3" type="RayCast2D" parent="RayCasts/LeftWall" unique_id=1014671555]
-position = Vector2(0, 3)
+position = Vector2(0, -8)
 rotation = 1.5707964
-target_position = Vector2(0, 34)
+target_position = Vector2(0, 32)
 
 [node name="RayCast4" type="RayCast2D" parent="RayCasts/LeftWall" unique_id=645199659]
-position = Vector2(0, 23)
+position = Vector2(0, 9)
 rotation = 1.5707964
-target_position = Vector2(0, 34)
+target_position = Vector2(0, 32)
 
 [node name="RightWall" type="Node2D" parent="RayCasts" unique_id=1443121114]
 position = Vector2(0, -5)
@@ -90,22 +90,22 @@ metadata/_custom_type_script = "uid://drq6qk2w4v6k4"
 [node name="RayCast1" type="RayCast2D" parent="RayCasts/RightWall" unique_id=724376704]
 position = Vector2(0, -31)
 rotation = -1.5707964
-target_position = Vector2(0, 34)
+target_position = Vector2(0, 32)
 
 [node name="RayCast2" type="RayCast2D" parent="RayCasts/RightWall" unique_id=1648930700]
-position = Vector2(0, -13)
+position = Vector2(0, -18)
 rotation = -1.5707964
-target_position = Vector2(0, 34)
+target_position = Vector2(0, 32)
 
 [node name="RayCast3" type="RayCast2D" parent="RayCasts/RightWall" unique_id=2119827912]
-position = Vector2(-1, 8)
+position = Vector2(0, -3)
 rotation = -1.5707964
-target_position = Vector2(0, 34)
+target_position = Vector2(0, 32)
 
 [node name="RayCast4" type="RayCast2D" parent="RayCasts/RightWall" unique_id=1453389226]
-position = Vector2(0, 28)
+position = Vector2(0, 14)
 rotation = -1.5707964
-target_position = Vector2(0, 34)
+target_position = Vector2(0, 32)
 
 [node name="FrontLedgeDetectors" type="Node2D" parent="RayCasts" unique_id=1687267996 groups=["Flippable"]]
 script = ExtResource("2_k1oig")
@@ -248,6 +248,9 @@ one_shot = true
 one_shot = true
 
 [node name="BigFallTimer" type="Timer" parent="Timers" unique_id=1508556588]
+one_shot = true
+
+[node name="WallJumpCoyote" type="Timer" parent="Timers" unique_id=964259992]
 one_shot = true
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=69797456]

@@ -52,6 +52,7 @@ var is_wall_sliding: bool = false
 @export_subgroup("Wall Movement/Wall Jump")
 @export var wall_jump_velocity: Vector2 = Vector2(730, -1000)
 @export_range(0, 1, .01) var wall_jump_cut_mult: float = 0.05
+@export var wall_jump_coyote_time: float = 0.1
 @export_subgroup("Dash")
 @export var is_dashing: bool = false
 @export var dash_velocity: float = 2200.0
@@ -115,6 +116,7 @@ var is_dodging: bool = false
 @onready var dodge_cooldown_timer: Timer = $Timers/DodgeCooldown
 @onready var stunning_timer: Timer = $Timers/StunningTimer
 @onready var big_fall_timer: Timer = $Timers/BigFallTimer
+@onready var wall_jump_coyote_timer: Timer = $Timers/WallJumpCoyote
 
 func _ready() -> void:
 	DebugOverlay.player = self
@@ -133,3 +135,4 @@ func set_timers():
 	dodge_timer.wait_time = dodge_time
 	dodge_cooldown_timer.wait_time = dodge_cooldown_time
 	big_fall_timer.wait_time = big_fall_time
+	wall_jump_coyote_timer.wait_time = wall_jump_coyote_time
